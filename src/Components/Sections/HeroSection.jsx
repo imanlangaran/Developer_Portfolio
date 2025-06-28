@@ -337,7 +337,7 @@ const HeroSection = () => {
                     '
                   </span>
                   <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
-                    Type Script
+                    TypeScript
                   </span>
                   <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
                     '
