@@ -3,8 +3,8 @@ import { useTheme } from '../../context/ThemeContext'
 // eslint-disable-next-line no-unused-vars
 import { motion, useInView } from 'framer-motion'
 import { containerVariants, itemVariants } from '../../utils/helper';
-import PROJECTS from '../../utils/data';
-import { ProjectCard } from '../ProjectCard'
+import { PROJECTS } from '../../utils/data';
+import ProjectCard from '../ProjectCard';
 
 const ProjectsSection = () => {
   const { isDarkMode } = useTheme();
@@ -36,7 +36,7 @@ const ProjectsSection = () => {
           initial='hidden'
           animate={isInView ? 'visible' : 'hidden'}
           variants={containerVariants}
-          className='text-center mb-2'
+          className='text-center mb-20'
         >
           <motion.div
             variants={itemVariants}
