@@ -3,6 +3,8 @@ import { useTheme } from '../../context/ThemeContext'
 // eslint-disable-next-line no-unused-vars
 import { motion, useInView } from 'framer-motion'
 import { containerVariants, itemVariants } from '../../utils/helper';
+import PROJECTS from '../../utils/data';
+import { ProjectCard } from '../ProjectCard'
 
 const ProjectsSection = () => {
   const { isDarkMode } = useTheme();
@@ -59,6 +61,17 @@ const ProjectsSection = () => {
           >
             A collection of projects that showcase my experiense in building modern web application and solving complex problems.
           </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial='hidden'
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={containerVariants}
+          className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'
+        >
+          {PROJECTS.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} isDarkMode={isDarkMode} />
+          ))}
         </motion.div>
 
       </div>
