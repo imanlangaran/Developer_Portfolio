@@ -171,7 +171,53 @@ export const PROJECTS = [
 
 export const JOURNEY_STEPS = [
   {
-
+    year: "2021",
+    title: "Started Coding Journey",
+    company: "Self-taught",
+    description:
+      "Began learning web development with HTML, CSS, and JavaScript. Built my firs",
+    icon: Code2,
+    color: "bg-blue-588",
+  }, {
+    year: "2022",
+    title: "First Internship",
+    company: "TechStart Inc.",
+    description:
+      "Joined as a frontend intern, working with React and learning modern developm",
+    icon: Briefcase,
+    color: "bg-green-500",
+  }, {
+    year: "2022",
+    title: "Computer Science Degree",
+    company: "University of Technology",
+    description:
+      "Graduated with honors, specializing in web technologies and software enginee",
+    icon: GraduationCap,
+    color: "bg-purple-500",
+  }, {
+    year: "2023",
+    title: "Full Stack Developer",
+    company: "Digital Solutions Ltd.",
+    description:
+      "Promoted to full-time developer role. Built end-to-end applications using ME",
+    icon: Rocket,
+    color: "bg-orange-500",
+  }, {
+    year: "2024",
+    title: "Freelance & Open Source",
+    company: "Independent",
+    description:
+      "Started freelancing and contributing to open source projects. Launched 3 suc-",
+    icon: Award,
+    color: "bg-pink-500",
+  }, {
+    year: "2025",
+    title: "Senior Developer",
+    company: "Present",
+    description:
+      "Currently building innovative solutions and exploring new technologies Like/",
+    Icon: Zap,
+    color: "bg-cyan-500",
   }
 ]
 
@@ -179,17 +225,17 @@ export const PASSIONS = [
   {
     icon: Heart,
     title: 'User Experience',
-    description: '...'
+    description: "Crafting intuitive interfaces that users love",
   },
   {
     icon: Coffee,
     title: 'Problem Solving',
-    description: '...'
+    description: "Turning complex challenges into elegant solutions",
   },
   {
     icon: BookOpen,
     title: 'Continuous Learning',
-    description: '...'
+    description: "Always exploring new technologies and best practices",
   },
 ]
 
