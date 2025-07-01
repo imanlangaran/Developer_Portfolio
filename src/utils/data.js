@@ -7,13 +7,13 @@ import {
   Heart,
   Coffee,
   BookOpen,
-  Zap,
   Database,
   Server,
   Cloud,
   Mail,
   MapPin,
-  Phone
+  Phone,
+  Zap
 } from 'lucide-react';
 
 import { FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
@@ -177,8 +177,9 @@ export const JOURNEY_STEPS = [
     description:
       "Began learning web development with HTML, CSS, and JavaScript. Built my firs",
     icon: Code2,
-    color: "bg-blue-588",
-  }, {
+    color: "bg-blue-500",
+  },
+  {
     year: "2022",
     title: "First Internship",
     company: "TechStart Inc.",
@@ -186,7 +187,8 @@ export const JOURNEY_STEPS = [
       "Joined as a frontend intern, working with React and learning modern developm",
     icon: Briefcase,
     color: "bg-green-500",
-  }, {
+  },
+  {
     year: "2022",
     title: "Computer Science Degree",
     company: "University of Technology",
@@ -194,7 +196,8 @@ export const JOURNEY_STEPS = [
       "Graduated with honors, specializing in web technologies and software enginee",
     icon: GraduationCap,
     color: "bg-purple-500",
-  }, {
+  },
+  {
     year: "2023",
     title: "Full Stack Developer",
     company: "Digital Solutions Ltd.",
@@ -202,7 +205,8 @@ export const JOURNEY_STEPS = [
       "Promoted to full-time developer role. Built end-to-end applications using ME",
     icon: Rocket,
     color: "bg-orange-500",
-  }, {
+  },
+  {
     year: "2024",
     title: "Freelance & Open Source",
     company: "Independent",
@@ -210,13 +214,14 @@ export const JOURNEY_STEPS = [
       "Started freelancing and contributing to open source projects. Launched 3 suc-",
     icon: Award,
     color: "bg-pink-500",
-  }, {
+  },
+  {
     year: "2025",
     title: "Senior Developer",
     company: "Present",
     description:
       "Currently building innovative solutions and exploring new technologies Like/",
-    Icon: Zap,
+    icon: Zap,
     color: "bg-cyan-500",
   }
 ]
