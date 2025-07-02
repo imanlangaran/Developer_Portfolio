@@ -15,6 +15,7 @@ const App = () => {
         <SkillsSection />
         <ProjectsSection />
         <AboutSection />
+        
       </div>
     </ThemeProvider>
   )
