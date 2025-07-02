@@ -2,6 +2,8 @@
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 import { useRef, useState } from 'react';
+import { containerVariants, itemVariants } from '../../utils/helper';
+import TextInput from '../Input/TextInput';
 
 const ContactSection = () => {
   const { isDarkMode } = useTheme()
@@ -54,6 +56,101 @@ const ContactSection = () => {
       </motion.div>
 
       <div className='max-w-6xl mx-auto relative z-10'>
+
+        {/* section header */}
+        <motion.div
+          initial='hidden'
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={containerVariants}
+          className='text-center mb-20'
+        >
+          <motion.div
+            variants={itemVariants}
+            className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
+              } mb-4`}
+          >
+            Let's Connect
+          </motion.div>
+
+          <motion.h2
+            variants={itemVariants}
+            className='text-3xl md:text-5xl font-light mb-6'
+          >
+            Get In
+            <span className='text-blue-500 font-medium'> Touch</span>
+          </motion.h2>
+
+          <motion.p
+            variants={itemVariants}
+            className={`text-xl max-w-2xl mx-auto ${isDarkMode ? "text-gray-400" : 'text-gray-600'
+              }`}
+          >
+            Ready to start your next project? Let's discuss how we can bring your ideas to life.
+          </motion.p>
+        </motion.div>
+
+        <div className=''>
+          {/* contact form */}
+          <motion.div
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            variants={containerVariants}
+          >
+            <motion.div
+              variants={itemVariants}
+              className={`p-8 rounded-2xl border ${isDarkMode ? 'bg-gray-800/50 border-gray-700 backdrop-blur-sm' : 'bg-gray-50/80 border-gray-200 backdrop-blur-sm'
+                }`}
+            >
+              <h3 className=''>Send me a message</h3>
+
+              <div className=''>
+                <div className=''>
+                  <TextInput
+                    isDarkMode={isDarkMode}
+                    value={formData.name}
+                    handleInputChange={(text) => handleInputChange('name', text)}
+                    label="Your Name"
+                  />
+
+                  <TextInput
+                    isDarkMode={isDarkMode}
+                    label='Email Address'
+                    value={formData.email}
+                    handleInputChange={(text) => handleInputChange('email', text)}
+                  />
+
+                  <TextInput
+                    isDarkMode={isDarkMode}
+                    label='Your Message'
+                    value={formData.message}
+                    textarea
+                    handleInputChange={(text) => handleInputChange('message', text)}
+                  />
+  <motion.button
+    disabled={isSubmitting}
+    whileHover={{y:-2, scale:1.02}}
+    whileTap={{scale:0.98}}
+    className=''
+    onClick={handleSubmit}
+  >
+{isSubmitting ? (
+  <>
+    <motion.div
+      animate={{rotate:360}}
+      transition={{}}
+    >
+
+    </motion.div>
+  </>
+)}
+  </motion.button>
+
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+        </div>
 
       </div>
 
