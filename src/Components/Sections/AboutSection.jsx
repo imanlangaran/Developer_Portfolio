@@ -185,9 +185,9 @@ const AboutSection = () => {
             />
 
             <div className='space-y-8'>
-              {JOURNEY_STEPS.map((step) => (
+              {JOURNEY_STEPS.map((step,i) => (
                 <motion.div
-                  key={step.year}
+                  key={i}
                   variants={stepVariants}
                   whileHover={{ x: 4 }}
                   className='relative flex items-start space-x-6 group'
