@@ -57,7 +57,7 @@ export const SKILLS_CATEGORY = [
     description: 'Managing and optimizing data storages',
     skills: [
       { name: 'MongoDB', level: 90, color: 'bg-green-600' },
-      { name: 'MongoDB', level: 88, color: 'bg-blue-700' },
+      { name: 'Sql', level: 88, color: 'bg-blue-700' },
       { name: 'Redis', level: 85, color: 'bg-red-500' },
       { name: 'Prisma', level: 80, color: 'bg-indigo-600' },
       { name: 'Firebase', level: 82, color: 'bg-yellow-600' },
