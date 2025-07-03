@@ -4,6 +4,8 @@ import { useTheme } from '../../context/ThemeContext';
 import { useRef, useState } from 'react';
 import { containerVariants, itemVariants } from '../../utils/helper';
 import TextInput from '../Input/TextInput';
+import SuccessModal from '../SuccessModal';
+import { Send } from 'lucide-react';
 
 const ContactSection = () => {
   const { isDarkMode } = useTheme()
@@ -33,7 +35,20 @@ const ContactSection = () => {
     });
   };
 
-  const handleSubmit = async (e) => { };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    //simulate apit call
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    setIsSubmitting(false);
+    setShowSuccess(true);
+    setFormData({ name: '', email: '', message: '' });
+
+    // auto hide success modal after 3 secods
+    setTimeout(() => setShowSuccess(false), 3000);
+  };
 
   return (
     <section
@@ -89,7 +104,7 @@ const ContactSection = () => {
           </motion.p>
         </motion.div>
 
-        <div className=''>
+        <div className='grid lg:grid-cols-2 gap-16 items-start'>
           {/* contact form */}
           <motion.div
             initial="hidden"
@@ -101,10 +116,10 @@ const ContactSection = () => {
               className={`p-8 rounded-2xl border ${isDarkMode ? 'bg-gray-800/50 border-gray-700 backdrop-blur-sm' : 'bg-gray-50/80 border-gray-200 backdrop-blur-sm'
                 }`}
             >
-              <h3 className=''>Send me a message</h3>
+              <h3 className='text-2xl font-medium mb-8'>Send me a message</h3>
 
-              <div className=''>
-                <div className=''>
+              <div className='space-y-6'>
+                <div className='grid md:grid-cols-2 gap-6'>
                   <TextInput
                     isDarkMode={isDarkMode}
                     value={formData.name}
@@ -118,34 +133,42 @@ const ContactSection = () => {
                     value={formData.email}
                     handleInputChange={(text) => handleInputChange('email', text)}
                   />
-
-                  <TextInput
-                    isDarkMode={isDarkMode}
-                    label='Your Message'
-                    value={formData.message}
-                    textarea
-                    handleInputChange={(text) => handleInputChange('message', text)}
-                  />
-  <motion.button
-    disabled={isSubmitting}
-    whileHover={{y:-2, scale:1.02}}
-    whileTap={{scale:0.98}}
-    className=''
-    onClick={handleSubmit}
-  >
-{isSubmitting ? (
-  <>
-    <motion.div
-      animate={{rotate:360}}
-      transition={{}}
-    >
-
-    </motion.div>
-  </>
-)}
-  </motion.button>
-
                 </div>
+
+                <TextInput
+                  isDarkMode={isDarkMode}
+                  label='Your Message'
+                  value={formData.message}
+                  textarea
+                  handleInputChange={(text) => handleInputChange('message', text)}
+                />
+                <motion.button
+                  disabled={isSubmitting}
+                  whileHover={{ y: -2, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className='w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white py-4 rounded-xl text-sm uppercase tracking-wider font-medium transition-all duration-300 flex items-center justify-center space-x-2'
+                  onClick={handleSubmit}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{
+                          duration: 1,
+                          repeat: Infinity,
+                          ease: 'linear',
+                        }}
+                        className='w-4 h-4 border-white border-t-transparent rounded-full'
+                      />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </motion.button>
               </div>
             </motion.div>
           </motion.div>
@@ -153,6 +176,12 @@ const ContactSection = () => {
         </div>
 
       </div>
+
+      <SuccessModal
+        showSuccess={showSuccess}
+        setShowSuccess={setShowSuccess}
+        isDarkMode={isDarkMode}
+      />
 
     </section>
   )
