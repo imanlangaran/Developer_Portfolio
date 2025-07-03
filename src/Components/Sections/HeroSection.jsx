@@ -204,19 +204,19 @@ const HeroSection = () => {
                   React
                 </span>
                 <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                  '
+                 •
                 </span>
                 <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                   Node.js
                 </span>
                 <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                  '
+                 •
                 </span>
                 <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                   TypeScript
                 </span>
                 <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                  '
+                 •
                 </span>
                 <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                   MongoDB
@@ -328,19 +328,19 @@ const HeroSection = () => {
                     React
                   </span>
                   <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                    '
+                   •
                   </span>
                   <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                     Node.js
                   </span>
                   <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                    '
+                   •
                   </span>
                   <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                     TypeScript
                   </span>
                   <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                    '
+                   •
                   </span>
                   <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                     MongoDB
