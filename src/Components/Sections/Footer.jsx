@@ -2,7 +2,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useTheme } from '../../context/ThemeContext'
 import { useRef } from 'react';
 import { containerVariants, itemVariants } from '../../utils/helper';
-import { Code2 } from 'lucide-react';
+import { ArrowUp, Code2, Heart } from 'lucide-react';
 import { SOCIAL_LINKS } from '../../utils/data';
 
 const Footer = () => {
@@ -127,6 +127,55 @@ const Footer = () => {
                   <social.icon size={20} />
                 </motion.a>
               ))}
+            </motion.div>
+
+            {/* Divider */}
+            <motion.div
+              variants={itemVariants}
+              className='flex items-center justify-center space-x-4'
+            >
+              <div className={`h-px w-16 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-300'}`} />
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className='text-red-500'
+              >
+                <Heart size={16} fill='currentColor' />
+              </motion.div>
+              <div className={`h-px w-16 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-300'}`} />
+            </motion.div>
+
+            {/* Copyright */}
+            <motion.div variants={itemVariants} className='space-y-2 '>
+              <p className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                © {new Date().getFullYear()} Iman Langaran. All rights reserved.
+              </p>
+              <p className={`text-sm ${isDarkMode ? 'text-gray-600' : 'text-gray-500'}`}>
+                Built with React & Framer Motion • Designed with care
+              </p>
+            </motion.div>
+
+            {/* Back to Top button */}
+            <motion.div variants={itemVariants}>
+              <motion.button
+                onClick={scrollToTop}
+                className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${isDarkMode
+                  ? 'bg-gray-800/50 hover:bg-gray-700/50 text-gray-400 hover:text-white'
+                  : 'bg-gray-100/50 hover:bg-gray-200/50 text-gray-600 hover:text-gray-900'}
+                  backdrop-blur-sm border ${isDarkMode ? 'border-gray-700' : 'border-gray-300'}`}
+                whileHover={{
+                  y: -2,
+                  scale: 1.05,
+                  boxShadow: isDarkMode
+                    ? '0 10px 25px rgba(59,130,249, 0.15)'
+                    : '0 10px 25px rgba(59,130,249, 0.1)'
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ArrowUp size={16} />
+                <span>Back to top</span>
+              </motion.button>
+
             </motion.div>
 
           </motion.div>
