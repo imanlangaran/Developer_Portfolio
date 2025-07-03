@@ -6,6 +6,7 @@ import { containerVariants, itemVariants } from '../../utils/helper';
 import TextInput from '../Input/TextInput';
 import SuccessModal from '../SuccessModal';
 import { Send } from 'lucide-react';
+import { CONTACT_INFO, SOCIAL_LINKS } from '../../utils/data';
 
 const ContactSection = () => {
   const { isDarkMode } = useTheme()
@@ -173,7 +174,121 @@ const ContactSection = () => {
             </motion.div>
           </motion.div>
 
+          {/* contact info & social links */}
+          <motion.div
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            variants={containerVariants}
+            className='space-y-8'
+          >
+            {/* contact Informations */}
+            <motion.div variants={itemVariants}>
+              <h3 className='text-2xl font-medium mb-6'>Contact Information</h3>
+              <div className='space-y-4'>
+                {CONTACT_INFO.map((info) => (
+                  <motion.div
+                    key={info.label}
+                    variants={itemVariants}
+                    whileHover={{ x: 4 }}
+                    className={`flex items-center space-x-4 rounded-xl ${isDarkMode ? 'bg-gray-800/30 hover:bg-gray-800/50' : 'bg-gray-50/50 hover:bg-gray-100/50'
+                      } transition-all duration-300`}
+                  >
+                    <div
+                      className={`p-3 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-white'
+                        }`}
+                    >
+                      <info.icon size={20} className='text-blue-500' />
+                    </div>
+                    <div>
+                      <div
+                        className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
+                          }`}
+                      >
+                        {info.label}
+                      </div>
+                      <div className='font-medium'>{info.value}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* social link */}
+            <motion.div variants={itemVariants}>
+              <h3 className='text-xl font-medium mb-6'>Follow Me</h3>
+              <div className='grid grid-cols-2 gap-4'>
+                {SOCIAL_LINKS.map((social) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`flex items-center space-x-3 p-4 rounded-xl border transition-all duration-300 ${isDarkMode ? 'bg-gray-800/50 border-gray-700 hover:border-gray-600' : 'bg-white/80 border-gray-200 hover:border-gray-300'
+                      } ${social.bgColor} ${social.color}`}
+                  >
+                    <social.icon size={20} />
+                    <span className='font-medium'>{social.name}</span>
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* availability status */}
+            <motion.div
+              variants={itemVariants}
+              className={`p-6 rounded-xl border ${isDarkMode ? 'bg-green-500/10 border-green-500/20' : 'bg-green-50 border-green-200'}`}
+            >
+              <div className='flex items-center space-x-3 mb-2'>
+                <div className='w-3 h-3 bg-green-500 rounded-full animate-pulse' />
+                <span className='font-medium text-green-500'>
+                  Available for work
+                </span>
+              </div>
+              <p
+                className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                  }`}
+              >
+                I'm currently available for freelance projects and full-time oppertunities.
+              </p>
+            </motion.div>
+
+          </motion.div>
+
         </div>
+
+        {/* bottom cta */}
+        <motion.div
+          initial='hidden'
+          animate={isInView ? 'visible' : 'hidden'}
+          variants={containerVariants}
+          className='text-center mt-20'
+        >
+          <motion.div
+            variants={itemVariants}
+            className={`max-w-2xl mx-auto p-8 rounded-2xl border ${isDarkMode ? 'bg-gray-800/30 border-gray-700' : 'bg-gray-50/50 border-gray-200'
+              }`}
+          >
+            <h3 className='text-xl font-medium mb-4'>Prefer a quick call?</h3>
+            <p
+              className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                } mb-6`}
+            >
+              Sometimes a conversation is worth a thousand messages. Feel free to schedule a call to discuss you project.
+            </p>
+            <motion.button
+              whileHover={{ y: -2, scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              className={`px-6 py-3 rounded-full border font-medium transition-all duration-300 ${isDarkMode ? 
+                'border-gray-600 hover:border-blue-500 hover:text-blue-400' : 
+                'border-gray-300 hover:border-blue-500 hover:text-blue-600'
+                }`}
+            >
+              Schedule a call
+            </motion.button>
+          </motion.div>
+        </motion.div>
 
       </div>
 
