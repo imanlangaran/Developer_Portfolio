@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { I18nContext, initReactI18next } from "react-i18next";
 import en from './locales/en.json';
 import fa from './locales/fa.json';
-import {  useState } from 'react';
+import { useEffect, useState } from 'react';
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -27,6 +27,10 @@ export const useI18n = () => {
     setLang(lng);
     i18n.changeLanguage(lng)
   }
+
+  useEffect(() => {
+    document.title = i18n.t("my name");
+  }, [lang])
 
   return { i18n, lang, changeLanguage };
 }
