@@ -3,12 +3,16 @@ import { useTheme } from "../context/ThemeContext"
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion';
 import { Code2, Menu, Moon, Sun, X } from "lucide-react";
+import { useI18n } from "../lang/i18n";
+
 
 const navLinks = ['Home', 'Skills', 'Work', 'About', 'Contact'];
 
 const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { i18n, changeLanguage } = useI18n();
+
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -31,11 +35,14 @@ const NavBar = () => {
           className="flex items-center space-x-2"
         >
           <Code2 size={24} className="text-blue-500" />{' '}
-          <span className={`text-lg ml-1 ${isDarkMode ? 'text-white' : 'text-black'}`}>Iman Langaran</span>
+          {/* <span className={`text-lg ml-1 ${isDarkMode ? 'text-white' : 'text-black'}`}>Iman Langaran</span> */}
+          <span className={`text-lg ml-1 ${isDarkMode ? 'text-white' : 'text-black'}`}>{i18n.t('my name')}</span>
         </motion.div>
 
         {/* desktop navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        {/* <div className="hidden md:flex items-center space-x-12"> */}
+        <div className="flex items-center space-x-8">
+
           {navLinks.map((item) => (
             <motion.button
               key={item}
@@ -46,9 +53,25 @@ const NavBar = () => {
                 : 'text-gray-600 hover:text-gray-900'
                 }`}
             >
-              {item}
+              {i18n.t(item)}
             </motion.button>
           ))}
+        </div>
+
+        <div className="flex items-center space-x-8">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => changeLanguage(i18n.t('other lang'))}
+            className={`p-2 rounded-full transition-colors ${isDarkMode
+              ? 'text-gray-400 hover:text-white hover:bg-gray-800'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
+              }`}
+          >
+            <div className="flex items-center justify-center w-[18px] h-[18px]">
+              {i18n.t('other lang')}
+            </div>
+          </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -61,6 +84,7 @@ const NavBar = () => {
             {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
           </motion.button>
         </div>
+        {/* </div> */}
 
         {/* mobile menu button */}
         <div className="md:hidden flex items-center space-x-8">
