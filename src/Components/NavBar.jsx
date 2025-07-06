@@ -41,7 +41,7 @@ const NavBar = () => {
 
         {/* desktop navigation */}
         {/* <div className="hidden md:flex items-center space-x-12"> */}
-        <div className="flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-8">
 
           {navLinks.map((item) => (
             <motion.button
@@ -58,7 +58,7 @@ const NavBar = () => {
           ))}
         </div>
 
-        <div className="flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-8">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -88,6 +88,19 @@ const NavBar = () => {
 
         {/* mobile menu button */}
         <div className="md:hidden flex items-center space-x-8">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => changeLanguage(i18n.t('other lang'))}
+            className={`p-2 rounded-full transition-colors ${isDarkMode
+              ? 'text-gray-400 hover:text-white hover:bg-gray-800'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
+              }`}
+          >
+            <div className="flex items-center justify-center w-[18px] h-[18px]">
+              {i18n.t('other lang')}
+            </div>
+          </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
