@@ -204,19 +204,19 @@ const HeroSection = () => {
                   React
                 </span>
                 <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                 •
+                  •
                 </span>
                 <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                   Node.js
                 </span>
                 <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                 •
+                  •
                 </span>
                 <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                   TypeScript
                 </span>
                 <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                 •
+                  •
                 </span>
                 <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                   MongoDB
@@ -237,22 +237,27 @@ const HeroSection = () => {
                 className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
                   } mb-6`}
               >
-                Full Stack Developer
+                Full‑Stack Web Developer
               </motion.div>
               <motion.h1
                 variants={itemVariants}
-                className='text-5xl xl:text-7xl font-light mb-8 leading-tight'
+                className='text-4xl sm:text-6xl xl:text-7xl font-light mb-8 leading-tight'
               >
-                <span className={`${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                  Building Digital
+                <span className={`${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight`}>
+                  Engineering
                 </span>
                 <br />
-                <span className='text-blue-500 font-medium'>
-                  experiences
+                <span
+                  // className='bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 text-transparent bg-clip-text font-medium tracking-wide'
+                  className='bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium tracking-wide'
+                  // className='text-blue-500 font-medium'
+                  style={{ textShadow: '0 4px 24px rgba(0, 168, 255, 0.25)' }}
+                >
+                  Experiences ,
                 </span>
                 <br />
-                <span className={`${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                  that matter
+                <span className={`${isDarkMode ? 'text-white italic' : 'text-gray-900 italic'} font-light tracking-tight`}>
+                  Not Just Apps
                 </span>
               </motion.h1>
 
@@ -262,7 +267,7 @@ const HeroSection = () => {
                 className={`text-xl ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                   } mb-12 font-light leading-relaxed max-w-lg`}
               >
-                I craft beautifull, functional web applications with modern technologies and thoughtful user experiences.
+                I develop scalable web and mobile apps that blend practical features, clean code, and modern technologies—crafted for real users.
               </motion.p>
 
 
@@ -328,19 +333,19 @@ const HeroSection = () => {
                     React
                   </span>
                   <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                   •
+                    •
                   </span>
                   <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                     Node.js
                   </span>
                   <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                   •
+                    •
                   </span>
                   <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                     TypeScript
                   </span>
                   <span className={isDarkMode ? 'text-gray-700' : 'text-gray-400'}>
-                   •
+                    •
                   </span>
                   <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                     MongoDB
