@@ -11,7 +11,7 @@ i18n
       En: { translation: en },
       Fa: { translation: fa },
     },
-    lng: "Fa",
+    lng: "En",
 
     keySeparator: false, // we do not use keys in form messages.welcome
 
@@ -21,7 +21,7 @@ i18n
   });
 
 export const useI18n = () => {
-  const [lang, setLang] = useState("Fa");
+  const [lang, setLang] = useState("En");
 
   const changeLanguage = (lng) => {
     setLang(lng);
