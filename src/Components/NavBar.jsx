@@ -146,7 +146,7 @@ const NavBar = () => {
                   : 'text-gray-600 hover:text-gray-900'
                   }`}
               >
-                {item}
+                {i18n.t(item)}
               </motion.button>
             ))}
           </motion.div>
