@@ -1,15 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Vazirmatn:wght@100..900&display=swap");
 
 @import "tailwindcss";
 
 @theme {
-  --font-display: 'Urbanist', sans-serif;
+  --font-display: "Urbanist", sans-serif;
+  --font-en: "Urbanist", sans-serif;
+  --font-fa: "Vazirmatn", sans-serif;
 }
 
 @layer base {
-  html {
+  /* html {
     font-family: var(--font-display);
-  }
+  } */
 
   body {
     background-color: #000;
