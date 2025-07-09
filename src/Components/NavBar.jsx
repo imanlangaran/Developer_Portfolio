@@ -3,7 +3,7 @@ import { useTheme } from "../context/ThemeContext"
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion';
 import { Code2, Menu, Moon, Sun, X } from "lucide-react";
-import { useI18n } from "../lang/i18n";
+import { useTranslation } from "react-i18next";
 
 
 const navLinks = ['Home', 'Skills', 'Work', 'About', 'Contact'];
@@ -11,8 +11,11 @@ const navLinks = ['Home', 'Skills', 'Work', 'About', 'Contact'];
 const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { i18n, changeLanguage } = useI18n();
+  const { i18n } = useTranslation();
 
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang)
+  }
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
