@@ -14,5 +14,21 @@
   "Not Just Apps" :"نه فقط نرم افزار",
   "hero subtitle" : "من برنامه‌های وب و موبایل مقیاس‌پذیر توسعه می‌دهم که ویژگی‌های کاربردی، کدنویسی تمیز و فناوری‌های مدرن را با هم ترکیب می‌کنند - و برای کاربران واقعی ساخته شده‌اند.",
   "View Work":"کارهای من",
-  "Get In Touch":"صحبت کنیم"
+  "Get In Touch":"صحبت کنیم",
+
+  "Technical Experiense": "تجربیات فنی",
+  "Skills &":"مهارتها و",
+  "Technologies":"تکنولوژیها",
+  "skills subtitle":"یک جعبه ابزار جامع برای ساخت برنامه‌های وب مدرن و مقیاس‌پذیر از مفهوم تا استقرار.",
+
+  "Frontend":"فرانت اند",
+  "Cafting beautifull, responsive user interfaces":"ساخت رابط‌های کاربری زیبا و واکنش‌گرا",
+  "Backend":"بک اند",
+  "Building robust server-side solutions":"ساخت راهکارهای قوی سمت سرور",
+  "Database":"دیتابیس",
+  "Managing and optimizing data storages":"مدیریت و بهینه‌سازی ذخیره‌سازی داده‌ها",
+  "DevOps":"دواپس",
+  "Developing and Scalling applications":"توسعه و مقیاس‌بندی برنامه‌ها",
+
+  "Also Wirking With":"با اینا هم کار میکنم"
 }

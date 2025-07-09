@@ -14,5 +14,21 @@
   "Not Just Apps" : "Not Just Apps",
   "hero subtitle" : "I develop scalable web and mobile apps that blend practical features, clean code, and modern technologies—crafted for real users.",
   "View Work":"View Work",
-  "Get In Touch":"Get In Touch"
+  "Get In Touch":"Get In Touch",
+
+  "Technical Experiense" :"Technical Experiense",
+  "Skills &":"Skills &",
+  "Technologies":"Technologies",
+  "skills subtitle":"A comprehensive toolkit for building modern, scalable web applications from concept to deployment.",
+
+  "Frontend":"Frontend",
+  "Cafting beautifull, responsive user interfaces":"Cafting beautifull, responsive user interfaces",
+  "Backend":"Backend",
+  "Building robust server-side solutions":"Building robust server-side solutions",
+  "Database":"Database",
+  "Managing and optimizing data storages":"Managing and optimizing data storages",
+  "DevOps":"DevOps",
+  "Developing and Scalling applications":"Developing and Scalling applications",
+
+  "Also Wirking With":"Also Wirking With"
 }

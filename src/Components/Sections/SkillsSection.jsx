@@ -4,11 +4,13 @@ import { useTheme } from '../../context/ThemeContext'
 import { useInView, useScroll, useTransform, motion } from 'framer-motion';
 import { containerVariants, itemVariants } from '../../utils/helper';
 import { SKILLS_CATEGORY, STATS, TECH_STACK } from '../../utils/data'
+import { useTranslation } from 'react-i18next';
 
 const SkillsSection = () => {
   const { isDarkMode } = useTheme();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const { i18n } = useTranslation();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -55,15 +57,15 @@ const SkillsSection = () => {
             className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
               } mb-4`}
           >
-            Technical Experiense
+            {i18n.t('Technical Experiense')}
           </motion.div>
 
           <motion.h2
             variants={itemVariants}
             className='text-3xl md:text-5xl font-light mb-6'
           >
-            Skills &
-            <span className='text-blue-500 font-medium'>Technologies</span>
+            {i18n.t('Skills &')}
+            <span className='text-blue-500 font-medium'> {i18n.t('Technologies')}</span>
           </motion.h2>
 
           <motion.p
@@ -71,7 +73,8 @@ const SkillsSection = () => {
             className={`text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
               } max-w-2xl mx-auto font-light`}
           >
-            A comprehensive toolkit for building modern, scalable web applications from concept to deployment.
+            {/* A comprehensive toolkit for building modern, scalable web applications from concept to deployment. */}
+            {i18n.t('skills subtitle')}
           </motion.p>
         </motion.div>
 
@@ -94,10 +97,10 @@ const SkillsSection = () => {
                   <category.icon size={24} className='text-blue-500' />
                 </div>
                 <div>
-                  <h3 className='text-xl font-medium mb-1'>{category.title}</h3>
+                  <h3 className='text-xl font-medium mb-1'>{i18n.t(category.title)}</h3>
                   <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                     }`}>
-                    {category.description}
+                    {i18n.t(category.description)}
                   </p>
                 </div>
               </div>
@@ -144,7 +147,7 @@ const SkillsSection = () => {
             variants={itemVariants}
             className='text-center mb-8'
           >
-            <h3 className='text-xl font-medium mb-4'>Also Wirking With</h3>
+            <h3 className='text-xl font-medium mb-4'>{i18n.t('Also Wirking With')}</h3>
           </motion.div>
 
           <motion.div
