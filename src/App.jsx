@@ -10,29 +10,44 @@ import Footer from "./Components/Sections/Footer";
 import i18n from "./lang/i18n";
 import { I18nextProvider, useTranslation } from "react-i18next";
 
-const AppContainer = () => {
+// const AppContainer = () => {
+//   const { i18n: i18nInstance } = useTranslation();
+//   const lang = i18nInstance.language;
+
+//   return (
+//     <I18nextProvider i18n={i18n}>
+//       <div className={`${lang === "En" ? "font-en" : "font-fa"}`}>
+//         <NavBar />
+//         <HeroSection />
+//         <SkillsSection />
+//         <ProjectsSection />
+//         <AboutSection />
+//         <ContactSection />
+//         <Footer />
+//       </div>
+//     </I18nextProvider>
+//   );
+// };
+
+const App = () => {
   const { i18n: i18nInstance } = useTranslation();
   const lang = i18nInstance.language;
 
   return (
-    <I18nextProvider i18n={i18n}>
-      <div className={`${lang === 'En' ? 'font-en' : 'font-fa'}`}>
-        <NavBar />
-        <HeroSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <AboutSection />
-        <ContactSection />
-        <Footer />
-      </div>
-    </I18nextProvider>
+    <ThemeProvider>
+      <I18nextProvider i18n={i18n}>
+        <div className={`${lang === "En" ? "font-en" : "font-fa"}`}>
+          <NavBar />
+          <HeroSection />
+          <SkillsSection />
+          <ProjectsSection />
+          <AboutSection />
+          <ContactSection />
+          <Footer />
+        </div>
+      </I18nextProvider>
+    </ThemeProvider>
   );
 };
-
-const App = () => (
-  <ThemeProvider>
-    <AppContainer />
-  </ThemeProvider>
-);
 
 export default App;
