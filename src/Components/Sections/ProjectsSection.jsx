@@ -5,11 +5,13 @@ import { motion, useInView } from 'framer-motion'
 import { containerVariants, itemVariants } from '../../utils/helper';
 import { PROJECTS } from '../../utils/data';
 import ProjectCard from '../ProjectCard';
+import { useTranslation } from 'react-i18next';
 
 const ProjectsSection = () => {
   const { isDarkMode } = useTheme();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const { i18n } = useTranslation();
 
   return (
     <section
@@ -43,15 +45,17 @@ const ProjectsSection = () => {
             className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
               } mb-4`}
           >
-            Featured Work
+            {i18n.t('Featured Work')}
           </motion.div>
 
           <motion.h2
             variants={itemVariants}
             className='text-3xl md:text-5xl font-light mb-6'
           >
-            Recent
-            <span className='text-blue-500 font-medium'> Projects</span>
+
+            {/* should swap when persian */}
+            {i18n.t('Recent')}
+            <span className='text-blue-500 font-medium'> {i18n.t('Projects')}</span>
           </motion.h2>
 
           <motion.p
