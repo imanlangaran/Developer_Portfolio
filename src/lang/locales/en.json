@@ -6,5 +6,13 @@
   "Skills":"Skills",
   "Work":"Work",
   "About":"About",
-  "Contact":"Contact"
+  "Contact":"Contact",
+
+  "Full‑Stack Web Developer": "Full‑Stack Web Developer",
+  "Engineering" : "Engineering",
+  "Experiences" : "Experiences",
+  "Not Just Apps" : "Not Just Apps",
+  "hero subtitle" : "I develop scalable web and mobile apps that blend practical features, clean code, and modern technologies—crafted for real users.",
+  "View Work":"View Work",
+  "Get In Touch":"Get In Touch"
 }

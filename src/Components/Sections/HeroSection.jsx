@@ -7,9 +7,11 @@ import { FiGithub, FiLinkedin } from 'react-icons/fi'
 
 import PROFILE_PIC from '../../assets/images/profile-img.png';
 import { containerVariants, itemVariants } from '../../utils/helper';
+import { useTranslation } from 'react-i18next';
 
 const HeroSection = () => {
   const { isDarkMode } = useTheme();
+  const { i18n } = useTranslation();
 
   const { scrollY } = useScroll()
   const heroY = useTransform(scrollY, [0, 500], [0, -100]);
@@ -127,7 +129,7 @@ const HeroSection = () => {
                 className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
                   } mb-4`}
               >
-                Full‑Stack Web Developer
+                {i18n.t('Full‑Stack Web Developer')}
               </motion.div>
 
               <motion.h1
@@ -135,7 +137,7 @@ const HeroSection = () => {
                 className='text-3xl md:text-5xl font-light mb-5 leading-tight w-min mx-auto text-left tracking-wider'
               >
                 <span className={`${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                  Engineering
+                  {i18n.t('Engineering')}
                 </span>
                 <br />
                 <span
@@ -144,11 +146,11 @@ const HeroSection = () => {
                   // className='text-blue-500 font-medium ml-2'
                   style={{ textShadow: '0 4px 24px rgba(0, 168, 255, 0.25)' }}
                 >
-                  Experiences,
+                  {i18n.t('Experiences')},
                 </span>
                 <br />
                 <span className={`${isDarkMode ? 'text-white ' : 'text-gray-900'} italic font-light tracking-tight`}>
-                  Not Just Apps
+                  {i18n.t('Not Just Apps')}
                 </span>
               </motion.h1>
 
@@ -157,7 +159,8 @@ const HeroSection = () => {
                 className={`text-base md:text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                   } mb-8 max-w-xl mx-auto font-light leading-relaxed`}
               >
-                I develop scalable web and mobile apps that blend practical features, clean code, and modern technologies—crafted for real users.
+                {/* I develop scalable web and mobile apps that blend practical features, clean code, and modern technologies—crafted for real users. */}
+                {i18n.t('hero subtitle')}
               </motion.p>
 
               <motion.div
@@ -170,7 +173,7 @@ const HeroSection = () => {
                   onClick={() => scrollToSection('work')}
                   className='bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300'
                 >
-                  View Work
+                  {i18n.t('View Work')}
                 </motion.button>
                 <motion.button
                   whileHover={{ y: -2 }}
@@ -180,7 +183,7 @@ const HeroSection = () => {
                     ? 'border-gray-700 hover:border-gray-600 text-gray-300' : 'border-gray-300 hover:border-gray-400 text-gray-700'
                     } px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
                 >
-                  Get In Touch
+                  {i18n.t('Get In Touch')}
                 </motion.button>
               </motion.div>
 
@@ -246,14 +249,14 @@ const HeroSection = () => {
                 className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
                   } mb-6`}
               >
-                Full‑Stack Web Developer
+                {i18n.t('Full‑Stack Web Developer')}
               </motion.div>
               <motion.h1
                 variants={itemVariants}
                 className='text-4xl sm:text-6xl xl:text-7xl font-light mb-8 leading-tight'
               >
                 <span className={`${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight`}>
-                  Engineering
+                  {i18n.t('Engineering')}
                 </span>
                 <br />
                 <span
@@ -262,11 +265,11 @@ const HeroSection = () => {
                   // className='text-blue-500 font-medium'
                   style={{ textShadow: '0 4px 24px rgba(0, 168, 255, 0.25)' }}
                 >
-                  Experiences ,
+                  {i18n.t('Experiences')} ,
                 </span>
                 <br />
                 <span className={`${isDarkMode ? 'text-white italic' : 'text-gray-900 italic'} font-light tracking-tight`}>
-                  Not Just Apps
+                  {i18n.t('Not Just Apps')}
                 </span>
               </motion.h1>
 
@@ -276,7 +279,8 @@ const HeroSection = () => {
                 className={`text-xl ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                   } mb-12 font-light leading-relaxed max-w-lg`}
               >
-                I develop scalable web and mobile apps that blend practical features, clean code, and modern technologies—crafted for real users.
+                {/* I develop scalable web and mobile apps that blend practical features, clean code, and modern technologies—crafted for real users. */}
+                {i18n.t('hero subtitle')}
               </motion.p>
 
 
@@ -290,7 +294,7 @@ const HeroSection = () => {
                   onClick={() => scrollToSection('work')}
                   className='bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300'
                 >
-                  View Work
+                  {i18n.t('View Work')}
                 </motion.button>
                 <motion.button
                   whileHover={{ y: -2 }}
@@ -300,7 +304,7 @@ const HeroSection = () => {
                     ? 'border-gray-700 hover:border-gray-600 text-gray-300' : 'border-gray-300 hover:border-gray-400 text-gray-700'
                     } px-8 py-4 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
                 >
-                  Get In Touch
+                  {i18n.t('Get In Touch')}
                 </motion.button>
               </motion.div>
 
