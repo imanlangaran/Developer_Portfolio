@@ -7,7 +7,6 @@ import ProjectsSection from "./Components/Sections/ProjectsSection";
 import AboutSection from "./Components/Sections/AboutSection";
 import ContactSection from "./Components/Sections/ContactSection";
 import Footer from "./Components/Sections/Footer";
-import { useTranslation } from "react-i18next";
 import { LangProvider } from "./context/LangContext";
 
 // const AppContainer = () => {
@@ -30,8 +29,6 @@ import { LangProvider } from "./context/LangContext";
 // };
 
 const App = () => {
-  const { i18n: i18nInstance } = useTranslation();
-  const lang = i18nInstance.language;
 
   return (
     <ThemeProvider>
