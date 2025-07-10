@@ -19,7 +19,9 @@ export const LangProvider = ({ children }) => {
       value={{ lang, setLang }}
     >
       <I18nextProvider i18n={i18n}>
-        {children}
+        <div className={`${lang === "En" ? "font-en" : "font-fa"}`}>
+          {children}
+        </div>
       </I18nextProvider>
     </langContext.Provider>
   )

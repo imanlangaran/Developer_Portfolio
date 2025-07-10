@@ -36,7 +36,7 @@ const App = () => {
   return (
     <ThemeProvider>
       <LangProvider>
-        <div className={`${lang === "En" ? "font-en" : "font-fa"}`}>
+        {/* <div className={`${lang === "En" ? "font-en" : "font-fa"}`}> */}
           <NavBar />
           <HeroSection />
           <SkillsSection />
@@ -44,7 +44,7 @@ const App = () => {
           <AboutSection />
           <ContactSection />
           <Footer />
-        </div>
+        {/* </div> */}
       </LangProvider>
     </ThemeProvider>
   );
