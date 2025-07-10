@@ -4,6 +4,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useTheme } from '../../context/ThemeContext'
 import { containerVariants, itemVariants } from '../../utils/helper';
 import { JOURNEY_STEPS, PASSIONS } from '../../utils/data';
+import { useTranslation } from 'react-i18next';
 
 const AboutSection = () => {
   const { isDarkMode } = useTheme();
@@ -11,6 +12,7 @@ const AboutSection = () => {
   const timelineRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
   const timelineInView = useInView(timelineRef, { once: true, margin: '-50px' })
+  const { i18n } = useTranslation()
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -74,15 +76,15 @@ const AboutSection = () => {
             className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
               } mb-4`}
           >
-            Get to Know Me
+            {i18n.t('Get to Know Me')}
           </motion.div>
 
           <motion.h2
             variants={itemVariants}
             className='text-3xl md:text-5xl font-light mb-6'
           >
-            About
-            <span className='text-blue-500 font-medium'> Me</span>
+            {i18n.t('About')}
+            <span className='text-blue-500 font-medium'> {i18n.t('Me')}</span>
           </motion.h2>
         </motion.div>
 
@@ -99,14 +101,16 @@ const AboutSection = () => {
               className={`p-8 rounded-2xl border ${isDarkMode ? 'bg-gray-800/50 border-gray-700 backdrop-blur-sm' : 'bg-gray-50/80 border-gray-200 backdrop-blur-sm'
                 }`}
             >
-              <h3 className='text-2xl font-medium mb-6'>My Mission</h3>
+              <h3 className='text-2xl font-medium mb-6'>{i18n.t('My Mission')}</h3>
               <p className={`text-lg leading-relaxed mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
                 }`}>
-                I believe technology should be a bridge that connects people and solves real-world problems. My passion lies in crafting digital experiences that are not just functional, but delightful and accessible to everyone.
+                {/* I believe technology should be a bridge that connects people and solves real-world problems. My passion lies in crafting digital experiences that are not just functional, but delightful and accessible to everyone. */}
+                {i18n.t('about subtitle')}
               </p>
               <p className={`text-base leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                 }`}>
-                When I'm not coding, you'll find me exploring new frameworks, contributing to open source, or mentoring aspiring developers. I love the constant evolution of web technologies and the endless possibilities they bring to create meaningful digital experiences.
+                {/* When I'm not coding, you'll find me exploring new frameworks, contributing to open source, or mentoring aspiring developers. I love the constant evolution of web technologies and the endless possibilities they bring to create meaningful digital experiences. */}
+                {i18n.t('about subtitle2')}
               </p>
             </motion.div>
 
@@ -115,7 +119,7 @@ const AboutSection = () => {
               variants={itemVariants}
               className='space-y-4'
             >
-              <h3 className='text-xl font-medium mb-6'>What I Love Building</h3>
+              <h3 className='text-xl font-medium mb-6'>{i18n.t('What I Love Building')}</h3>
               <div className='grid gap-4'>
                 {PASSIONS.map((passion) => (
                   <motion.div
@@ -132,12 +136,12 @@ const AboutSection = () => {
                       <passion.icon size={20} className='text-blue-500' />
                     </div>
                     <div>
-                      <h4 className='font-medium mb-1'>{passion.title}</h4>
+                      <h4 className='font-medium mb-1'>{i18n.t(passion.title)}</h4>
                       <p
                         className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                           }`}
                       >
-                        {passion.description}
+                        {i18n.t(passion.description)}
                       </p>
                     </div>
                   </motion.div>
@@ -154,7 +158,7 @@ const AboutSection = () => {
                 className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
                   } mb-4 `}
               >
-                Crafted with passion by
+                {i18n.t('Crafted with passion by')}
               </div>
 
               {/* digital signature */}
@@ -162,7 +166,8 @@ const AboutSection = () => {
                   <img src={SIGNATURE} alt='iman' className='w-28' />
                 </div> */}
               <div className='text-lg font-medium text-blue-500 mt-2'>
-                Iman Langaran
+                {/* Iman Langaran */}
+                {i18n.t('my name')}
               </div>
             </motion.div>
           </motion.div>
@@ -176,7 +181,7 @@ const AboutSection = () => {
             className='relative'
           >
             <h3 className='text-2xl font-medium mb-8 text-center lg:text-left'>
-              My Developer Journey
+              {i18n.t('My Developer Journey')}
             </h3>
 
             <div
@@ -205,23 +210,23 @@ const AboutSection = () => {
                       } backdrop-blur-sm`}
                   >
                     <div className='flex items-center justify-between mb-2'>
-                      <h4 className='text-xl font-medium'>{step.title}</h4>
+                      <h4 className='text-xl font-medium'>{i18n.t(step.title)}</h4>
                       <span
                         className={`text-sm px-3 py-1 rounded-full ${isDarkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-700"
                           }`}
                       >
-                        {step.year}
+                        {i18n.t(step.year)}
                       </span>
                     </div>
                     <div
                       className={`text-sm font-medium ${isDarkMode ? 'text-blue-400' : 'text-blue-600'
                         }`}>
-                      {step.company}
+                      {i18n.t(step.company)}
                     </div>
                     <p
                       className={`text-sm leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                         }`}>
-                      {step.description}
+                      {i18n.t(step.description)}
                     </p>
                   </div>
                 </motion.div>

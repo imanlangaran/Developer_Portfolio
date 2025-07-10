@@ -48,5 +48,48 @@
 
     "A full-stack e-commerce solution with advanced filtering, payment integratior":"یک راهکار جامع تجارت الکترونیک با فیلترینگ پیشرفته و یکپارچه‌سازی پرداخت",
   "A full-stack blog app using the MERN stack with full Markdown support, tag":"یک برنامه وبلاگ کامل با استفاده از پشته MERN با پشتیبانی کامل از Markdown، برچسب",
-  "Collaborative project management tool with real-time updates, team chat, and":"ابزار مدیریت پروژه مشارکتی با به‌روزرسانی‌های بلادرنگ، چت تیمی و"
+  "Collaborative project management tool with real-time updates, team chat, and":"ابزار مدیریت پروژه مشارکتی با به‌روزرسانی‌های بلادرنگ، چت تیمی و",
+
+  "Get to Know Me": "من کی هستم",
+  "About":"درباره",
+  "Me":"من",
+
+  "My Mission":"ماموریت من",
+  "about subtitle":"من ایمان هستم، یک حل‌کننده‌ی خلاق مسائل و علاقه‌مند به ساخت اپلیکیشن‌های وب و موبایل. من از مقابله با چالش‌های منحصر به فرد و به واقعیت درآوردن ایده‌های خلاقانه لذت می‌برم - چه یک اپلیکیشن وب کاربردی باشد، چه یک راه‌حل موبایل شیک، یا آزمایش فناوری‌های جدید.",
+  "about subtitle2":"من از فناوری، یادگیری و ساختن هیجان‌زده می‌شوم. اوقات فراغت من اغلب صرف تماشای ویدیوهای آموزشی و کاوش در ابزارها و چارچوب‌های جدید برای تقویت مهارت‌هایم می‌شود.",
+
+  "What I Love Building":"چیزی که من عاشق ساختنش هستم",
+  "User Experience":"تجربه کاربری",
+  "Problem Solving":"حل مسئله",
+  "Continuous Learning":"یادگیری مداوم",
+
+  "Crafting intuitive interfaces that users love":"ساخت رابط‌های کاربری بصری که کاربران دوست دارند",
+  "Turning complex challenges into elegant solutions":"تبدیل چالش‌های پیچیده به راه‌حل‌های زیبا",
+  "Always exploring new technologies and best practices":"همیشه در حال بررسی فناوری‌های جدید و بهترین شیوه‌ها باشید",
+
+  "Crafted with passion by":"با اشتیاق ساخته شده توسط",
+
+  "My Developer Journey":"مسیر برنامه نویسی من",
+
+  "2020":"1399",
+  "2021":"1400",
+  "2022":"1401",
+  "2023":"1402",
+  "2024":"1403",
+
+  "Started Coding Journey":"َشروع مسیر کد نویسی",
+  "Getting into trading and Bots":"تجربه ربات های ترید",
+  "getting interested in ML and AI":"علاقه مندی به ماشین لرنینگ",
+  "First internship":"اولین کارآموزی",
+  "Senior Developer":"برنامه نویس سینیور",
+
+  "Self-taught":"خود آموز",
+  "University of Imam Reza":"دانشگاه امام رضا",
+  "DPM":"داده پردازان معاصر",
+
+  "JOURNEY_STEP_1":"شروع به یادگیری توسعه اندروید و دستگاه‌های اینترنت اشیا که با آردوینو و ++C قابل برنامه‌ریزی هستند، کردم.",
+  "JOURNEY_STEP_2":"شروع به معامله شاخص‌های فارکس و نوشتن استراتژی‌های نوآورانه و ترکیب و ایجاد اندیکاتور کردم.",
+  "JOURNEY_STEP_3":"شروع به یادگیری پایتون و پیاده‌سازی مدل‌های ساده در پایتون کردم",
+  "JOURNEY_STEP_4":"اولین دوره کارآموزی‌ام را در دانشگاه امام رضا به عنوان پشتیبان فنی گذراندم.",
+  "JOURNEY_STEP_5":"در حال حاضر به عنوان پشتیبان فنی سیستم یکپارچه صدف و پویا (دانشگاه فردوسی مشهد) مشغول به کار هستم."
 }
