@@ -6,7 +6,7 @@ import { Code2, Menu, Moon, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 
-const navLinks = ['Home', 'Skills', 'Work', 'About', 'Contact'];
+const navLinks = ['Home', 'Skills', 'Work', 'About nav', 'Contact'];
 
 const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
