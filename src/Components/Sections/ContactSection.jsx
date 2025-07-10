@@ -7,6 +7,7 @@ import TextInput from '../Input/TextInput';
 import SuccessModal from '../SuccessModal';
 import { Send } from 'lucide-react';
 import { CONTACT_INFO, SOCIAL_LINKS } from '../../utils/data';
+import { useTranslation } from 'react-i18next';
 
 const ContactSection = () => {
   const { isDarkMode } = useTheme()
@@ -28,6 +29,8 @@ const ContactSection = () => {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
+  const { i18n } = useTranslation();
 
   const handleInputChange = (key, value) => {
     setFormData({
@@ -85,15 +88,27 @@ const ContactSection = () => {
             className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
               } mb-4`}
           >
-            Let's Connect
+            {i18n.t("Let's Connect")}
           </motion.div>
 
           <motion.h2
             variants={itemVariants}
             className='text-3xl md:text-5xl font-light mb-6'
           >
-            Get In
-            <span className='text-blue-500 font-medium'> Touch</span>
+            {i18n.language === "En"
+              ? (
+                <>
+                  Get In
+                  <span className='text-blue-500 font-medium'> Touch</span>
+                </>
+              )
+              : (
+                <>
+                  <span className='text-blue-500 font-medium'>تماس </span>
+                  با من
+                </>
+              )}
+
           </motion.h2>
 
           <motion.p
@@ -101,7 +116,8 @@ const ContactSection = () => {
             className={`text-xl max-w-2xl mx-auto ${isDarkMode ? "text-gray-400" : 'text-gray-600'
               }`}
           >
-            Ready to start your next project? Let's discuss how we can bring your ideas to life.
+            {/* Ready to start your next project? Let's discuss how we can bring your ideas to life. */}
+            {i18n.t('contact subtitle')}
           </motion.p>
         </motion.div>
 
@@ -117,7 +133,7 @@ const ContactSection = () => {
               className={`p-8 rounded-2xl border ${isDarkMode ? 'bg-gray-800/50 border-gray-700 backdrop-blur-sm' : 'bg-gray-50/80 border-gray-200 backdrop-blur-sm'
                 }`}
             >
-              <h3 className='text-2xl font-medium mb-8'>Send me a message</h3>
+              <h3 className='text-2xl font-medium mb-8'>{i18n.t('Send me a message')}</h3>
 
               <div className='space-y-6'>
                 <div className='grid md:grid-cols-2 gap-6'>
@@ -125,12 +141,12 @@ const ContactSection = () => {
                     isDarkMode={isDarkMode}
                     value={formData.name}
                     handleInputChange={(text) => handleInputChange('name', text)}
-                    label="Your Name"
+                    label={i18n.t("Your Name")}
                   />
 
                   <TextInput
                     isDarkMode={isDarkMode}
-                    label='Email Address'
+                    label={i18n.t('Email Address')}
                     value={formData.email}
                     handleInputChange={(text) => handleInputChange('email', text)}
                   />
@@ -138,7 +154,7 @@ const ContactSection = () => {
 
                 <TextInput
                   isDarkMode={isDarkMode}
-                  label='Your Message'
+                  label={i18n.t('Your Message')}
                   value={formData.message}
                   textarea
                   handleInputChange={(text) => handleInputChange('message', text)}
@@ -161,12 +177,12 @@ const ContactSection = () => {
                         }}
                         className='w-4 h-4 border-white border-t-transparent rounded-full'
                       />
-                      <span>Sending...</span>
+                      <span>{i18n.t('Sending')}...</span>
                     </>
                   ) : (
                     <>
                       <Send size={18} />
-                      <span>Send Message</span>
+                      <span>{i18n.t('Send Message')}</span>
                     </>
                   )}
                 </motion.button>
@@ -183,7 +199,7 @@ const ContactSection = () => {
           >
             {/* contact Informations */}
             <motion.div variants={itemVariants}>
-              <h3 className='text-2xl font-medium mb-6'>Contact Information</h3>
+              <h3 className='text-2xl font-medium mb-6'>{i18n.t('Contact Information')}</h3>
               <div className='space-y-4'>
                 {CONTACT_INFO.map((info) => (
                   <motion.div
@@ -204,9 +220,9 @@ const ContactSection = () => {
                         className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
                           }`}
                       >
-                        {info.label}
+                        {i18n.t(info.label)}
                       </div>
-                      <div className='font-medium'>{info.value}</div>
+                      <div className='font-medium'>{i18n.t(info.value)}</div>
                     </div>
                   </motion.div>
                 ))}
@@ -215,8 +231,8 @@ const ContactSection = () => {
 
             {/* social link */}
             <motion.div variants={itemVariants}>
-              <h3 className='text-xl font-medium mb-6'>Follow Me</h3>
-              <div className='grid grid-cols-2 gap-4'>
+              <h3 className='text-xl font-medium mb-6'>{i18n.t('My Socials')}</h3>
+              <div className='grid grid-cols-2 gap-4 '>
                 {SOCIAL_LINKS.map((social) => (
                   <motion.a
                     key={social.name}
@@ -229,7 +245,7 @@ const ContactSection = () => {
                       } ${social.bgColor} ${social.color}`}
                   >
                     <social.icon size={20} />
-                    <span className='font-medium'>{social.name}</span>
+                    <span className='font-medium'>{i18n.t(social.name)}</span>
                   </motion.a>
                 ))}
               </div>
@@ -243,14 +259,15 @@ const ContactSection = () => {
               <div className='flex items-center space-x-3 mb-2'>
                 <div className='w-3 h-3 bg-green-500 rounded-full animate-pulse' />
                 <span className='font-medium text-green-500'>
-                  Available for work
+                  {i18n.t('Available for work')}
                 </span>
               </div>
               <p
                 className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                   }`}
               >
-                I'm currently available for freelance projects and full-time oppertunities.
+                {/* I'm currently available for freelance projects and full-time oppertunities. */}
+                {i18n.t('Available for work subtitle')}
               </p>
             </motion.div>
 
@@ -259,7 +276,7 @@ const ContactSection = () => {
         </div>
 
         {/* bottom cta */}
-        <motion.div
+        {/* <motion.div
           initial='hidden'
           animate={isInView ? 'visible' : 'hidden'}
           variants={containerVariants}
@@ -280,15 +297,15 @@ const ContactSection = () => {
             <motion.button
               whileHover={{ y: -2, scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className={`px-6 py-3 rounded-full border font-medium transition-all duration-300 ${isDarkMode ? 
-                'border-gray-600 hover:border-blue-500 hover:text-blue-400' : 
+              className={`px-6 py-3 rounded-full border font-medium transition-all duration-300 ${isDarkMode ?
+                'border-gray-600 hover:border-blue-500 hover:text-blue-400' :
                 'border-gray-300 hover:border-blue-500 hover:text-blue-600'
                 }`}
             >
               Schedule a call
             </motion.button>
           </motion.div>
-        </motion.div>
+        </motion.div> */}
 
       </div>
 
