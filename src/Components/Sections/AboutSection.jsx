@@ -83,7 +83,7 @@ const AboutSection = () => {
             variants={itemVariants}
             className='text-3xl md:text-5xl font-light mb-6'
           >
-            {i18n.t('About')}
+            {i18n.t('About title')}
             <span className='text-blue-500 font-medium'> {i18n.t('Me')}</span>
           </motion.h2>
         </motion.div>

@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useLang } from "../context/LangContext";
 
 
-const navLinks = ['Home', 'Skills', 'Work', 'About nav', 'Contact'];
+const navLinks = ['Home', 'Skills', 'Work', 'About', 'Contact'];
 
 const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
