@@ -34,5 +34,19 @@
 
   "Featured Work":"Featured Work",
   "Recent":"Recent",
-  "Projects":"Projects"
+  "Projects":"Projects",
+  "project subtitle": "A collection of projects that showcase my experience in building modern web application and solving complex problems.",
+  "Full Stack": "Full Stack",
+  "Web App": "Web App",
+  "Featured":"Featured",
+  "Live Demo" : "Live Demo",
+  "GitHub": "GitHub",
+
+  "E-Commerce Platform":"E-Commerce Platform",
+  "Blog App with AI Post Generator":"Blog App with AI Post Generator",
+  "Task Management App":"Task Management App",
+
+  "A full-stack e-commerce solution with advanced filtering, payment integratior":"A full-stack e-commerce solution with advanced filtering, payment integratior",
+  "A full-stack blog app using the MERN stack with full Markdown support, tag":"A full-stack blog app using the MERN stack with full Markdown support, tag",
+  "Collaborative project management tool with real-time updates, team chat, and":"Collaborative project management tool with real-time updates, team chat, and"
 }

@@ -1,9 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { ExternalLink } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { FiGithub } from 'react-icons/fi';
 
 const ProjectCard = ({ project, index, isDarkMode }) => {
+  const { i18n } = useTranslation();
+
   const cardVaiants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -39,7 +42,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
           {project.featured && (
             <div className='absolute top-4 left-4'>
               <span className='bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-medium'>
-                Featured
+                {i18n.t('Featured')}
               </span>
             </div>
           )}
@@ -49,7 +52,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
               className={`text-xs px-3 py-1 rounded-full font-medium ${isDarkMode ? 'bg-gray-800/80 text-gray-300' : 'bg-white/80 text-gray-700'
                 } backdrop-blur-sm`}
             >
-              {project.category}
+              {i18n.t(project.category)}
             </span>
           </div>
 
@@ -67,7 +70,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
               className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 text-sm font-medium transition-colors'
             >
               <ExternalLink size={16} />
-              <span>Live Demo</span>
+              <span>{i18n.t('Live Demo')}</span>
             </motion.a>
 
             <motion.a
@@ -78,21 +81,21 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
               className={`border-2 border-white text-white hover:bg-white hover:text-gray-900 px-4 py-2 rounded-full flex items-center space-x-2 text-sm font-medium transition-all`}
             >
               <FiGithub size={16} />
-              <span>GitHub</span>
+              <span>{i18n.t('GitHub')}</span>
             </motion.a>
           </motion.div>
         </div>
 
         <div className='p-6'>
           <h3 className='text-xl font-medium mb-3 group-hover:text-blue-500 transition-colors'>
-            {project.title}
+            {i18n.t(project.title)}
           </h3>
 
           <p
             className={` text-sm leading-relaxed mb-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
               }`}
           >
-            {project.description}
+            {i18n.t(project.description)}
           </p>
 
           <div className='flex flex-wrap gap-2'>

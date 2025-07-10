@@ -34,5 +34,19 @@
 
   "Featured Work":"نمونه کارها",
   "Recent":"اخیر",
-  "Projects":"پروژه های"
+  "Projects":"پروژه های",
+  "project subtitle" : "مجموعه‌ای از پروژه‌هایی که تجربه من در ساخت برنامه‌های وب مدرن و حل مسائل پیچیده را نشان می‌دهد.",
+  "Full Stack": "فول استک",
+  "Web App": "وب اپ",
+  "Featured": "ویژه",
+  "Live Demo":"دمو آنلاین",
+  "GitHub":"گیتهاب",
+
+  "E-Commerce Platform":"پلتفرم تجارت الکترونیک",
+  "Blog App with AI Post Generator":"اپلیکیشن وبلاگ با قابلیت تولید پست‌های هوش مصنوعی",
+  "Task Management App":"اپلیکیشن مدیریت وظایف",
+
+    "A full-stack e-commerce solution with advanced filtering, payment integratior":"یک راهکار جامع تجارت الکترونیک با فیلترینگ پیشرفته و یکپارچه‌سازی پرداخت",
+  "A full-stack blog app using the MERN stack with full Markdown support, tag":"یک برنامه وبلاگ کامل با استفاده از پشته MERN با پشتیبانی کامل از Markdown، برچسب",
+  "Collaborative project management tool with real-time updates, team chat, and":"ابزار مدیریت پروژه مشارکتی با به‌روزرسانی‌های بلادرنگ، چت تیمی و"
 }

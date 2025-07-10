@@ -54,8 +54,9 @@ const ProjectsSection = () => {
           >
 
             {/* should swap when persian */}
-            {i18n.t('Recent')}
-            <span className='text-blue-500 font-medium'> {i18n.t('Projects')}</span>
+            {i18n.language === "En" && i18n.t('Recent')}
+            <span className='text-blue-500 font-medium'> {i18n.t('Projects')} </span>
+            {i18n.language !== "En" && i18n.t('Recent')}
           </motion.h2>
 
           <motion.p
@@ -63,7 +64,8 @@ const ProjectsSection = () => {
             className={`text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
               } max-w-2xl mx-auto font-light`}
           >
-            A collection of projects that showcase my experiense in building modern web application and solving complex problems.
+            {/* A collection of projects that showcase my experiense in building modern web application and solving complex problems. */}
+            {i18n.t('project subtitle')}
           </motion.p>
         </motion.div>
 
