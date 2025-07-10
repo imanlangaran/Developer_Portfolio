@@ -266,13 +266,13 @@ export const SOCIAL_LINKS = [
     color: 'hover:text-blue-400',
     bgColor: 'hover:bg-blue-500/10',
   },
-  {
-    name: 'Twitter',
-    icon: FiTwitter,
-    url: '#',
-    color: 'hover:text-sky-400',
-    bgColor: 'hover:bg-sky-500/10',
-  },
+  // {
+  //   name: 'Twitter',
+  //   icon: FiTwitter,
+  //   url: '#',
+  //   color: 'hover:text-sky-400',
+  //   bgColor: 'hover:bg-sky-500/10',
+  // },
   {
     name: 'Email',
     icon: Mail,
