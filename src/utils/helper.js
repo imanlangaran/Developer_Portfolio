@@ -20,3 +20,7 @@ export const itemVariants = {
     }
   }
 }
+
+export const getLangFromLocalStorageOrDefault = () => localStorage.getItem('lang') || "En";
+
+export const setLangToLocalStorage = (lang) => lang && localStorage.setItem('lang', lang)

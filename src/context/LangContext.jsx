@@ -1,17 +1,19 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import i18n from '../lang/i18n'
+import { getLangFromLocalStorageOrDefault, setLangToLocalStorage } from '../utils/helper';
 
 const langContext = createContext();
 
 export const LangProvider = ({ children }) => {
   const [lang, setLang] = useState(
-    localStorage.getItem('lang') || "En"
+    getLangFromLocalStorageOrDefault()
   )
 
   useEffect(() => {
     i18n.changeLanguage(lang);
-    localStorage.setItem('lang', lang)
+    // localStorage.setItem('lang', lang)
+    setLangToLocalStorage(lang)
   }, [lang])
 
   return (
