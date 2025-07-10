@@ -1,8 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion, spring } from 'framer-motion';
 import { CheckCircle, Sparkles, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const SuccessModal = ({ showSuccess, setShowSuccess, isDarkMode }) => {
+  const { i18n } = useTranslation();
+
   return (<AnimatePresence>
     {showSuccess && (
       <motion.div
@@ -44,7 +47,7 @@ const SuccessModal = ({ showSuccess, setShowSuccess, isDarkMode }) => {
             transition={{ delay: 0.3 }}
             className='text-2xl font-medium mb-2'
           >
-            Message Sent!
+            {i18n.t('Message Sent')}!
           </motion.h3>
 
           <motion.p
@@ -54,7 +57,8 @@ const SuccessModal = ({ showSuccess, setShowSuccess, isDarkMode }) => {
             className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'
               } mb-6`}
           >
-            Tank you for reaching out! I'll get back to you within 24 hours.
+            {/* Tank you for reaching out! I'll get back to you within 24 hours. */}
+            {i18n.t('Message Sent subtitle')}
           </motion.p>
 
           <motion.div
