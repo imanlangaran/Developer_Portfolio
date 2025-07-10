@@ -190,7 +190,7 @@ const AboutSection = () => {
             />
 
             <div className='space-y-8'>
-              {JOURNEY_STEPS.map((step,i) => (
+              {JOURNEY_STEPS.map((step, i) => (
                 <motion.div
                   key={i}
                   variants={stepVariants}
@@ -257,6 +257,12 @@ const AboutSection = () => {
               whileHover={{ y: -2, scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
               className='bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300'
+              onClick={() => {
+                const element = document.getElementById("contact");
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
               Let's Work Together
             </motion.button>
