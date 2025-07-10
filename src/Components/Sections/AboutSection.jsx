@@ -250,7 +250,7 @@ const AboutSection = () => {
               className={`text-lg ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
                 }`}
             >
-              Ready to bring your ideas to life?
+              {i18n.t('Ready to bring your ideas to life?')}
             </p>
 
             <motion.button
@@ -264,7 +264,7 @@ const AboutSection = () => {
                 }
               }}
             >
-              Let's Work Together
+              {i18n.t("Let's Work Together")}
             </motion.button>
           </motion.div>
         </motion.div>
