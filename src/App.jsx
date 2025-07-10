@@ -7,8 +7,8 @@ import ProjectsSection from "./Components/Sections/ProjectsSection";
 import AboutSection from "./Components/Sections/AboutSection";
 import ContactSection from "./Components/Sections/ContactSection";
 import Footer from "./Components/Sections/Footer";
-import i18n from "./lang/i18n";
-import { I18nextProvider, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import { LangProvider } from "./context/LangContext";
 
 // const AppContainer = () => {
 //   const { i18n: i18nInstance } = useTranslation();
@@ -35,7 +35,7 @@ const App = () => {
 
   return (
     <ThemeProvider>
-      <I18nextProvider i18n={i18n}>
+      <LangProvider>
         <div className={`${lang === "En" ? "font-en" : "font-fa"}`}>
           <NavBar />
           <HeroSection />
@@ -45,9 +45,10 @@ const App = () => {
           <ContactSection />
           <Footer />
         </div>
-      </I18nextProvider>
+      </LangProvider>
     </ThemeProvider>
   );
 };
+
 
 export default App;

@@ -4,6 +4,7 @@ import { useTheme } from "../context/ThemeContext"
 import { AnimatePresence, motion } from 'framer-motion';
 import { Code2, Menu, Moon, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useLang } from "../context/LangContext";
 
 
 const navLinks = ['Home', 'Skills', 'Work', 'About nav', 'Contact'];
@@ -12,9 +13,10 @@ const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { i18n } = useTranslation();
+  const { setLang } = useLang()
 
   const changeLanguage = (lang) => {
-    i18n.changeLanguage(lang)
+    setLang(lang);
   }
 
   const scrollToSection = (sectionId) => {
