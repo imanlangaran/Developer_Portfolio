@@ -286,16 +286,16 @@ export const CONTACT_INFO = [
   {
     icon: MapPin,
     label: 'Location',
-    value: ' San Farncisco, CA'
+    value: 'Mashhad, Iran'
   },
   {
     icon: Mail,
     label: 'Email',
-    value: 'testing@email.com'
+    value: 'imanlangaran@gmail.com'
   },
   {
     icon: Phone,
     label: 'Phone',
-    value: '+1 (555) 123-4567'
+    value: '+98 915 818 2040'
   },
 ]
