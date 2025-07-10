@@ -121,5 +121,10 @@
   "Available for work subtitle" : "I'm currently available for freelance projects and full-time oppertunities.",
 
   "Message Sent":"Message Sent",
-  "Message Sent subtitle": "Thank you for reaching out! I'll get back to you within 24 hours."
+  "Message Sent subtitle": "Thank you for reaching out! I'll get back to you within 24 hours.",
+
+  "footer subtitle" : "Crafting digital Experiences with passion, presision, and touch of magic.",
+  "build with" : "Built with React & Framer Motion • Designed with care",
+
+  "Back to top" : "Back to top"
 }

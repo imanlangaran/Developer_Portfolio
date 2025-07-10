@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { containerVariants, itemVariants } from '../../utils/helper';
 import { ArrowUp, Code2, Heart } from 'lucide-react';
 import { SOCIAL_LINKS } from '../../utils/data';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
 
@@ -13,6 +14,8 @@ const Footer = () => {
   const isInView = useInView(footerRef, { once: true, margin: '-50px' });
   const { scrollYProgress } = useScroll();
   const scrollY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  const { i18n } = useTranslation()
 
   // define social links ??
 
@@ -90,14 +93,18 @@ const Footer = () => {
                 >
                   <Code2 size={28} />
                 </motion.div>
-                <span>Iman Langaran</span>
+                <span>
+                  {/* Iman Langaran */}
+                  {i18n.t('my name')}
+                </span>
               </motion.div>
 
               <motion.p
                 variants={itemVariants}
                 className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} max-w-md mx-auto`}
               >
-                Crafting digital Experiences with passion, presision, and touch of magic.
+                {/* Crafting digital Experiences with passion, presision, and touch of magic. */}
+                {i18n.t('footer subtitle')}
               </motion.p>
             </motion.div>
 
@@ -149,10 +156,17 @@ const Footer = () => {
             {/* Copyright */}
             <motion.div variants={itemVariants} className='space-y-2 '>
               <p className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                © {new Date().getFullYear()} Iman Langaran. All rights reserved.
+                { i18n.language === "En" ? (
+
+                  `© ${new Date().getFullYear()} Iman Langaran. All rights reserved.`
+                ) : (
+                  `© ${new Date().getFullYear()} تمامی حقوق این وبسایت متعلق به ایمان لنگران میباشد.`
+                )
+                }
               </p>
               <p className={`text-sm ${isDarkMode ? 'text-gray-600' : 'text-gray-500'}`}>
-                Built with React & Framer Motion • Designed with care
+                {/* Built with React & Framer Motion • Designed with care */}
+                {i18n.t('build with')}
               </p>
             </motion.div>
 
@@ -174,7 +188,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <ArrowUp size={16} />
-                <span>Back to top</span>
+                <span>{i18n.t('Back to top')}</span>
               </motion.button>
 
             </motion.div>
