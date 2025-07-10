@@ -50,8 +50,8 @@ const ContactSection = () => {
     setShowSuccess(true);
     setFormData({ name: '', email: '', message: '' });
 
-    // auto hide success modal after 3 secods
-    setTimeout(() => setShowSuccess(false), 3000);
+    // auto hide success modal after 5 secods
+    setTimeout(() => setShowSuccess(false), 5000);
   };
 
   return (
