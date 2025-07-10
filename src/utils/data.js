@@ -173,59 +173,64 @@ export const PROJECTS = [
 
 export const JOURNEY_STEPS = [
   {
-    year: "2021",
+    year: "2020",
     title: "Started Coding Journey",
     company: "Self-taught",
-    description:
-      "Began learning web development with HTML, CSS, and JavaScript. Built my firs",
+    description: "JOURNEY_STEP_1",
+    description_text:
+      "Began learning Android development and IoT devices that are programmable in arduino and C++.",
     icon: Code2,
     color: "bg-blue-500",
   },
   {
-    year: "2022",
-    title: "First Internship",
-    company: "TechStart Inc.",
-    description:
-      "Joined as a frontend intern, working with React and learning modern developm",
+    year: "2021",
+    title: "Getting into trading and Bots",
+    company: "Self-taught",
+    description: "JOURNEY_STEP_2",
+    description_text:
+      "started to getting into trading forex indexes and writing innovative strategies and combining and creating indicator",
     icon: Briefcase,
     color: "bg-green-500",
   },
   {
     year: "2022",
-    title: "Computer Science Degree",
-    company: "University of Technology",
-    description:
-      "Graduated with honors, specializing in web technologies and software enginee",
+    title: "getting interested in ML and AI",
+    company: "University of Imam Reza",
+    description: "JOURNEY_STEP_3",
+    description_text:
+      "started to learn Python and implementing simple models in python",
     icon: GraduationCap,
     color: "bg-purple-500",
   },
   {
     year: "2023",
-    title: "Full Stack Developer",
-    company: "Digital Solutions Ltd.",
-    description:
-      "Promoted to full-time developer role. Built end-to-end applications using ME",
+    title: "First internship",
+    company: "University of Imam Reza",
+    description: "JOURNEY_STEP_4",
+    description_text:
+      "I got my first internship in Imam Reza university as tech support",
     icon: Rocket,
     color: "bg-orange-500",
   },
   {
     year: "2024",
-    title: "Freelance & Open Source",
-    company: "Independent",
-    description:
-      "Started freelancing and contributing to open source projects. Launched 3 suc-",
+    title: "Senior Developer",
+    company: "DPM",
+    description: "JOURNEY_STEP_5",
+    description_text:
+      "Currently working as technical support for Integrated system of SADAF and POOYA (Ferdowsi university of Mashhad)",
     icon: Award,
     color: "bg-pink-500",
   },
-  {
-    year: "2025",
-    title: "Senior Developer",
-    company: "Present",
-    description:
-      "Currently building innovative solutions and exploring new technologies Like/",
-    icon: Zap,
-    color: "bg-cyan-500",
-  }
+  // {
+  //   year: "2025",
+  //   title: "Senior Developer",
+  //   company: "Present",
+  //   description:
+  //     "Currently building innovative solutions and exploring new technologies Like/",
+  //   icon: Zap,
+  //   color: "bg-cyan-500",
+  // }
 ]
 
 export const PASSIONS = [
