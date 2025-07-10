@@ -30,7 +30,7 @@ const NavBar = () => {
   return (
     <motion.nav
       style={{ opacity: 1 }}
-      className={`fixed top-0 w-full z-50 px-6 py-4 ${isDarkMode ? 'bg-gray-950/80' : 'bg-gray-50/80'
+      className={`fixed top-0 w-full z-50 pl-6 pr-4 py-4 ${isDarkMode ? 'bg-gray-950/80' : 'bg-gray-50/80'
         } backdrop-blur-md border-b ${isDarkMode ? 'border-gray-800' : 'border-gray-200'
         }`}
     >
@@ -92,7 +92,7 @@ const NavBar = () => {
         {/* </div> */}
 
         {/* mobile menu button */}
-        <div className="md:hidden flex items-center space-x-8">
+        <div className="md:hidden flex grow items-center ml-5 justify-between">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
