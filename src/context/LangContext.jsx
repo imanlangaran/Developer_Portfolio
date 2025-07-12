@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import i18n from '../lang/i18n'
-import { getLangFromLocalStorageOrDefault, setLangToLocalStorage } from '../utils/helper';
+import { getChangeLangDuration, getLangFromLocalStorageOrDefault, setLangToLocalStorage } from '../utils/helper';
 
 const langContext = createContext();
 
@@ -16,10 +16,13 @@ export const LangProvider = ({ children }) => {
   )
 
   useEffect(() => {
-    i18n.changeLanguage(lang);
+    setLang(lang);
+    setTimeout(() => {
+      i18n.changeLanguage(lang);
+      document.documentElement.dir = langDirMap[lang] || 'ltr';
+      document.documentElement.lang = lang.toLowerCase();
+    }, getChangeLangDuration("ms"));
     // localStorage.setItem('lang', lang)
-    document.documentElement.dir = langDirMap[lang] || 'ltr';
-    document.documentElement.lang = lang.toLowerCase();
     setLangToLocalStorage(lang)
   }, [lang])
 
