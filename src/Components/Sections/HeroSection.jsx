@@ -241,7 +241,7 @@ const HeroSection = () => {
               initial='initial'
               animate='visible'
               variants={containerVariants}
-              className='text-left'
+              className='text-start'
             >
               <motion.div
                 variants={textVariants}
@@ -337,7 +337,7 @@ const HeroSection = () => {
               <div className='relative'>
                 <motion.div
                   variants={itemVariants}
-                  className={`flex items-center space-x-8 text-xs uppercase ${i18n.language === 'En' ? 'tracking-widest' : ''} absolute -top-16 -left-28`}
+                  className={`flex items-center space-x-8 text-xs uppercase ${i18n.language === 'En' ? 'tracking-widest' : ''} absolute -top-16 -start-28`}
                 >
 
                   <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
