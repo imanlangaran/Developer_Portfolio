@@ -5,6 +5,11 @@ import { getLangFromLocalStorageOrDefault, setLangToLocalStorage } from '../util
 
 const langContext = createContext();
 
+const langDirMap = {
+  En: "ltr",
+  Fa: "rtl"
+};
+
 export const LangProvider = ({ children }) => {
   const [lang, setLang] = useState(
     getLangFromLocalStorageOrDefault()
@@ -13,6 +18,8 @@ export const LangProvider = ({ children }) => {
   useEffect(() => {
     i18n.changeLanguage(lang);
     // localStorage.setItem('lang', lang)
+    document.documentElement.dir = langDirMap[lang] || 'ltr';
+    document.documentElement.lang = lang.toLowerCase();
     setLangToLocalStorage(lang)
   }, [lang])
 
