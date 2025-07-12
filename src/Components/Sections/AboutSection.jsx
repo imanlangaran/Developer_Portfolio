@@ -73,8 +73,7 @@ const AboutSection = () => {
         >
           <motion.div
             variants={itemVariants}
-            className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
-              } mb-4`}
+            className={`text-sm uppercase ${i18n.language === 'En' ? 'tracking-widest' : ''} ${isDarkMode ? 'text-gray-500' : 'text-gray-600'} mb-4`}
           >
             {i18n.t('Get to Know Me')}
           </motion.div>
@@ -256,7 +255,7 @@ const AboutSection = () => {
             <motion.button
               whileHover={{ y: -2, scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className='bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300'
+              className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} font-medium transition-all duration-300`}
               onClick={() => {
                 const element = document.getElementById("contact");
                 if (element) {

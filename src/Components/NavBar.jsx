@@ -53,7 +53,7 @@ const NavBar = () => {
               key={item}
               whileHover={{ y: -2 }}
               onClick={() => scrollToSection(item.toLowerCase())}
-              className={`text-sm uppercase tracking-wider transition-colors ${isDarkMode
+              className={`text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} transition-colors ${isDarkMode
                 ? 'text-gray-400 hover:text-white'
                 : 'text-gray-600 hover:text-gray-900'
                 }`}
@@ -146,7 +146,7 @@ const NavBar = () => {
                 key={item}
                 whileHover={{ x: 5 }}
                 onClick={() => scrollToSection(item.toLowerCase())}
-                className={`block w-full text-left py-2 text-sm uppercase tracking-wider transition-colors ${isDarkMode
+                className={`block w-full text-left py-2 text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} transition-colors ${isDarkMode
                   ? 'text-gray-400 hover:text-white'
                   : 'text-gray-600 hover:text-gray-900'
                   }`}

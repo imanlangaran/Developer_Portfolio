@@ -42,8 +42,7 @@ const ProjectsSection = () => {
         >
           <motion.div
             variants={itemVariants}
-            className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
-              } mb-4`}
+            className={`text-sm uppercase ${i18n.language === 'En' ? 'tracking-widest' : ''} ${isDarkMode ? 'text-gray-500' : 'text-gray-600'} mb-4`}
           >
             {i18n.t('Featured Work')}
           </motion.div>

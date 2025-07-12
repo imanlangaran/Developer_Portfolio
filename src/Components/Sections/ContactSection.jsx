@@ -85,8 +85,7 @@ const ContactSection = () => {
         >
           <motion.div
             variants={itemVariants}
-            className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
-              } mb-4`}
+            className={`text-sm uppercase ${i18n.language === 'En' ? 'tracking-widest' : ''} ${isDarkMode ? 'text-gray-500' : 'text-gray-600'} mb-4`}
           >
             {i18n.t("Let's Connect")}
           </motion.div>
@@ -163,7 +162,7 @@ const ContactSection = () => {
                   disabled={isSubmitting}
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className='w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white py-4 rounded-xl text-sm uppercase tracking-wider font-medium transition-all duration-300 flex items-center justify-center space-x-2'
+              className={`w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white py-4 rounded-xl text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} font-medium transition-all duration-300 flex items-center justify-center space-x-2`}
                   onClick={handleSubmit}
                 >
                   {isSubmitting ? (

@@ -126,15 +126,14 @@ const HeroSection = () => {
 
               <motion.div
                 variants={textVariants}
-                className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
-                  } mb-4`}
+                className={`text-sm uppercase ${i18n.language === 'En' ? 'tracking-widest' : ''} ${isDarkMode ? 'text-gray-500' : 'text-gray-600'} mb-4`}
               >
                 {i18n.t('Full‑Stack Web Developer')}
               </motion.div>
 
               <motion.h1
                 variants={itemVariants}
-                className='text-3xl md:text-5xl font-light mb-5 leading-tight w-min mx-auto text-left tracking-wider'
+                className={`text-3xl md:text-5xl font-light mb-5 leading-tight w-min mx-auto text-left ${i18n.language === 'En' ? 'tracking-wider' : ''}`}
               >
                 <span className={`${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                   {i18n.t('Engineering')}
@@ -142,14 +141,14 @@ const HeroSection = () => {
                 <br />
                 <span
                   // className='bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 text-transparent bg-clip-text font-medium tracking-wide ml-2'
-                  className='bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium tracking-wide '
+                  className={`bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium ${i18n.language === 'En' ? 'tracking-wide' : ''}`}
                   // className='text-blue-500 font-medium ml-2'
                   style={{ textShadow: '0 4px 24px rgba(0, 168, 255, 0.25)' }}
                 >
                   {i18n.t('Experiences')},
                 </span>
                 <br />
-                <span className={`${isDarkMode ? 'text-white ' : 'text-gray-900'} italic font-light tracking-tight`}>
+                <span className={`${isDarkMode ? 'text-white ' : 'text-gray-900'} italic font-light ${i18n.language === 'En' ? 'tracking-tight' : ''}`}>
                   {i18n.t('Not Just Apps')}
                 </span>
               </motion.h1>
@@ -171,7 +170,7 @@ const HeroSection = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => scrollToSection('work')}
-                  className='bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300'
+                  className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} font-medium transition-all duration-300`}
                 >
                   {i18n.t('View Work')}
                 </motion.button>
@@ -181,7 +180,7 @@ const HeroSection = () => {
                   onClick={() => scrollToSection('contact')}
                   className={`border ${isDarkMode
                     ? 'border-gray-700 hover:border-gray-600 text-gray-300' : 'border-gray-300 hover:border-gray-400 text-gray-700'
-                    } px-8 py-3 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
+                    } px-8 py-3 rounded-full text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} font-medium transition-all duration-300`}
                 >
                   {i18n.t('Get In Touch')}
                 </motion.button>
@@ -209,7 +208,7 @@ const HeroSection = () => {
 
               <motion.div
                 variants={itemVariants}
-                className='flex justify-center items-center space-x-6 text-xs uppercase tracking-widest flex-wrap'
+                className={`flex justify-center items-center space-x-6 text-xs uppercase ${i18n.language === 'En' ? 'tracking-widest' : ''} flex-wrap`}
               >
                 <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
                   React
@@ -246,8 +245,7 @@ const HeroSection = () => {
             >
               <motion.div
                 variants={textVariants}
-                className={`text-sm uppercase tracking-widest ${isDarkMode ? 'text-gray-500' : 'text-gray-600'
-                  } mb-6`}
+                className={`text-sm uppercase ${i18n.language === 'En' ? 'tracking-widest' : ''} ${isDarkMode ? 'text-gray-500' : 'text-gray-600'} mb-6`}
               >
                 {i18n.t('Full‑Stack Web Developer')}
               </motion.div>
@@ -255,20 +253,20 @@ const HeroSection = () => {
                 variants={itemVariants}
                 className='text-4xl sm:text-6xl xl:text-7xl font-light mb-8 leading-tight'
               >
-                <span className={`${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight`}>
+                <span className={`${isDarkMode ? 'text-white' : 'text-gray-900'} ${i18n.language === 'En' ? 'tracking-tight' : ''}`}>
                   {i18n.t('Engineering')}
                 </span>
                 <br />
                 <span
                   // className='bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 text-transparent bg-clip-text font-medium tracking-wide'
-                  className='bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium tracking-wide'
+                  className={`bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium ${i18n.language === 'En' ? 'tracking-wide' : ''}`}
                   // className='text-blue-500 font-medium'
                   style={{ textShadow: '0 4px 24px rgba(0, 168, 255, 0.25)' }}
                 >
                   {i18n.t('Experiences')} ,
                 </span>
                 <br />
-                <span className={`${isDarkMode ? 'text-white italic' : 'text-gray-900 italic'} font-light tracking-tight`}>
+                <span className={`${isDarkMode ? 'text-white italic' : 'text-gray-900 italic'} font-light ${i18n.language === 'En' ? 'tracking-tight' : ''}`}>
                   {i18n.t('Not Just Apps')}
                 </span>
               </motion.h1>
@@ -292,7 +290,7 @@ const HeroSection = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => scrollToSection('work')}
-                  className='bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300'
+                  className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} font-medium transition-all duration-300`}
                 >
                   {i18n.t('View Work')}
                 </motion.button>
@@ -302,7 +300,7 @@ const HeroSection = () => {
                   onClick={() => scrollToSection('contact')}
                   className={`border ${isDarkMode
                     ? 'border-gray-700 hover:border-gray-600 text-gray-300' : 'border-gray-300 hover:border-gray-400 text-gray-700'
-                    } px-8 py-4 rounded-full text-sm uppercase tracking-wider font-medium transition-all duration-300`}
+                    } px-8 py-4 rounded-full text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} font-medium transition-all duration-300`}
                 >
                   {i18n.t('Get In Touch')}
                 </motion.button>
@@ -339,7 +337,7 @@ const HeroSection = () => {
               <div className='relative'>
                 <motion.div
                   variants={itemVariants}
-                  className='flex items-center space-x-8 text-xs uppercase tracking-widest absolute -top-16 -left-28'
+                  className={`flex items-center space-x-8 text-xs uppercase ${i18n.language === 'En' ? 'tracking-widest' : ''} absolute -top-16 -left-28`}
                 >
 
                   <span className={isDarkMode ? 'text-gray-600' : 'text-gray-500'}>
