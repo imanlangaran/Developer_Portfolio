@@ -114,7 +114,7 @@ const NavBar = () => {
           {/* </div> */}
 
           {/* mobile menu button */}
-          <div className="md:hidden flex grow items-center ml-5 justify-between">
+          <div className="md:hidden flex grow items-center ms-5 justify-end space-x-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
