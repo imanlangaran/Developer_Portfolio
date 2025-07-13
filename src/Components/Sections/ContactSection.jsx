@@ -8,6 +8,7 @@ import SuccessModal from '../SuccessModal';
 import { Send } from 'lucide-react';
 import { CONTACT_INFO, SOCIAL_LINKS } from '../../utils/data';
 import { useTranslation } from 'react-i18next';
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const { isDarkMode } = useTheme()
@@ -22,6 +23,7 @@ const ContactSection = () => {
 
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const formRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -44,12 +46,24 @@ const ContactSection = () => {
     setIsSubmitting(true);
 
     //simulate apit call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    setIsSubmitting(false);
-    setShowSuccess(true);
-    setFormData({ name: '', email: '', message: '' });
-
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_APP_EMAILJS_SERVIECE_ID,
+        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+      )
+      setFormData({ name: '', email: '', message: '' });
+      
+    } catch (error) {
+      console.error('Error sending message:', error);
+    } finally {
+      setIsSubmitting(false);
+      setShowSuccess(true);
+    }
+    
     // auto hide success modal after 5 secods
     setTimeout(() => setShowSuccess(false), 5000);
   };
@@ -134,7 +148,7 @@ const ContactSection = () => {
             >
               <h3 className='text-2xl font-medium mb-8'>{i18n.t('Send me a message')}</h3>
 
-              <div className='space-y-6'>
+              <form ref={formRef} className='space-y-6'>
                 <div className='grid md:grid-cols-2 gap-6'>
                   <TextInput
                     isDarkMode={isDarkMode}
@@ -162,7 +176,7 @@ const ContactSection = () => {
                   disabled={isSubmitting}
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-              className={`w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white py-4 rounded-xl text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} font-medium transition-all duration-300 flex items-center justify-center space-x-2`}
+                  className={`w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white py-4 rounded-xl text-sm uppercase ${i18n.language === 'En' ? 'tracking-wider' : ''} font-medium transition-all duration-300 flex items-center justify-center space-x-2`}
                   onClick={handleSubmit}
                 >
                   {isSubmitting ? (
@@ -185,7 +199,7 @@ const ContactSection = () => {
                     </>
                   )}
                 </motion.button>
-              </div>
+              </form>
             </motion.div>
           </motion.div>
 
