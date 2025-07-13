@@ -153,7 +153,7 @@ const HeroSection = () => {
 
                 <motion.h1
                   variants={itemVariants}
-                  className={`text-3xl md:text-5xl font-light mb-5 leading-tight w-min mx-auto text-left ${
+                  className={`text-3xl md:text-5xl font-light mb-5 leading-tight w-min mx-auto text-start ${
                     i18n.language === "En" ? "tracking-wider" : ""
                   }`}
                 >
@@ -177,7 +177,7 @@ const HeroSection = () => {
                   <span
                     className={`${
                       isDarkMode ? "text-white " : "text-gray-900"
-                    } italic font-light ${
+                    } italic font-light text-nowrap ${
                       i18n.language === "En" ? "tracking-tight" : ""
                     }`}
                   >
