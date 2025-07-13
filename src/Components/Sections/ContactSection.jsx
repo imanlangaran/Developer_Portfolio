@@ -1,5 +1,11 @@
-// eslint-disable-next-line no-unused-vars
-import { AnimatePresence, motion, useInView, useScroll, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  // eslint-disable-next-line no-unused-vars
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
 import { useRef, useState } from "react";
 import {
@@ -262,6 +268,16 @@ const ContactSection = () => {
                             ? "bg-gray-800/30 hover:bg-gray-800/50"
                             : "bg-gray-50/50 hover:bg-gray-100/50"
                         } transition-all duration-300`}
+                        onClick={() => {
+                          navigator.clipboard
+                            .writeText(i18n.t(info.value))
+                            .then(() => {
+                              alert("Copied to clipboard!");
+                            })
+                            .catch((err) => {
+                              console.error("Failed to copy: ", err);
+                            });
+                        }}
                       >
                         <div
                           className={`p-3 rounded-lg ${
@@ -278,7 +294,10 @@ const ContactSection = () => {
                           >
                             {i18n.t(info.label)}
                           </div>
-                          <div className="font-medium">
+                          <div
+                            className="font-medium"
+                            style={{ direction: "ltr" }}
+                          >
                             {i18n.t(info.value)}
                           </div>
                         </div>

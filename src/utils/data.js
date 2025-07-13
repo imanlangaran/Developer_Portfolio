@@ -296,6 +296,6 @@ export const CONTACT_INFO = [
   {
     icon: Phone,
     label: 'Phone',
-    value: '+98 915 818 2040'
+    value: 'my phone'
   },
 ]
