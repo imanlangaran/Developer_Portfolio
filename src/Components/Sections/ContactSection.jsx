@@ -15,7 +15,7 @@ import {
 } from "../../utils/helper";
 import TextInput from "../Input/TextInput";
 import SuccessModal from "../SuccessModal";
-import { Send } from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { CONTACT_INFO, SOCIAL_LINKS } from "../../utils/data";
 import { useTranslation } from "react-i18next";
 import emailjs from "@emailjs/browser";
@@ -77,6 +77,17 @@ const ContactSection = () => {
 
     // auto hide success modal after 5 secods
     setTimeout(() => setShowSuccess(false), 5000);
+  };
+
+  const handleClick = (copyText, successMessage) => {
+    navigator.clipboard
+      .writeText(copyText)
+      .then(() => {
+        alert(i18n.t(successMessage));
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
   };
 
   return (
@@ -261,7 +272,7 @@ const ContactSection = () => {
                     {i18n.t("Contact Information")}
                   </h3>
                   <div className="space-y-4">
-                    {CONTACT_INFO.map((info) => (
+                    {/* {CONTACT_INFO.map((info) => (
                       <motion.div
                         key={info.label}
                         variants={itemVariants}
@@ -305,7 +316,109 @@ const ContactSection = () => {
                           </div>
                         </div>
                       </motion.div>
-                    ))}
+                    ))} */}
+
+                    <motion.div
+                      variants={itemVariants}
+                      whileHover={{ x: 4 }}
+                      className={`flex items-center space-x-4 rounded-xl ${
+                        isDarkMode
+                          ? "bg-gray-800/30 hover:bg-gray-800/50"
+                          : "bg-gray-50/50 hover:bg-gray-100/50"
+                      } transition-all duration-300`}
+                    >
+                      <div
+                        className={`p-3 rounded-lg ${
+                          isDarkMode ? "bg-gray-700" : "bg-white"
+                        }`}
+                      >
+                        <MapPin size={20} className="text-blue-500" />
+                      </div>
+                      <div>
+                        <div
+                          className={`text-sm ${
+                            isDarkMode ? "text-gray-500" : "text-gray-600"
+                          }`}
+                        >
+                          {i18n.t("Location")}
+                        </div>
+                        <div
+                          className="font-medium"
+                          style={{ direction: "ltr" }}
+                        >
+                          {i18n.t("Mashhad, Iran")}
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      variants={itemVariants}
+                      whileHover={{ x: 4 }}
+                      className={`flex items-center space-x-4 rounded-xl ${
+                        isDarkMode
+                          ? "bg-gray-800/30 hover:bg-gray-800/50"
+                          : "bg-gray-50/50 hover:bg-gray-100/50"
+                      } transition-all duration-300`}
+                      onClick={() =>
+                        handleClick("imanlangaran@gmail.com", "Copied")
+                      }
+                    >
+                      <div
+                        className={`p-3 rounded-lg ${
+                          isDarkMode ? "bg-gray-700" : "bg-white"
+                        }`}
+                      >
+                        <Mail size={20} className="text-blue-500" />
+                      </div>
+                      <div>
+                        <div
+                          className={`text-sm ${
+                            isDarkMode ? "text-gray-500" : "text-gray-600"
+                          }`}
+                        >
+                          {i18n.t("Email")}
+                        </div>
+                        <div
+                          className="font-medium"
+                          style={{ direction: "ltr" }}
+                        >
+                          {i18n.t("imanlangaran@gmail.com")}
+                        </div>
+                      </div>
+                    </motion.div>
+                    <motion.div
+                      variants={itemVariants}
+                      whileHover={{ x: 4 }}
+                      className={`flex items-center space-x-4 rounded-xl ${
+                        isDarkMode
+                          ? "bg-gray-800/30 hover:bg-gray-800/50"
+                          : "bg-gray-50/50 hover:bg-gray-100/50"
+                      } transition-all duration-300`}
+                      onClick={() => handleClick(i18n.t("my phone"), "Copied")}
+                    >
+                      <div
+                        className={`p-3 rounded-lg ${
+                          isDarkMode ? "bg-gray-700" : "bg-white"
+                        }`}
+                      >
+                        <Phone size={20} className="text-blue-500" />
+                      </div>
+                      <div>
+                        <div
+                          className={`text-sm ${
+                            isDarkMode ? "text-gray-500" : "text-gray-600"
+                          }`}
+                        >
+                          {i18n.t("Phone")}
+                        </div>
+                        <div
+                          className="font-medium"
+                          style={{ direction: "ltr" }}
+                        >
+                          {i18n.t("my phone")}
+                        </div>
+                      </div>
+                    </motion.div>
                   </div>
                 </motion.div>
 
