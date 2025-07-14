@@ -187,6 +187,7 @@ const ContactSection = () => {
                       <TextInput
                         isDarkMode={isDarkMode}
                         value={formData.name}
+                        id="name"
                         handleInputChange={(text) =>
                           handleInputChange("name", text)
                         }
@@ -197,6 +198,7 @@ const ContactSection = () => {
                         isDarkMode={isDarkMode}
                         label={i18n.t("Email Address")}
                         value={formData.email}
+                        id="email"
                         handleInputChange={(text) =>
                           handleInputChange("email", text)
                         }
@@ -207,6 +209,7 @@ const ContactSection = () => {
                       isDarkMode={isDarkMode}
                       label={i18n.t("Your Message")}
                       value={formData.message}
+                      id="message"
                       textarea
                       handleInputChange={(text) =>
                         handleInputChange("message", text)
