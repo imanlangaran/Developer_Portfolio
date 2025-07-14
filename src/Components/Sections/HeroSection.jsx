@@ -10,10 +10,13 @@ import {
 import { ArrowDown, Mail } from "lucide-react";
 import { FiGithub, FiLinkedin } from "react-icons/fi";
 
-import PROFILE_PIC from "../../assets/images/profile-img.png";
 import { containerVariants, getChangeLangDuration, itemVariants } from "../../utils/helper";
 import { useTranslation } from "react-i18next";
 import { useLang } from "../../context/LangContext";
+
+// import PROFILE_PIC from "../../assets/images/profile-img.png";
+
+const PROFILE_PIC = "https://avatars.githubusercontent.com/imanlangaran";
 
 const HeroSection = () => {
   const { isDarkMode } = useTheme();
