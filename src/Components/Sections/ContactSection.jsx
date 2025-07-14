@@ -27,6 +27,7 @@ const ContactSection = () => {
     name: "",
     email: "",
     message: "",
+    time: "",
   });
 
   const [showSuccess, setShowSuccess] = useState(false);
@@ -57,6 +58,14 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // const now = new Date();
+    // const formatted = now.toLocaleString();
+    // setFormData((prev) => ({ ...prev, time: formatted }));
+    setFormData({
+      ...formData,
+      time: new Date().toLocaleString(),
+    });
+
     //simulate apit call
     // await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -67,7 +76,7 @@ const ContactSection = () => {
         formRef.current,
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
       );
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", message: "", time: "" });
     } catch (error) {
       console.error("Error sending message:", error);
     } finally {
@@ -226,6 +235,17 @@ const ContactSection = () => {
                         handleInputChange("message", text)
                       }
                     />
+
+                    {/* Hidden metadata fields */}
+                    {/* <input type="hidden" name="siteName" value={siteName} /> */}
+                    <input
+                      type="hidden"
+                      name="siteName"
+                      value={window.location.origin}
+                    />
+                    {/* <input type="hidden" name="siteName" value="developer portfolio github" /> */}
+                    <input type="hidden" name="time" value={formData.time} />
+
                     <motion.button
                       disabled={isSubmitting}
                       whileHover={{ y: -2, scale: 1.02 }}
