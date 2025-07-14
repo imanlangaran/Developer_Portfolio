@@ -243,6 +243,11 @@ const ContactSection = () => {
                       name="siteName"
                       value={window.location.origin}
                     />
+                    <input
+                      type="hidden"
+                      name="title"
+                      value={document.title}
+                    />
                     {/* <input type="hidden" name="siteName" value="developer portfolio github" /> */}
                     <input type="hidden" name="time" value={formData.time} />
 
