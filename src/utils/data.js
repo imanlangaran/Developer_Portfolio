@@ -101,74 +101,40 @@ export const STATS = [
 
 // 9:28
 export const PROJECTS = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description:
-      "A full-stack e-commerce solution with advanced filtering, payment integratior",
-    image: PROJECT_IMG_1,
-    tags: ["React", "Tailwind", "Framer motion"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false,
-    category: "Full Stack",
-  }, {
-    id: 2,
-    title: "Blog App with AI Post Generator",
-    description:
-      "A full-stack blog app using the MERN stack with full Markdown support, tag",
-    image: PROJECT_IMG_2,
-    tags: ["React", "Node.js", "MongoDB", "Tailwind"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true,
-    category: "Full Stack",
-  }, {
-    id: 3,
-    title: "Task Management App",
-    description:
-      "Collaborative project management tool with real-time updates, team chat, and",
-    image: PROJECT_IMG_3,
-    tags: ["Next.js", "TypeScript", "Node.js", "MongoDb"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true,
-    category: "Web App",
-  },
   // {
-  //   id: 4,
-  //   title: "AI-Powered Interview Prep App",
+  //   id: 1,
+  //   title: "E-Commerce Platform",
   //   description:
-  //     "A smart AI-powered Interview Preparation App using the MERN stack along wit",
-  //   image: PROJECT_IMG_4,
-  //   tags: ["Next.js", "TypeScript", "Node.js", "MongoDb"],
-  //   liveUrl: "https://youtu.be/yKB90yM-ao4",
+  //     "A full-stack e-commerce solution with advanced filtering, payment integratior",
+  //   image: PROJECT_IMG_1,
+  //   tags: ["React", "Tailwind", "Framer motion"],
+  //   liveUrl: "#",
   //   githubUrl: "#",
   //   featured: false,
-  //   category: "Web App",
+  //   category: "Full Stack",
   // }, {
-  //   id: 5,
-  //   title: "Resume Builder App",
-  //   description: "a fully functional Resume Builder App using the MERN stack along with Tailwir",
-  //   image: PROJECT_IMG_5,
-  //   tags: ["Next.js", "TypeScript", "Node.js", "MongoDb"],
-  //   liveUrl: "https://youtu.be/q3u_fpkjLk8",
-  //   githubUrl: "#",
-  //   featured: false,
-  //   category: "Web App",
-  // },
-  // {
-  //   id: 6,
-  //   title: "Expense Tracker App",
+  //   id: 2,
+  //   title: "Blog App with AI Post Generator",
   //   description:
-  //     "This app includes user authentication with JWT, income and expense tracking",
-  //   image: PROJECT_IMG_6,
+  //     "A full-stack blog app using the MERN stack with full Markdown support, tag",
+  //   image: PROJECT_IMG_2,
+  //   tags: ["React", "Node.js", "MongoDB", "Tailwind"],
+  //   liveUrl: "#",
+  //   githubUrl: "#",
+  //   featured: true,
+  //   category: "Full Stack",
+  // }, {
+  //   id: 3,
+  //   title: "Task Management App",
+  //   description:
+  //     "Collaborative project management tool with real-time updates, team chat, and",
+  //   image: PROJECT_IMG_3,
   //   tags: ["Next.js", "TypeScript", "Node.js", "MongoDb"],
-  //   liveUrl: "https://youtu.be/PQnbtnsYUho",
+  //   liveUrl: "#",
   //   githubUrl: "#",
   //   featured: true,
   //   category: "Web App",
-  // }
+  // },
 ]
 
 export const JOURNEY_STEPS = [
