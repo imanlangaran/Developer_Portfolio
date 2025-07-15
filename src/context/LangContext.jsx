@@ -19,6 +19,8 @@ export const LangProvider = ({ children }) => {
 
   useEffect(() => {
     document.documentElement.dir = langDirMap[lang] || "ltr";
+    document.getElementById('langClass').className = `font-${lang.toLocaleLowerCase()}`;
+
   }, []);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export const LangProvider = ({ children }) => {
       document.documentElement.dir = langDirMap[lang] || "ltr";
       document.documentElement.lang = lang.toLowerCase();
       setLangToLocalStorage(lang);
+      document.getElementById('langClass').className = `font-${lang.toLocaleLowerCase()}`;
     }, getChangeLangDuration("ms"));
     // localStorage.setItem('lang', lang)
   }, [lang]);
@@ -35,7 +38,8 @@ export const LangProvider = ({ children }) => {
   return (
     <langContext.Provider value={{ lang, setLang }}>
       <I18nextProvider i18n={i18n}>
-        <div className={`${i18n.language === "En" ? "font-en" : "font-fa"}`}>
+        {/* <div className={`${lang === "En" ? "font-en" : "font-fa"}`}> */}
+        <div id="langClass">
           {children}
         </div>
       </I18nextProvider>
