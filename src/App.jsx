@@ -14,14 +14,14 @@ import LoadingScreen from "./Components/LoadingScreen";
 
 // List of assets to preload (images, favicon, fonts)
 const ASSETS = [
-  "/src/assets/images/project-1.png",
-  "/src/assets/images/project-2.png",
-  "/src/assets/images/project-3.png",
-  "/src/assets/images/project-4.png",
-  "/src/assets/images/project-5.png",
-  "/src/assets/images/project-6.png",
-  "/src/assets/images/project-7.png",
-  "/logo.svg", // favicon
+  // "@/src/assets/images/project-1.png",
+  // "@/src/assets/images/project-2.png",
+  // "@/src/assets/images/project-3.png",
+  // "@/src/assets/images/project-4.png",
+  // "@/src/assets/images/project-5.png",
+  // "@/src/assets/images/project-6.png",
+  // "@/src/assets/images/project-7.png",
+  "@/logo.svg", // favicon
   // External profile image (optional, add if used in HeroSection)
   "https://avatars.githubusercontent.com/imanlangaran",
 ];
