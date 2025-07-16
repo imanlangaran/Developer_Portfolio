@@ -18,6 +18,9 @@ const NavBar = () => {
 
   const changeLanguage = (lang) => {
     setLang(lang);
+    setTimeout(() => {
+      window.location.reload();
+    }, getChangeLangDuration("ms"));
   };
 
   const scrollToSection = (sectionId) => {
