@@ -20,7 +20,7 @@ const NavBar = () => {
     setLang(lang);
     setTimeout(() => {
       window.location.reload();
-    }, getChangeLangDuration("ms"));
+    }, getChangeLangDuration("ms")/2);
   };
 
   const scrollToSection = (sectionId) => {
