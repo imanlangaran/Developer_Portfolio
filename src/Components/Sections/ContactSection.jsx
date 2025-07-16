@@ -32,6 +32,7 @@ const ContactSection = () => {
 
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccesseded, setIsSuccesseded] = useState(false);
 
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -78,8 +79,10 @@ const ContactSection = () => {
       );
       setFormData({ name: "", email: "", message: "", time: "" });
     } catch (error) {
+      setIsSuccesseded(false);
       console.error("Error sending message:", error);
     } finally {
+      setIsSuccesseded(true);
       setIsSubmitting(false);
       setShowSuccess(true);
     }
@@ -540,6 +543,7 @@ const ContactSection = () => {
             showSuccess={showSuccess}
             setShowSuccess={setShowSuccess}
             isDarkMode={isDarkMode}
+            isSuccesseded={isSuccesseded}
           />
         </motion.section>
       </AnimatePresence>
