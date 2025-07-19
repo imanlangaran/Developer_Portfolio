@@ -25,13 +25,13 @@ export const LangProvider = ({ children }) => {
 
   useEffect(() => {
     // setLang(lang);
-    setTimeout(() => {
+    // setTimeout(() => {
       i18n.changeLanguage(lang);
       document.documentElement.dir = langDirMap[lang] || "ltr";
       document.documentElement.lang = lang.toLowerCase();
       setLangToLocalStorage(lang);
       document.getElementById('langClass').className = `font-${lang.toLocaleLowerCase()}`;
-    }, getChangeLangDuration("ms"));
+    // }, getChangeLangDuration("ms"));
     // localStorage.setItem('lang', lang)
   }, [lang]);
 
