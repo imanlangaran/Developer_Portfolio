@@ -21,7 +21,7 @@ const ASSETS = [
   // "@/src/assets/images/project-5.png",
   // "@/src/assets/images/project-6.png",
   // "@/src/assets/images/project-7.png",
-  "@/logo.svg", // favicon
+  "@/public/logo.svg", // favicon
   // External profile image (optional, add if used in HeroSection)
   "https://avatars.githubusercontent.com/imanlangaran",
 ];
