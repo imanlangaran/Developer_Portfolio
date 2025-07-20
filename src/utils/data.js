@@ -101,18 +101,18 @@ export const STATS = [
 
 // 9:28
 export const PROJECTS = [
+    {
+    id: 1,
+    title: "project title 1",
+    description: "project description 1",
+    image: PROJECT_IMG_3,
+    tags: ["Next.js", "Tailwind", "React", "NeonDb"],
+    liveUrl: "https://next-js-library.vercel.app/",
+    githubUrl: "https://github.com/imanlangaran/Next_Js_Library",
+    featured: true,
+    category: "Full Stack",
+  },  
   // {
-  //   id: 1,
-  //   title: "E-Commerce Platform",
-  //   description:
-  //     "A full-stack e-commerce solution with advanced filtering, payment integratior",
-  //   image: PROJECT_IMG_1,
-  //   tags: ["React", "Tailwind", "Framer motion"],
-  //   liveUrl: "#",
-  //   githubUrl: "#",
-  //   featured: false,
-  //   category: "Full Stack",
-  // }, {
   //   id: 2,
   //   title: "Blog App with AI Post Generator",
   //   description:

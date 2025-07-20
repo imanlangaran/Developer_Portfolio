@@ -132,5 +132,8 @@
 
   "Back to top": "Back to top",
 
-  "Copied": "Copied to clipboard!"
+  "Copied": "Copied to clipboard!",
+
+  "project title 1" : "Library Managment",
+  "project description 1" : "A full-stack library management system, sing up new members after confirmation, adding, borrowing, deleting books and ... "
 }
