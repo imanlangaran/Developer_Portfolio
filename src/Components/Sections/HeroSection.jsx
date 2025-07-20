@@ -233,9 +233,9 @@ const HeroSection = () => {
                   className="flex justify-center space-x-6 mb-8"
                 >
                   {[
-                    { icon: FiGithub, href: "#" },
-                    { icon: FiLinkedin, href: "#" },
-                    { icon: Mail, href: "#" },
+                    { icon: FiGithub, href: "https://github.com/imanlangaran" },
+                    { icon: FiLinkedin, href: "https://www.linkedin.com/in/imanlangaran" },
+                    { icon: Mail, href: "mailto:imanlangaran@gmail.com" },
                   ].map((item, index) => (
                     <motion.a
                       key={index}
@@ -389,13 +389,14 @@ const HeroSection = () => {
                   className="flex space-x-6 mb-12"
                 >
                   {[
-                    { icon: FiGithub, href: "#" },
-                    { icon: FiLinkedin, href: "#" },
-                    { icon: Mail, href: "#" },
+                    { icon: FiGithub, href: "https://github.com/imanlangaran" },
+                    { icon: FiLinkedin, href: "https://www.linkedin.com/in/imanlangaran" },
+                    { icon: Mail, href: "mailto:imanlangaran@gmail.com" },
                   ].map((item, index) => (
                     <motion.a
                       key={index}
                       href={item.href}
+                      target="_blank"
                       whileHover={{ y: -3, scale: 1.1 }}
                       className={`p-3 rounded-full transition-colors ${
                         isDarkMode
