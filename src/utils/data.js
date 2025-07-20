@@ -221,14 +221,14 @@ export const SOCIAL_LINKS = [
   {
     name: 'GitHub',
     icon: FiGithub,
-    url: '#',
+    url: 'https://github.com/imanlangaran',
     color: 'hover:text-gray-400',
     bgColor: 'hover:bg-gray-800',
   },
   {
     name: 'LinkedIn',
     icon: FiLinkedin,
-    url: '#',
+    url: 'https://www.linkedin.com/in/imanlangaran',
     color: 'hover:text-blue-400',
     bgColor: 'hover:bg-blue-500/10',
   },
@@ -242,7 +242,7 @@ export const SOCIAL_LINKS = [
   {
     name: 'Email',
     icon: Mail,
-    url: '#',
+    url: 'mailto:imanlangaran@gmail.com',
     color: 'hover:text-green-400',
     bgColor: 'hover:bg-green-500/10',
   },
