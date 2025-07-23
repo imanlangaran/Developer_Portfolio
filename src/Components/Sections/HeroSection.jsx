@@ -202,7 +202,17 @@ const HeroSection = () => {
                   variants={itemVariants}
                   className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
                 >
-                  <motion.button
+                  <motion.a
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    href="./ImanLangaran1404-4-1.pdf"
+                    className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase ${
+                      i18n.language === "En" ? "tracking-wider" : ""
+                    } font-medium transition-all duration-300`}
+                  >
+                    {i18n.t("Resume")}
+                  </motion.a>
+                  {/* <motion.button
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => scrollToSection("work")}
@@ -211,7 +221,7 @@ const HeroSection = () => {
                     } font-medium transition-all duration-300`}
                   >
                     {i18n.t("View Work")}
-                  </motion.button>
+                  </motion.button> */}
                   <motion.button
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
@@ -358,7 +368,17 @@ const HeroSection = () => {
                 </motion.p>
 
                 <motion.div variants={itemVariants} className="flex gap-6 mb-8">
-                  <motion.button
+                  <motion.a
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    href="./ImanLangaran1404-4-1.pdf"
+                    className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase ${
+                      i18n.language === "En" ? "tracking-wider" : ""
+                    } font-medium transition-all duration-300`}
+                  >
+                    {i18n.t("Resume")}
+                  </motion.a>
+                  {/* <motion.button
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => scrollToSection("work")}
@@ -367,7 +387,7 @@ const HeroSection = () => {
                     } font-medium transition-all duration-300`}
                   >
                     {i18n.t("View Work")}
-                  </motion.button>
+                  </motion.button> */}
                   <motion.button
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
