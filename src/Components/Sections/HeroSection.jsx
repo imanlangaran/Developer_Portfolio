@@ -206,6 +206,7 @@ const HeroSection = () => {
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     href="./ImanLangaran1404-4-1.pdf"
+                    target="_blank"
                     className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase ${
                       i18n.language === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
@@ -372,6 +373,7 @@ const HeroSection = () => {
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     href="./ImanLangaran1404-4-1.pdf"
+                    target="_blank"
                     className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase ${
                       i18n.language === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
