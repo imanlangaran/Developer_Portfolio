@@ -20,9 +20,13 @@ import { useLang } from "../../context/LangContext";
 const AboutSection = () => {
   const { isDarkMode } = useTheme();
   const sectionRef = useRef(null);
-  const timelineRef = useRef(null);
+  // const timelineRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const timelineInView = useInView(timelineRef, {
+  // const timelineInView = useInView(timelineRef, {
+  //   once: true,
+  //   margin: "-50px",
+  // });
+  const timelineInView = useInView(sectionRef, {
     once: true,
     margin: "-50px",
   });
@@ -64,11 +68,11 @@ const AboutSection = () => {
       className={`min-h-screen transition-all duration-500 ${
         isDarkMode ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900"
       }`}
+      ref={sectionRef}
     >
       <AnimatePresence mode="wait">
         <motion.section
           id="about"
-          ref={sectionRef}
           className={`py-24 px-6 ${
             isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
           } relative overflow-hidden`}
@@ -230,7 +234,7 @@ const AboutSection = () => {
 
               {/* developer journey timeline */}
               <motion.div
-                ref={timelineRef}
+                // ref={timelineRef}
                 initial="hidden"
                 animate={timelineInView ? "visible" : "hidden"}
                 variants={timelineVariants}

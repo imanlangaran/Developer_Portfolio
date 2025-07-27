@@ -24,11 +24,11 @@ const ProjectsSection = () => {
       className={`min-h-screen transition-all duration-500 ${
         isDarkMode ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900"
       }`}
+      ref={sectionRef}
     >
       <AnimatePresence mode="wait">
         <motion.section
           id="work"
-          ref={sectionRef}
           className={`py-24 px-6 ${
             isDarkMode ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900"
           } 

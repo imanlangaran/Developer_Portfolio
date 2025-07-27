@@ -107,11 +107,11 @@ const ContactSection = () => {
       className={`min-h-screen transition-all duration-500 ${
         isDarkMode ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900"
       }`}
+      ref={sectionRef}
     >
       <AnimatePresence mode="wait">
         <motion.section
           id="contact"
-          ref={sectionRef}
           className={`py-24 px-6 ${
             isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
           } relative overflow-hidden`}

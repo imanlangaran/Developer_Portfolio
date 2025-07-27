@@ -70,10 +70,10 @@ const Footer = () => {
       className={` transition-all duration-500 ${
         isDarkMode ? "bg-gray-950 text-white" : "bg-gray-50 text-gray-900"
       }`}
+      ref={footerRef}
     >
       <AnimatePresence mode="wait">
         <motion.footer
-          ref={footerRef}
           className={`relative ${
             isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
           } overflow-hidden`}
