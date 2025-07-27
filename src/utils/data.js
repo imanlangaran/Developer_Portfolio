@@ -112,18 +112,18 @@ export const PROJECTS = [
     featured: true,
     category: "Full Stack",
   },  
+  {
+    id: 2,
+    title: "project title 1",
+    description: "project description 1",
+    image: PROJECT_IMG_2,
+    tags: ["React Native", "API", "Tailwind"],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: false,
+    category: "Mobile App",
+  },
   // {
-  //   id: 2,
-  //   title: "Blog App with AI Post Generator",
-  //   description:
-  //     "A full-stack blog app using the MERN stack with full Markdown support, tag",
-  //   image: PROJECT_IMG_2,
-  //   tags: ["React", "Node.js", "MongoDB", "Tailwind"],
-  //   liveUrl: "#",
-  //   githubUrl: "#",
-  //   featured: true,
-  //   category: "Full Stack",
-  // }, {
   //   id: 3,
   //   title: "Task Management App",
   //   description:
