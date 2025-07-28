@@ -118,7 +118,7 @@ export const PROJECTS = [
     description: "project description 1",
     image: PROJECT_IMG_2,
     tags: ["React Native", "API", "Tailwind"],
-    liveUrl: "#",
+    // liveUrl: "#",
     githubUrl: "https://github.com/imanlangaran/RN_Movie",
     featured: false,
     category: "Mobile App",

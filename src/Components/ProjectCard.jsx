@@ -62,29 +62,33 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
             transition={{ duration: 0.3 }}
             className='absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center space-x-4'
           >
-            <motion.a
-              href={project.liveUrl}
-              target='_blank'
-              initial={{ y: 5, opacity: 0.5 }}
-              whileHover={{ y: 0, opacity: 1, scale: 1.05 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 text-sm font-medium transition-colors'
-            >
-              <ExternalLink size={16} />
-              <span>{i18n.t('Live Demo')}</span>
-            </motion.a>
+            {project.liveUrl && (
+              <motion.a
+                href={project.liveUrl}
+                target='_blank'
+                initial={{ y: 5, opacity: 0.5 }}
+                whileHover={{ y: 0, opacity: 1, scale: 1.05 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 text-sm font-medium transition-colors'
+              >
+                <ExternalLink size={16} />
+                <span>{i18n.t('Live Demo')}</span>
+              </motion.a>
+            )}
 
-            <motion.a
-              href={project.githubUrl}
-              target='_blank'
-              initial={{ y: 5, opacity: 0.5 }}
-              whileHover={{ y: 0, opacity: 1, scale: 1.05 }}
-              transition={{ duration: 0.3, delay: 0.2 }}
-              className={`border-2 border-white text-white hover:bg-white hover:text-gray-900 px-4 py-2 rounded-full flex items-center space-x-2 text-sm font-medium transition-all`}
-            >
-              <FiGithub size={16} />
-              <span>{i18n.t('GitHub')}</span>
-            </motion.a>
+            {project.githubUrl && (
+              <motion.a
+                href={project.githubUrl}
+                target='_blank'
+                initial={{ y: 5, opacity: 0.5 }}
+                whileHover={{ y: 0, opacity: 1, scale: 1.05 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+                className={`border-2 border-white text-white hover:bg-white hover:text-gray-900 px-4 py-2 rounded-full flex items-center space-x-2 text-sm font-medium transition-all`}
+              >
+                <FiGithub size={16} />
+                <span>{i18n.t('GitHub')}</span>
+              </motion.a>
+            )}
           </motion.div>
         </div>
 
