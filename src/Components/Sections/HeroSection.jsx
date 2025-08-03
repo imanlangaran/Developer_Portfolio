@@ -130,6 +130,7 @@ const HeroSection = () => {
                         src={PROFILE_PIC}
                         alt="Profile"
                         className="w-full h-full object-cover"
+                        loading="eager"
                       />
                     </motion.div>
 
@@ -492,6 +493,7 @@ const HeroSection = () => {
                       src={PROFILE_PIC}
                       alt="Profile"
                       className="w-full h-full object-cover"
+                      loading="eager"
                     />
                   </motion.div>
 
