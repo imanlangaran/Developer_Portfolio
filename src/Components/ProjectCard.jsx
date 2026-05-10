@@ -3,9 +3,11 @@ import { motion } from 'framer-motion'
 import { ExternalLink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { FiGithub } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectCard = ({ project, index, isDarkMode }) => {
   const { i18n } = useTranslation();
+  const navigation = useNavigate();
 
   const cardVaiants = {
     hidden: { y: 20, opacity: 0 },
@@ -26,7 +28,8 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
         y: -8,
         transition: { diration: 0.3, ease: 'easeOut' }
       }}
-      className='group relative'
+      className='group relative cursor-pointer'
+      onClick={() => navigation(`/project/${project.id}`)}
     >
       <div
         className={`rounded-2xl overflow-hidden border transition-all duration-500 ${isDarkMode ? 'bg-gray-900/50 border-gray-800 hover:border-gray-700 hover:shadow-2xl hover:shadow-blue-500/10' : 'bg-white/80 border-gray-200 hover:border-gray-300 hover:shadow-2xl hover:shadow-blue-500/10'
@@ -57,7 +60,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
             </span>
           </div>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
@@ -90,7 +93,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
                 <span>{i18n.t('GitHub')}</span>
               </motion.a>
             )}
-          </motion.div>
+          </motion.div> */}
         </div>
 
         <div className='p-6'>
