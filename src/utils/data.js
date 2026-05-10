@@ -112,8 +112,8 @@ export const PROJECTS = [
   },  
   {
     id: 2,
-    title: "project title 1",
-    description: "project description 1",
+    title: "project title 2",
+    description: "project description 2",
     image: PROJECT_IMG_2,
     tags: ["React Native", "API", "Tailwind", "Expo"],
     // liveUrl: "#",
@@ -123,8 +123,8 @@ export const PROJECTS = [
   },
   {
     id: 3,
-    title: "Session Summarizer",
-    description: "An AI-powered conversation analysis platform that processes recorded voice sessions, transcribes and analyzes interactions using custom system prompts, and generates structured outputs including summaries, insights, and contextual session reports.",
+    title: "project title 3",
+    description: "project description 3",
     tags: ["Python", "FastApi", "Swagger", "MySQL"],
     githubUrl: "https://github.com/imanlangaran/SpeachToSummaryText_backend",
     featured: true,
