@@ -14,8 +14,6 @@ import { containerVariants, getChangeLangDuration, itemVariants } from "../../ut
 import { useTranslation } from "react-i18next";
 import { useLang } from "../../context/LangContext";
 
-// import PROFILE_PIC from "../../assets/images/profile-img.png";
-
 const PROFILE_PIC = "https://avatars.githubusercontent.com/imanlangaran";
 
 const HeroSection = () => {

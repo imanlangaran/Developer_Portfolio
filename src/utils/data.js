@@ -13,18 +13,12 @@ import {
   Mail,
   MapPin,
   Phone,
-  Zap
 } from 'lucide-react';
 
-import { FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
+import { FiGithub, FiLinkedin } from 'react-icons/fi';
 
-import PROJECT_IMG_1 from '../assets/images/project-1.png'
 import PROJECT_IMG_2 from '../assets/images/project-2.png'
 import PROJECT_IMG_3 from '../assets/images/project-3.png'
-import PROJECT_IMG_4 from '../assets/images/project-4.png'
-import PROJECT_IMG_5 from '../assets/images/project-5.png'
-import PROJECT_IMG_6 from '../assets/images/project-6.png'
-import PROJECT_IMG_7 from '../assets/images/project-7.png'
 
 export const SKILLS_CATEGORY = [
   {
@@ -32,12 +26,12 @@ export const SKILLS_CATEGORY = [
     icon: Code2,
     description: 'Cafting beautifull, responsive user interfaces',
     skills: [
+      { name: 'JavaScript', level: 99, color: 'bg-yellow-400' },
       { name: 'React', level: 95, color: 'bg-blue-500' },
+      { name: 'Next.js', level: 95, color: 'bg-gray-800' },
       { name: 'React Native', level: 85, color: 'bg-pink-500' },
-      { name: 'TypesScript', level: 90, color: 'bg-blue-600' },
       { name: 'Tailwind Css', level: 92, color: 'bg-cyan-500' },
-      { name: 'Bootstrap', level: 92, color: 'bg-indigo-600' },
-      { name: 'Next.js', level: 80, color: 'bg-gray-800' },
+      { name: 'TypesScript', level: 90, color: 'bg-blue-600' },
     ],
   },
   {
@@ -46,8 +40,8 @@ export const SKILLS_CATEGORY = [
     description: 'Building robust server-side solutions',
     skills: [
       { name: 'Node.js', level: 90, color: 'bg-green-500' },
-      { name: 'PHP', level: 88, color: 'bg-gray-700' },
-      { name: 'Python', level: 85, color: 'bg-yellow-500' },
+      { name: 'PHP', level: 88, color: 'bg-slate-500' },
+      { name: 'Python', level: 85, color: 'bg-amber-300' },
       // { name: 'GraphQL', level: 80, color: 'bg-pink-500' },
       { name: 'REST APIs', level: 82, color: 'bg-orange-500' },
     ],
@@ -57,11 +51,11 @@ export const SKILLS_CATEGORY = [
     icon: Database,
     description: 'Managing and optimizing data storages',
     skills: [
-      { name: 'Sql', level: 88, color: 'bg-blue-700' },
-      { name: 'MongoDB', level: 90, color: 'bg-green-600' },
-      // { name: 'Redis', level: 85, color: 'bg-red-500' },
-      { name: 'Drizzle', level: 80, color: 'bg-indigo-600' },
+      { name: 'Sql', level: 90, color: 'bg-blue-700' },
+      { name: 'MongoDB', level: 80, color: 'bg-green-600' },
+      { name: 'PostgreSQL', level: 88, color: 'bg-indigo-600' },
       { name: 'SQLite', level: 82, color: 'bg-yellow-600' },
+      { name: 'Redis', level: 80, color: 'bg-red-500' },
     ],
   },
   {
@@ -79,17 +73,21 @@ export const SKILLS_CATEGORY = [
 ];
 
 export const TECH_STACK = [
+  'Node.js',
+  'Next.js',
+  'React',
+  'React Native',
+  'Expo',
   'JavaScript',
-  'HTML5',
+  'TailwindCSS',
   'CSS3',
   'Vite',
   'Figma',
-  'Adobe XD',
-  'Notion',
-  "Django",
-  "FastApi",
-  "Jinja2",
-  "Linux/Ubuntu",
+  'FastApi',
+  'Python',
+  'C++',
+  'Arduino',
+  'Android',
 ];
 
 export const STATS = [
@@ -99,14 +97,14 @@ export const STATS = [
   // { number: '100%', label: 'Clients Satisfaction' },
 ];
 
-// 9:28
+
 export const PROJECTS = [
     {
     id: 1,
     title: "project title 1",
     description: "project description 1",
     image: PROJECT_IMG_3,
-    tags: ["Next.js", "Tailwind", "React", "NeonDb"],
+    tags: ["Next.js", "Tailwind", "React", "NeonDb", "PostgreSQL"],
     liveUrl: "https://next-js-library.vercel.app/",
     githubUrl: "https://github.com/imanlangaran/Next_Js_Library",
     featured: true,
@@ -117,24 +115,21 @@ export const PROJECTS = [
     title: "project title 1",
     description: "project description 1",
     image: PROJECT_IMG_2,
-    tags: ["React Native", "API", "Tailwind"],
+    tags: ["React Native", "API", "Tailwind", "Expo"],
     // liveUrl: "#",
     githubUrl: "https://github.com/imanlangaran/RN_Movie",
     featured: false,
     category: "Mobile App",
   },
-  // {
-  //   id: 3,
-  //   title: "Task Management App",
-  //   description:
-  //     "Collaborative project management tool with real-time updates, team chat, and",
-  //   image: PROJECT_IMG_3,
-  //   tags: ["Next.js", "TypeScript", "Node.js", "MongoDb"],
-  //   liveUrl: "#",
-  //   githubUrl: "#",
-  //   featured: true,
-  //   category: "Web App",
-  // },
+  {
+    id: 3,
+    title: "Session Summarizer",
+    description: "An AI-powered conversation analysis platform that processes recorded voice sessions, transcribes and analyzes interactions using custom system prompts, and generates structured outputs including summaries, insights, and contextual session reports.",
+    tags: ["Python", "FastApi", "Swagger", "MySQL"],
+    githubUrl: "https://github.com/imanlangaran/SpeachToSummaryText_backend",
+    featured: true,
+    category: "backend",
+  },
 ]
 
 export const JOURNEY_STEPS = [
