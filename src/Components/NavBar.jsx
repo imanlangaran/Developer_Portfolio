@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Code2, Menu, Moon, Sun, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLang } from "../context/LangContext";
-import { getChangeLangDuration } from "../utils/helper";
+import { getChangeLangDuration, scrollToSection } from "../utils/helper";
 
 const navLinks = ["Home", "Skills", "Work", "About", "Contact"];
 
@@ -23,12 +23,8 @@ const NavBar = () => {
     // }, getChangeLangDuration("ms")/2);
   };
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMenuOpen(true);
-    }
+  const handleClick = (sectionId) => {
+    scrollToSection(sectionId, () => setIsMenuOpen(false));
   };
 
   return (
@@ -72,7 +68,7 @@ const NavBar = () => {
               <motion.button
                 key={item}
                 whileHover={{ y: -2 }}
-                onClick={() => scrollToSection(item.toLowerCase())}
+                onClick={() => handleClick(item)}
                 className={`text-sm uppercase ${
                   i18n.language === "En" ? "tracking-wider" : ""
                 } transition-colors ${
@@ -174,7 +170,7 @@ const NavBar = () => {
                 <motion.button
                   key={item}
                   whileHover={{ x: 5 }}
-                  onClick={() => scrollToSection(item.toLowerCase())}
+                  onClick={() => handleClick(item)}
                   className={`block w-full text-left py-2 text-sm uppercase ${
                     i18n.language === "En" ? "tracking-wider" : ""
                   } transition-colors ${

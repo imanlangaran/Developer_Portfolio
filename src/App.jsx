@@ -10,6 +10,8 @@ import Footer from "./Components/Sections/Footer";
 import { LangProvider } from "./context/LangContext";
 
 import LoadingScreen from "./Components/LoadingScreen";
+import { useLocation, useNavigate } from "react-router-dom";
+import { scrollToSection } from "./utils/helper";
 
 
 // List of assets to preload (images, favicon, fonts)
@@ -40,6 +42,31 @@ const TOTAL_ASSETS = ASSETS.length + FONT_URLS.length;
 const App = () => {
   const [loaded, setLoaded] = useState(0);
   const [showApp, setShowApp] = useState(false);
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!showApp) return;
+
+    const sectionId = location.state?.scrollTo; // e.g. "contact"
+    if (!sectionId) return;
+
+    // const el = document.getElementById(sectionId);
+    // if (el) {
+    //   // give layout a moment (optional but helps)
+    //   setTimeout(() => {
+    //     el.scrollIntoView({ behavior: "smooth" });
+    //     navigate(location.pathname, { state: null, replace: true });
+    //   }, 100);
+    // }
+
+    scrollToSection(
+      sectionId, 
+      () => navigate(location.pathname, { state: null, replace: true }),
+      200
+    )
+  }, [showApp, location.state]);
 
   useEffect(() => {
     let loadedCount = 0;
@@ -78,17 +105,18 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider>
-      <LangProvider>
-        <NavBar />
-        <HeroSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <AboutSection />
-        <ContactSection />
-        <Footer />
-      </LangProvider>
-    </ThemeProvider>
+
+    <>
+      <NavBar />
+      <HeroSection />
+      <SkillsSection />
+      <ProjectsSection />
+      <AboutSection />
+      <ContactSection />
+      <Footer />
+    </>
+
+
   );
 };
 

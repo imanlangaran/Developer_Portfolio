@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useParams } from 'react-router-dom'
-import { PROJECTS } from './utils/data';
+import { PROJECTS } from '../utils/data';
 import NotFound from './NotFound';
 import { AnimatePresence } from 'framer-motion';
 
