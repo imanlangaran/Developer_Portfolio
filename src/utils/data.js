@@ -125,6 +125,7 @@ export const PROJECTS = [
     id: 3,
     title: "project title 3",
     description: "project description 3",
+    image: false,
     tags: ["Python", "FastApi", "Swagger", "MySQL"],
     githubUrl: "https://github.com/imanlangaran/SpeachToSummaryText_backend",
     featured: true,
