@@ -1,4 +1,4 @@
-// Pages/ProjectDetail.jsx
+// TODO: seperate this page into components
 
 import { useEffect, useRef } from "react";
 import {
@@ -75,6 +75,8 @@ export default function ProjectDetail() {
     damping: 20,
   });
 
+  const handleClick = () => navigate('/', { state: { scrollTo: "work" } });
+
   return (
     <AnimatePresence mode="wait">
       {/* BACKDROP */}
@@ -84,7 +86,7 @@ export default function ProjectDetail() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.25 }}
-        onClick={() => navigate(-1)}
+        onClick={() => handleClick()}
       >
         {/* PROGRESS BAR */}
         <motion.div
@@ -161,7 +163,7 @@ export default function ProjectDetail() {
               whileTap={{
                 scale: 0.95,
               }}
-              onClick={() => navigate(-1)}
+              onClick={() => handleClick()}
               className={`
                 flex items-center gap-2 px-4 py-2 rounded-full
                 backdrop-blur-lg border transition-all duration-300
@@ -195,7 +197,7 @@ export default function ProjectDetail() {
               whileTap={{
                 scale: 0.92,
               }}
-              onClick={() => navigate(-1)}
+              onClick={() => handleClick()}
               className={`
                 p-3 rounded-full backdrop-blur-lg border
                 transition-all duration-300
