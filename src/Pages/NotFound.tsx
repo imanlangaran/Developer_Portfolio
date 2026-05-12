@@ -1,5 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 
@@ -13,7 +14,7 @@ const NotFound = () => {
   };
 
   return (
-    <motion.div  
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
@@ -70,8 +71,8 @@ const NotFound = () => {
             style={{
               width: `${3 + (i % 4)}px`,
               height: `${3 + (i % 4)}px`,
-              top: `${10 + (i * 5) % 80}%`,
-              left: `${5 + (i * 7) % 90}%`,
+              top: `${10 + ((i * 5) % 80)}%`,
+              left: `${5 + ((i * 7) % 90)}%`,
               filter: "blur(0.5px)",
             }}
           />
@@ -123,7 +124,7 @@ const NotFound = () => {
             }`}
           >
             {/* You&apos;ve drifted off the map */}
-            {i18n.t('404 header')}
+            {i18n.t("404 header")}
           </motion.h1>
 
           {/* Subtitle */}
@@ -209,9 +210,7 @@ const NotFound = () => {
                   isDarkMode ? "bg-cyan-400" : "bg-blue-500"
                 }`}
               />
-              <p className="text-sm sm:text-base">
-                {i18n.t("404 Tip")}
-              </p>
+              <p className="text-sm sm:text-base">{i18n.t("404 Tip")}</p>
             </div>
           </motion.div>
         </div>

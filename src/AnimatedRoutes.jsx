@@ -2,7 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 import App from "./App";
-import NotFound from "./Pages/NotFound";
+import NotFound from "./Pages/NotFound"; 
 import ProjectDetail from "./Pages/ProjectDetail";
 
 export default function AnimatedRoutes() {
