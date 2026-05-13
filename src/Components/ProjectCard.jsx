@@ -30,7 +30,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
       variants={cardVaiants}
       whileHover={{
         y: -8,
-        transition: { diration: 0.3, ease: "easeOut" },
+        transition: { duration: 0.3, ease: "easeOut" },
       }}
       className="group relative cursor-pointer"
       onClick={() => handleClick()}
@@ -42,12 +42,22 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
             : "bg-white/80 border-gray-200 hover:border-gray-300 hover:shadow-2xl hover:shadow-blue-500/10"
         } backdrop-blur-sm`}
       >
-        <div className="relative overflow-hidden ">
-          <img
+        <motion.div
+          layoutId={`project-image-${project.id}`}
+          className="relative overflow-hidden aspect-video"
+        >
+          <motion.img
             src={project.image}
             alt={project.title}
-            className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover"
             loading="lazy"
+            whileHover={{
+              scale: 1.05,
+            }}
+            transition={{
+              duration: 0.4,
+              ease: "easeOut",
+            }}
           />
 
           {project.featured && (
@@ -104,7 +114,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
               </motion.a>
             )}
           </motion.div> */}
-        </div>
+        </motion.div>
 
         <div className="p-6">
           <h3 className="text-xl font-medium mb-3 group-hover:text-blue-500 transition-colors">
