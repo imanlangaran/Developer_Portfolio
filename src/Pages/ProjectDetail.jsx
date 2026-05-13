@@ -3,6 +3,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  // eslint-disable-next-line no-unused-vars
   motion,
   useScroll,
   useSpring,
@@ -17,48 +18,19 @@ import {
 import {
   ArrowLeft,
   ExternalLink,
-  Github,
   X,
 } from "lucide-react";
 
 import { marked } from "marked";
+import { baseUrl } from "marked-base-url";
+
 
 import { PROJECTS } from "../utils/data";
 import { useTheme } from "../context/ThemeContext";
 import NotFound from "./NotFound";
+import { getGithubReadmeUrl } from "../utils/getGithubReadmeUrl";
+import { FiGithub } from "react-icons/fi";
 
-// --------------------------------------------------
-// README URL UTILITY
-// --------------------------------------------------
-
-function getGithubReadmeUrl(repoUrl, locale = "en") {
-  if (!repoUrl) return null;
-
-  try {
-    const url = new URL(repoUrl);
-
-    // https://github.com/user/repo
-    const parts = url.pathname.split("/").filter(Boolean);
-
-    const owner = parts[0];
-    const repo = parts[1];
-
-    if (!owner || !repo) return null;
-
-    const branch = "main";
-
-    const localizedReadme = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/README.${locale}.md`;
-
-    const defaultReadme = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/README.md`;
-
-    return {
-      localizedReadme,
-      defaultReadme,
-    };
-  } catch {
-    return null;
-  }
-}
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -100,10 +72,10 @@ export default function ProjectDetail() {
       to: location.state?.from || "/",
       options: location.state?.section
         ? {
-            state: {
-              scrollTo: location.state.section,
-            },
-          }
+          state: {
+            scrollTo: location.state.section,
+          },
+        }
         : undefined,
     }),
     [location.state]
@@ -133,13 +105,13 @@ export default function ProjectDetail() {
       try {
         // 1. localized README
         let response = await fetch(
-          readmeUrls.localizedReadme
+          readmeUrls.localized
         );
 
         // 2. fallback README
         if (!response.ok) {
           response = await fetch(
-            readmeUrls.defaultReadme
+            readmeUrls.fallback
           );
         }
 
@@ -148,6 +120,26 @@ export default function ProjectDetail() {
         }
 
         const markdown = await response.text();
+
+        marked.use(
+          baseUrl(readmeUrls.base),
+          {
+            walkTokens(token) {
+              if (token.type !== 'html') return;
+
+              token.text = token.text.replace(
+                /<img\b([^>]*?)\bsrc=(["'])(.*?)\2([^>]*?)>/gi,
+                (match, before, quote, src, after) => {
+                  if (/^(https?:|data:|blob:|\/\/)/i.test(src)) {
+                    return match;
+                  }
+
+                  return `<img${before}src=${quote}${new URL(src, readmeUrls.base).href}${quote}${after}>`;
+                }
+              );
+            }
+          }
+        );
 
         const html = marked(markdown);
 
@@ -265,10 +257,9 @@ export default function ProjectDetail() {
           h-[3px]
           origin-left
           z-[10000]
-          ${
-            isDarkMode
-              ? "bg-blue-400"
-              : "bg-blue-600"
+          ${isDarkMode
+            ? "bg-blue-400"
+            : "bg-blue-600"
           }
         `}
         style={{
@@ -312,14 +303,13 @@ export default function ProjectDetail() {
           overflow-hidden
           border
           shadow-2xl
-          ${
-            isDarkMode
-              ? `
+          ${isDarkMode
+            ? `
                 bg-[#0b1120]
                 border-white/10
                 shadow-blue-500/10
               `
-              : `
+            : `
                 bg-white
                 border-black/10
                 shadow-blue-500/20
@@ -364,15 +354,14 @@ export default function ProjectDetail() {
               px-4 py-2 rounded-full
               backdrop-blur-lg border
               transition-all duration-300
-              ${
-                isDarkMode
-                  ? `
+              ${isDarkMode
+                ? `
                     bg-white/10
                     border-white/10
                     text-white
                     hover:bg-white/20
                   `
-                  : `
+                : `
                     bg-white/70
                     border-black/10
                     text-black
@@ -401,15 +390,14 @@ export default function ProjectDetail() {
               p-3 rounded-full
               backdrop-blur-lg border
               transition-all duration-300
-              ${
-                isDarkMode
-                  ? `
+              ${isDarkMode
+                ? `
                     bg-white/10
                     border-white/10
                     text-white
                     hover:bg-white/20
                   `
-                  : `
+                : `
                     bg-white/70
                     border-black/10
                     text-black
@@ -428,10 +416,9 @@ export default function ProjectDetail() {
           ref={modalContentRef}
           className={`
             h-full overflow-y-auto scroll-smooth
-            ${
-              isDarkMode
-                ? "scrollbar-dark"
-                : "scrollbar-light"
+            ${isDarkMode
+              ? "scrollbar-dark"
+              : "scrollbar-light"
             }
           `}
         >
@@ -528,30 +515,29 @@ export default function ProjectDetail() {
 
             {(project.githubUrl ||
               project.liveUrl) && (
-              <div
-                className="
+                <div
+                  className="
                   flex flex-wrap gap-4
                   mb-10
                 "
-              >
-                {project.githubUrl && (
-                  <motion.a
-                    whileHover={{
-                      y: -2,
-                      scale: 1.02,
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                    }}
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`
+                >
+                  {project.githubUrl && (
+                    <motion.a
+                      whileHover={{
+                        y: -2,
+                        scale: 1.02,
+                      }}
+                      whileTap={{
+                        scale: 0.98,
+                      }}
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`
                       inline-flex items-center gap-2
                       px-5 py-3 rounded-2xl border
                       transition-all duration-300
-                      ${
-                        isDarkMode
+                      ${isDarkMode
                           ? `
                             bg-white/5
                             border-white/10
@@ -564,28 +550,28 @@ export default function ProjectDetail() {
                             text-black
                             hover:bg-black/[0.05]
                           `
-                      }
+                        }
                     `}
-                  >
-                    <Github size={18} />
+                    >
+                      <FiGithub size={18} />
 
-                    GitHub
-                  </motion.a>
-                )}
+                      GitHub
+                    </motion.a>
+                  )}
 
-                {project.liveUrl && (
-                  <motion.a
-                    whileHover={{
-                      y: -2,
-                      scale: 1.02,
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                    }}
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="
+                  {project.liveUrl && (
+                    <motion.a
+                      whileHover={{
+                        y: -2,
+                        scale: 1.02,
+                      }}
+                      whileTap={{
+                        scale: 0.98,
+                      }}
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
                       inline-flex items-center gap-2
                       px-5 py-3 rounded-2xl
                       bg-blue-600 text-white
@@ -593,14 +579,14 @@ export default function ProjectDetail() {
                       transition-all duration-300
                       shadow-lg shadow-blue-500/20
                     "
-                  >
-                    <ExternalLink size={18} />
+                    >
+                      <ExternalLink size={18} />
 
-                    Live Preview
-                  </motion.a>
-                )}
-              </div>
-            )}
+                      Live Preview
+                    </motion.a>
+                  )}
+                </div>
+              )}
 
             {/* DESCRIPTION */}
 
@@ -620,10 +606,9 @@ export default function ProjectDetail() {
               <h2
                 className={`
                   text-2xl font-semibold mb-5
-                  ${
-                    isDarkMode
-                      ? "text-white"
-                      : "text-black"
+                  ${isDarkMode
+                    ? "text-white"
+                    : "text-black"
                   }
                 `}
               >
@@ -634,10 +619,9 @@ export default function ProjectDetail() {
                 className={`
                   leading-8
                   text-[15px] md:text-base
-                  ${
-                    isDarkMode
-                      ? "text-gray-300"
-                      : "text-gray-700"
+                  ${isDarkMode
+                    ? "text-gray-300"
+                    : "text-gray-700"
                   }
                 `}
               >
@@ -649,33 +633,31 @@ export default function ProjectDetail() {
 
             {project.techStack?.length >
               0 && (
-              <div className="mt-12">
-                <h3
-                  className={`
+                <div className="mt-12">
+                  <h3
+                    className={`
                     text-xl font-semibold mb-5
-                    ${
-                      isDarkMode
+                    ${isDarkMode
                         ? "text-white"
                         : "text-black"
-                    }
+                      }
                   `}
-                >
-                  Tech Stack
-                </h3>
+                  >
+                    Tech Stack
+                  </h3>
 
-                <div className="flex flex-wrap gap-3">
-                  {project.techStack.map(
-                    (tech) => (
-                      <motion.div
-                        key={tech}
-                        whileHover={{
-                          y: -3,
-                        }}
-                        className={`
+                  <div className="flex flex-wrap gap-3">
+                    {project.techStack.map(
+                      (tech) => (
+                        <motion.div
+                          key={tech}
+                          whileHover={{
+                            y: -3,
+                          }}
+                          className={`
                           px-4 py-2
                           rounded-full border text-sm
-                          ${
-                            isDarkMode
+                          ${isDarkMode
                               ? `
                                 bg-white/5
                                 border-white/10
@@ -686,16 +668,16 @@ export default function ProjectDetail() {
                                 border-black/10
                                 text-gray-700
                               `
-                          }
+                            }
                         `}
-                      >
-                        {tech}
-                      </motion.div>
-                    )
-                  )}
+                        >
+                          {tech}
+                        </motion.div>
+                      )
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
             {/* README */}
 
@@ -704,10 +686,9 @@ export default function ProjectDetail() {
                 <h3
                   className={`
                     text-xl font-semibold mb-6
-                    ${
-                      isDarkMode
-                        ? "text-white"
-                        : "text-black"
+                    ${isDarkMode
+                      ? "text-white"
+                      : "text-black"
                     }
                   `}
                 >
@@ -718,10 +699,9 @@ export default function ProjectDetail() {
                   <div
                     className={`
                       text-sm
-                      ${
-                        isDarkMode
-                          ? "text-gray-400"
-                          : "text-gray-600"
+                      ${isDarkMode
+                        ? "text-gray-400"
+                        : "text-gray-600"
                       }
                     `}
                   >
@@ -731,10 +711,9 @@ export default function ProjectDetail() {
                   <div
                     className={`
                       prose prose-lg max-w-none
-                      ${
-                        isDarkMode
-                          ? "prose-invert"
-                          : ""
+                      ${isDarkMode
+                        ? "prose-invert"
+                        : ""
                       }
                     `}
                     dangerouslySetInnerHTML={{
