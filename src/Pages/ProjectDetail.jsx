@@ -1,5 +1,5 @@
 // TODO: seperate this page into components
-
+// TODO: show a nav bar when detail page directrly opens
 import { useEffect, useRef } from "react";
 import {
   // eslint-disable-next-line no-unused-vars
@@ -8,12 +8,10 @@ import {
   useScroll,
   useSpring,
 } from "framer-motion";
-import { useNavigate, useParams } from "react-router-dom";
-
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Github, X } from "lucide-react";
 
 import { PROJECTS } from "../utils/data";
-
 import { useTheme } from "../context/ThemeContext";
 import NotFound from "./NotFound";
 
@@ -21,6 +19,7 @@ export default function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { isDarkMode } = useTheme();
+  const location = useLocation();
 
   const modalContentRef = useRef(null);
 
@@ -32,6 +31,13 @@ export default function ProjectDetail() {
   if (!project) {
     return <NotFound />;
   }
+
+  const navigationData = {
+    to: location.state?.from || "/",
+    options: location.state?.section
+      ? { state: { scrollTo: location.state.section } }
+      : undefined,
+  };
 
   // -----------------------------
   // Lock body scroll
@@ -52,7 +58,7 @@ export default function ProjectDetail() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
-        navigate(-1);
+        handleClick()
       }
     };
 
@@ -75,7 +81,7 @@ export default function ProjectDetail() {
     damping: 20,
   });
 
-  const handleClick = () => navigate('/', { state: { scrollTo: "work" } });
+  const handleClick = () => navigate(navigationData.to, navigationData.options);
 
   return (
     <AnimatePresence mode="wait">
