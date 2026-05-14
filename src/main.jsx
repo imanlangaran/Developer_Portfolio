@@ -1,10 +1,23 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+import "./index.css";
+
+import { ThemeProvider } from "./context/ThemeContext.jsx";
+import { LangProvider } from "./context/LangContext.jsx";
+
+import AnimatedRoutes from "./AnimatedRoutes.jsx";
+
+createRoot(document.getElementById("root")).render(
+  // TODO: get basename from vite.config.js
+  <BrowserRouter basename="/Developer_Portfolio">
+    <ThemeProvider>
+      <LangProvider>
+        <StrictMode>
+          <AnimatedRoutes />
+        </StrictMode>
+      </LangProvider>
+    </ThemeProvider>
+  </BrowserRouter>,
+);

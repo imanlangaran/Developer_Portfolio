@@ -23,6 +23,18 @@ export const itemVariants = {
 
 export const getLangFromLocalStorageOrDefault = () => localStorage.getItem('lang') || "Fa";
 
-export const setLangToLocalStorage = (lang) => lang && localStorage.setItem('lang', lang)
+export const setLangToLocalStorage = (lang) => lang && localStorage.setItem('lang', lang);
 
-export const getChangeLangDuration = (unit) => (unit === 'ms' ? 1000 : 1) * 0.4 
+export const getChangeLangDuration = (unit) => (unit === 'ms' ? 1000 : 1) * 0.4;
+
+export const scrollToSection = (sectionId, onSuccess, timeout = 0) => {
+  const element = document.getElementById(String(sectionId).toLowerCase());
+  if (element) {
+    setTimeout(() => {
+      element.scrollIntoView({ behavior: "smooth" });
+      if(typeof onSuccess === 'function'){
+        onSuccess();
+      }
+    }, timeout);
+  }
+};

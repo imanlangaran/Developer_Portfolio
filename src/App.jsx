@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ThemeProvider } from "./context/ThemeContext";
 import NavBar from "./Components/NavBar";
 import HeroSection from "./Components/Sections/HeroSection";
 import SkillsSection from "./Components/Sections/SkillsSection";
@@ -7,10 +6,10 @@ import ProjectsSection from "./Components/Sections/ProjectsSection";
 import AboutSection from "./Components/Sections/AboutSection";
 import ContactSection from "./Components/Sections/ContactSection";
 import Footer from "./Components/Sections/Footer";
-import { LangProvider } from "./context/LangContext";
 
 import LoadingScreen from "./Components/LoadingScreen";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { scrollToSection } from "./utils/helper";
 
 // List of assets to preload (images, favicon, fonts)
 const ASSETS = [
@@ -27,7 +26,7 @@ const FONT_URLS = [
 
   "https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap",
   "https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap",
-  "https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap"
+  "https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap",
 ];
 
 const TOTAL_ASSETS = ASSETS.length + FONT_URLS.length;
@@ -35,6 +34,31 @@ const TOTAL_ASSETS = ASSETS.length + FONT_URLS.length;
 const App = () => {
   const [loaded, setLoaded] = useState(0);
   const [showApp, setShowApp] = useState(false);
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!showApp) return;
+
+    const sectionId = location.state?.scrollTo; // e.g. "contact"
+    if (!sectionId) return;
+
+    // const el = document.getElementById(sectionId);
+    // if (el) {
+    //   // give layout a moment (optional but helps)
+    //   setTimeout(() => {
+    //     el.scrollIntoView({ behavior: "smooth" });
+    //     navigate(location.pathname, { state: null, replace: true });
+    //   }, 100);
+    // }
+
+    scrollToSection(
+      sectionId,
+      () => navigate(location.pathname, { state: null, replace: true }),
+      200,
+    );
+  }, [showApp, location.state]);
 
   useEffect(() => {
     let loadedCount = 0;
@@ -73,19 +97,16 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider>
-      <LangProvider>
-        <NavBar />
-        <HeroSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <AboutSection />
-        <ContactSection />
-        <Footer />
-      </LangProvider>
-    </ThemeProvider>
+    <>
+      <NavBar />
+      <HeroSection />
+      <SkillsSection />
+      <ProjectsSection />
+      <AboutSection />
+      <ContactSection />
+      <Footer />
+    </>
   );
 };
-
 
 export default App;

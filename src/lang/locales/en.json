@@ -142,5 +142,11 @@
   "project description 2": "Developed a mobile application that integrates with external movie APIs to fetch and display comprehensive movie information. The app provides users with detailed insights including summaries, ratings, cast information, and other relevant metadata through a clean and user-friendly interface.",
   
   "project title 3": "Session Summarizer",
-  "project description 3": "An AI-powered conversation analysis platform that processes recorded voice sessions, transcribes and analyzes interactions using custom system prompts, and generates structured outputs including summaries, insights, and contextual session reports."
+  "project description 3": "An AI-powered conversation analysis platform that processes recorded voice sessions, transcribes and analyzes interactions using custom system prompts, and generates structured outputs including summaries, insights, and contextual session reports.",
+  
+  "404 header": "You&apos;ve drifted off the map",
+  "404 desc": "The page you&apos;re looking for doesn&apos;t exist, was moved, or may have vanished into a parallel universe. Don&apos;t worry — there&apos;s a safe route back home.",
+  "404 Back to Home": "Back to Home",
+  "404 Report issue": "Report issue",
+  "404 Tip": "Tip: double-check the URL or use the home page to continue."
 }
