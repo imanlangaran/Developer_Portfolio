@@ -1,5 +1,4 @@
 // TODO: separate readme section
-// TODO: show a nav bar when detail page directly opens
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -228,6 +227,9 @@ export default function ProjectDetail() {
         }}
       />
 
+      {/* NAVBAR */}
+      <NavBar />
+
       {/* MODAL */}
 
       <motion.div
@@ -252,30 +254,7 @@ export default function ProjectDetail() {
           ease: "easeInOut",
         }}
         onClick={(e) => e.stopPropagation()}
-        className={`
-          relative
-          w-full
-          h-full
-          md:h-[92vh]
-          md:max-w-6xl
-          md:rounded-3xl
-          overflow-hidden
-          border
-          shadow-2xl
-          ${
-            isDarkMode
-              ? `
-                bg-[#0b1120]
-                border-white/10
-                shadow-blue-500/10
-              `
-              : `
-                bg-white
-                border-black/10
-                shadow-blue-500/20
-              `
-          }
-        `}
+        className={`relative w-full h-full mt-34 md:mt-14 md:h-[85vh] md:max-w-6xl md:rounded-3xl overflow-hidden border shadow-2xl ${isDarkMode ? `bg-[#0b1120] border-white/10 shadow-blue-500/10` : `bg-white border-black/10 shadow-blue-500/20`}`}
       >
         {/* GLOW */}
 
