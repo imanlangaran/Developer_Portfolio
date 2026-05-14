@@ -1,4 +1,4 @@
-// TODO: separate this page into components
+// TODO: separate readme section
 // TODO: show a nav bar when detail page directly opens
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -9,59 +9,30 @@ import {
   useSpring,
 } from "framer-motion";
 
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-
-import {
-  ArrowLeft,
-  ExternalLink,
-  X,
-} from "lucide-react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { marked } from "marked";
 import { baseUrl } from "marked-base-url";
-
 
 import { PROJECTS } from "../utils/data";
 import { useTheme } from "../context/ThemeContext";
 import NotFound from "./NotFound";
 import { getGithubReadmeUrl } from "../utils/getGithubReadmeUrl";
-import { FiGithub } from "react-icons/fi";
 
+import TopBar from "../Components/Page/ProjectDetail/TopBar";
+import Hero from "../Components/Page/ProjectDetail/Hero";
+import Actions from "../Components/Page/ProjectDetail/Actions";
+import Description from "../Components/Page/ProjectDetail/Description";
+import TeckStack from "../Components/Page/ProjectDetail/TeckStack";
 
 export default function ProjectDetail() {
   const { id } = useParams();
-
   const navigate = useNavigate();
-
   const location = useLocation();
-
   const { isDarkMode } = useTheme();
-
   const modalContentRef = useRef(null);
-
   const [readmeHtml, setReadmeHtml] = useState("");
-
   const [isLoadingReadme, setIsLoadingReadme] = useState(false);
-
-  // --------------------------------------------------
-  // PROJECT
-  // --------------------------------------------------
-
-  const project = PROJECTS.find(
-    (p) => p.id === parseInt(id)
-  );
-
-  // --------------------------------------------------
-  // NOT FOUND
-  // --------------------------------------------------
-
-  if (!project) {
-    return <NotFound />;
-  }
 
   // --------------------------------------------------
   // NAVIGATION DATA
@@ -72,24 +43,35 @@ export default function ProjectDetail() {
       to: location.state?.from || "/",
       options: location.state?.section
         ? {
-          state: {
-            scrollTo: location.state.section,
-          },
-        }
+            state: {
+              scrollTo: location.state.section,
+            },
+          }
         : undefined,
     }),
-    [location.state]
+    [location.state],
   );
+
+  // --------------------------------------------------
+  // PROJECT
+  // --------------------------------------------------
+
+  const project = PROJECTS.find((p) => p.id === parseInt(id));
+
+  // --------------------------------------------------
+  // NOT FOUND
+  // --------------------------------------------------
+
+  if (!project) {
+    return <NotFound />;
+  }
 
   // --------------------------------------------------
   // README URLS
   // --------------------------------------------------
 
   const readmeUrls = useMemo(() => {
-    return getGithubReadmeUrl(
-      project.githubUrl,
-      "en"
-    );
+    return getGithubReadmeUrl(project.githubUrl, "en");
   }, [project.githubUrl]);
 
   // --------------------------------------------------
@@ -104,15 +86,11 @@ export default function ProjectDetail() {
 
       try {
         // 1. localized README
-        let response = await fetch(
-          readmeUrls.localized
-        );
+        let response = await fetch(readmeUrls.localized);
 
         // 2. fallback README
         if (!response.ok) {
-          response = await fetch(
-            readmeUrls.fallback
-          );
+          response = await fetch(readmeUrls.fallback);
         }
 
         if (!response.ok) {
@@ -121,25 +99,22 @@ export default function ProjectDetail() {
 
         const markdown = await response.text();
 
-        marked.use(
-          baseUrl(readmeUrls.base),
-          {
-            walkTokens(token) {
-              if (token.type !== 'html') return;
+        marked.use(baseUrl(readmeUrls.base), {
+          walkTokens(token) {
+            if (token.type !== "html") return;
 
-              token.text = token.text.replace(
-                /<img\b([^>]*?)\bsrc=(["'])(.*?)\2([^>]*?)>/gi,
-                (match, before, quote, src, after) => {
-                  if (/^(https?:|data:|blob:|\/\/)/i.test(src)) {
-                    return match;
-                  }
-
-                  return `<img${before}src=${quote}${new URL(src, readmeUrls.base).href}${quote}${after}>`;
+            token.text = token.text.replace(
+              /<img\b([^>]*?)\bsrc=(["'])(.*?)\2([^>]*?)>/gi,
+              (match, before, quote, src, after) => {
+                if (/^(https?:|data:|blob:|\/\/)/i.test(src)) {
+                  return match;
                 }
-              );
-            }
-          }
-        );
+
+                return `<img${before}src=${quote}${new URL(src, readmeUrls.base).href}${quote}${after}>`;
+              },
+            );
+          },
+        });
 
         const html = marked(markdown);
 
@@ -165,14 +140,12 @@ export default function ProjectDetail() {
   // --------------------------------------------------
 
   useEffect(() => {
-    const originalOverflow =
-      document.body.style.overflow;
+    const originalOverflow = document.body.style.overflow;
 
     document.body.style.overflow = "hidden";
 
     return () => {
-      document.body.style.overflow =
-        originalOverflow;
+      document.body.style.overflow = originalOverflow;
     };
   }, []);
 
@@ -187,16 +160,10 @@ export default function ProjectDetail() {
       }
     };
 
-    window.addEventListener(
-      "keydown",
-      handleKeyDown
-    );
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener(
-        "keydown",
-        handleKeyDown
-      );
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
@@ -218,10 +185,7 @@ export default function ProjectDetail() {
   // --------------------------------------------------
 
   const handleClose = () => {
-    navigate(
-      navigationData.to,
-      navigationData.options
-    );
+    navigate(navigationData.to, navigationData.options);
   };
 
   // --------------------------------------------------
@@ -257,10 +221,7 @@ export default function ProjectDetail() {
           h-[3px]
           origin-left
           z-[10000]
-          ${isDarkMode
-            ? "bg-blue-400"
-            : "bg-blue-600"
-          }
+          ${isDarkMode ? "bg-blue-400" : "bg-blue-600"}
         `}
         style={{
           scaleX,
@@ -290,9 +251,7 @@ export default function ProjectDetail() {
           duration: 0.3,
           ease: "easeInOut",
         }}
-        onClick={(e) =>
-          e.stopPropagation()
-        }
+        onClick={(e) => e.stopPropagation()}
         className={`
           relative
           w-full
@@ -303,13 +262,14 @@ export default function ProjectDetail() {
           overflow-hidden
           border
           shadow-2xl
-          ${isDarkMode
-            ? `
+          ${
+            isDarkMode
+              ? `
                 bg-[#0b1120]
                 border-white/10
                 shadow-blue-500/10
               `
-            : `
+              : `
                 bg-white
                 border-black/10
                 shadow-blue-500/20
@@ -331,177 +291,18 @@ export default function ProjectDetail() {
         />
 
         {/* FLOATING CONTROLS */}
-
-        <div
-          className="
-            absolute top-4 left-4 right-4
-            z-50
-            flex items-center justify-between
-          "
-        >
-          {/* BACK */}
-
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-            }}
-            whileTap={{
-              scale: 0.95,
-            }}
-            onClick={handleClose}
-            className={`
-              flex items-center gap-2
-              px-4 py-2 rounded-full
-              backdrop-blur-lg border
-              transition-all duration-300
-              ${isDarkMode
-                ? `
-                    bg-white/10
-                    border-white/10
-                    text-white
-                    hover:bg-white/20
-                  `
-                : `
-                    bg-white/70
-                    border-black/10
-                    text-black
-                    hover:bg-white
-                  `
-              }
-            `}
-          >
-            <ArrowLeft size={18} />
-
-            Back
-          </motion.button>
-
-          {/* CLOSE */}
-
-          <motion.button
-            whileHover={{
-              rotate: 90,
-              scale: 1.08,
-            }}
-            whileTap={{
-              scale: 0.92,
-            }}
-            onClick={handleClose}
-            className={`
-              p-3 rounded-full
-              backdrop-blur-lg border
-              transition-all duration-300
-              ${isDarkMode
-                ? `
-                    bg-white/10
-                    border-white/10
-                    text-white
-                    hover:bg-white/20
-                  `
-                : `
-                    bg-white/70
-                    border-black/10
-                    text-black
-                    hover:bg-white
-                  `
-              }
-            `}
-          >
-            <X size={20} />
-          </motion.button>
-        </div>
+        <TopBar isDarkMode={isDarkMode} handleClose={handleClose} />
 
         {/* SCROLLABLE CONTENT */}
-
         <div
           ref={modalContentRef}
           className={`
             h-full overflow-y-auto scroll-smooth
-            ${isDarkMode
-              ? "scrollbar-dark"
-              : "scrollbar-light"
-            }
+            ${isDarkMode ? "scrollbar-dark" : "scrollbar-light"}
           `}
         >
           {/* HERO */}
-
-          <motion.div
-            layoutId={`project-image-${project.id}`}
-            className="
-              relative
-              w-full
-              aspect-video
-              overflow-hidden
-            "
-          >
-            <img
-              src={project.image}
-              alt={project.title}
-              className="
-                w-full h-full object-cover
-              "
-              draggable="false"
-            />
-
-            <div
-              className="
-                absolute inset-0
-                bg-gradient-to-t
-                from-black/70
-                via-black/10
-                to-transparent
-              "
-            />
-
-            <div
-              className="
-                absolute bottom-8 left-8 right-8
-              "
-            >
-              <motion.h1
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                transition={{
-                  delay: 0.15,
-                }}
-                className="
-                  text-3xl md:text-5xl
-                  font-bold
-                  text-white
-                "
-              >
-                {project.title}
-              </motion.h1>
-
-              {project.subtitle && (
-                <motion.p
-                  initial={{
-                    opacity: 0,
-                    y: 10,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  transition={{
-                    delay: 0.22,
-                  }}
-                  className="
-                    mt-3
-                    text-white/80
-                    text-base md:text-lg
-                  "
-                >
-                  {project.subtitle}
-                </motion.p>
-              )}
-            </div>
-          </motion.div>
+          <Hero id={project.id} image={project.image} title={project.title} subtitle={project.subtitle} />
 
           {/* CONTENT */}
 
@@ -512,184 +313,23 @@ export default function ProjectDetail() {
             "
           >
             {/* ACTIONS */}
-
-            {(project.githubUrl ||
-              project.liveUrl) && (
-                <div
-                  className="
-                  flex flex-wrap gap-4
-                  mb-10
-                "
-                >
-                  {project.githubUrl && (
-                    <motion.a
-                      whileHover={{
-                        y: -2,
-                        scale: 1.02,
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                      }}
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`
-                      inline-flex items-center gap-2
-                      px-5 py-3 rounded-2xl border
-                      transition-all duration-300
-                      ${isDarkMode
-                          ? `
-                            bg-white/5
-                            border-white/10
-                            text-white
-                            hover:bg-white/10
-                          `
-                          : `
-                            bg-black/[0.03]
-                            border-black/10
-                            text-black
-                            hover:bg-black/[0.05]
-                          `
-                        }
-                    `}
-                    >
-                      <FiGithub size={18} />
-
-                      GitHub
-                    </motion.a>
-                  )}
-
-                  {project.liveUrl && (
-                    <motion.a
-                      whileHover={{
-                        y: -2,
-                        scale: 1.02,
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                      }}
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="
-                      inline-flex items-center gap-2
-                      px-5 py-3 rounded-2xl
-                      bg-blue-600 text-white
-                      hover:bg-blue-500
-                      transition-all duration-300
-                      shadow-lg shadow-blue-500/20
-                    "
-                    >
-                      <ExternalLink size={18} />
-
-                      Live Preview
-                    </motion.a>
-                  )}
-                </div>
-              )}
+            {(project.githubUrl || project.liveUrl) && (
+                <Actions githubUrl={project.githubUrl} liveUrl={project.liveUrl} isDarkMode={isDarkMode} />
+            )}
 
             {/* DESCRIPTION */}
-
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: 0.2,
-              }}
-            >
-              <h2
-                className={`
-                  text-2xl font-semibold mb-5
-                  ${isDarkMode
-                    ? "text-white"
-                    : "text-black"
-                  }
-                `}
-              >
-                About Project
-              </h2>
-
-              <p
-                className={`
-                  leading-8
-                  text-[15px] md:text-base
-                  ${isDarkMode
-                    ? "text-gray-300"
-                    : "text-gray-700"
-                  }
-                `}
-              >
-                {project.description}
-              </p>
-            </motion.div>
+            <Description description={project.description} isDarkMode={isDarkMode}/>
 
             {/* TECH STACK */}
-
-            {project.techStack?.length >
-              0 && (
-                <div className="mt-12">
-                  <h3
-                    className={`
-                    text-xl font-semibold mb-5
-                    ${isDarkMode
-                        ? "text-white"
-                        : "text-black"
-                      }
-                  `}
-                  >
-                    Tech Stack
-                  </h3>
-
-                  <div className="flex flex-wrap gap-3">
-                    {project.techStack.map(
-                      (tech) => (
-                        <motion.div
-                          key={tech}
-                          whileHover={{
-                            y: -3,
-                          }}
-                          className={`
-                          px-4 py-2
-                          rounded-full border text-sm
-                          ${isDarkMode
-                              ? `
-                                bg-white/5
-                                border-white/10
-                                text-gray-200
-                              `
-                              : `
-                                bg-black/[0.03]
-                                border-black/10
-                                text-gray-700
-                              `
-                            }
-                        `}
-                        >
-                          {tech}
-                        </motion.div>
-                      )
-                    )}
-                  </div>
-                </div>
-              )}
+            {project.tags?.length > 0 && (<TeckStack techStack={project.tags}/>)}
 
             {/* README */}
-
             {project.githubUrl && (
               <div className="mt-14">
                 <h3
                   className={`
                     text-xl font-semibold mb-6
-                    ${isDarkMode
-                      ? "text-white"
-                      : "text-black"
-                    }
+                    ${isDarkMode ? "text-white" : "text-black"}
                   `}
                 >
                   README
@@ -699,10 +339,7 @@ export default function ProjectDetail() {
                   <div
                     className={`
                       text-sm
-                      ${isDarkMode
-                        ? "text-gray-400"
-                        : "text-gray-600"
-                      }
+                      ${isDarkMode ? "text-gray-400" : "text-gray-600"}
                     `}
                   >
                     Loading README...
@@ -711,10 +348,7 @@ export default function ProjectDetail() {
                   <div
                     className={`
                       prose prose-lg max-w-none
-                      ${isDarkMode
-                        ? "prose-invert"
-                        : ""
-                      }
+                      ${isDarkMode ? "prose-invert" : ""}
                     `}
                     dangerouslySetInnerHTML={{
                       __html: readmeHtml,
@@ -725,7 +359,6 @@ export default function ProjectDetail() {
             )}
 
             {/* SPACER */}
-
             <div className="h-20" />
           </div>
         </div>

@@ -27,6 +27,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
 
   return (
     <motion.div
+      layoutId={`project-card-${project.id}`}
       variants={cardVaiants}
       whileHover={{
         y: -8,
