@@ -4,34 +4,12 @@ import { ExternalLink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { FiGithub } from 'react-icons/fi';
 import PlaceHolder from './PlaceHolder';
-import PlaceHolder2 from './PlaceHolder2';
-import PlaceHolder3 from './PlaceHolder3';
-import PlaceHolder4 from './PlaceHolder4';
-import PlaceHolder5 from './PlaceHolder5';
-import PlaceHolder6 from './PlaceHolder6';
-import PlaceHolder7 from './PlaceHolder7';
-import PlaceHolder8 from './PlaceHolder8';
-import PlaceHolder9 from './PlaceHolder9';
-import PlaceHolder10 from './PlaceHolder10';
 
 
 
 
 const ProjectCard = ({ project, index, isDarkMode }) => {
   const { i18n } = useTranslation();
-
-  const placeHolders = [
-  <PlaceHolder isDarkMode={isDarkMode}/>,
-  <PlaceHolder2 isDarkMode={isDarkMode}/>,
-  <PlaceHolder3 isDarkMode={isDarkMode}/>,
-  <PlaceHolder4 isDarkMode={isDarkMode}/>,
-  <PlaceHolder5 isDarkMode={isDarkMode}/>,
-  <PlaceHolder6 isDarkMode={isDarkMode}/>,
-  <PlaceHolder7 isDarkMode={isDarkMode}/>,
-  <PlaceHolder8 isDarkMode={isDarkMode}/>,
-  <PlaceHolder9 isDarkMode={isDarkMode}/>,
-  <PlaceHolder10 isDarkMode={isDarkMode}/>,
-];
 
   const cardVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -72,8 +50,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
             />
           ) : (
             // no Image → show placeholder UI
-            // <PlaceHolder9 isDarkMode={isDarkMode}/>
-            placeHolders[index]
+            <PlaceHolder isDarkMode={isDarkMode}/>
           )}
 
           {/* Featured and Category Badges */}
