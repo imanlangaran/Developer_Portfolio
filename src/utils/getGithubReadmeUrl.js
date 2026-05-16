@@ -16,7 +16,7 @@ export function getGithubReadmeUrl(githubUrl, locale = "en") {
     const base = `https://raw.githubusercontent.com/${owner}/${cleanRepo}/HEAD/`;
 
     return {
-      localized: `${base}README.${locale}.md`,
+      localized: `${base}README-${locale.toLowerCase()}.md`,
       fallback: `${base}README.md`,
       base
     };
