@@ -236,7 +236,7 @@ export default function ProjectDetail() {
         {/* SCROLLABLE CONTENT */}
         <div
           ref={modalContentRef}
-          className={`h-full overflow-y-auto scroll-smooth ${isDarkMode ? "scrollbar-dark" : "scrollbar-light"}`}
+          className={`h-full overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-blue-500 ${isDarkMode ? "scrollbar-track-gray-950" : "scrollbar-track-gray-200"}`}
         >
 
           {/* HERO */}
