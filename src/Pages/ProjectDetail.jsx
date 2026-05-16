@@ -179,7 +179,7 @@ export default function ProjectDetail() {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-xl"
+      className="fixed inset-0 z-9999 flex items-center justify-center bg-black/60 backdrop-blur-xl"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -189,7 +189,7 @@ export default function ProjectDetail() {
 
       {/* PROGRESS BAR */}
       <motion.div
-        className={`fixed top-0 left-0 right-0 h-[3px] origin-left z-[10000] ${isDarkMode ? "bg-blue-400" : "bg-blue-600"}`}
+        className={`fixed top-0 left-0 right-0 h-3px origin-left z-10000 ${isDarkMode ? "bg-blue-400" : "bg-blue-600"}`}
         style={{ scaleX }}
       />
 
@@ -245,6 +245,7 @@ export default function ProjectDetail() {
             image={project.image}
             title={i18n.t(project.title)}
             subtitle={i18n.t(project.subtitle)}
+            isDarkMode={isDarkMode}
           />
 
           {/* CONTENT */}
