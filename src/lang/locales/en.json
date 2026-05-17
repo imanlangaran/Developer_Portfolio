@@ -150,6 +150,9 @@
   "project title 5": "3D Portfolio Website",
   "project description 5": "A modern interactive 3D portfolio website built with React and Vite, featuring smooth animations, responsive design, and immersive visual elements to showcase projects, skills, and personal information in an engaging user experience.",
 
+  "project title 6": "React Native Dental Lab",
+  "project description 6": "A modern React Native dental laboratory management application built with Expo and TypeScript, featuring accounting management, doctor and clinic record handling, multilingual support, local database integration with Drizzle ORM, and a scalable mobile-first architecture designed for efficient dental lab workflows.",
+
   "404 header": "You&apos;ve drifted off the map",
   "404 desc": "The page you&apos;re looking for doesn&apos;t exist, was moved, or may have vanished into a parallel universe. Don&apos;t worry — there&apos;s a safe route back home.",
   "404 Back to Home": "Back to Home",
