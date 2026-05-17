@@ -129,7 +129,7 @@ export const PROJECTS = [
     tags: ["Python", "FastApi", "Swagger", "MySQL"],
     githubUrl: "https://github.com/imanlangaran/SpeachToSummaryText_backend",
     featured: true,
-    category: "backend",
+    category: "Backend",
   },
   {
     id: 4,
@@ -139,7 +139,7 @@ export const PROJECTS = [
     tags: ["Python", "Telegram-Bot", "MySQL"],
     githubUrl: "https://github.com/imanlangaran/python-telegram-bot",
     featured: false,
-    category: "Telegram-Bot",
+    category: "Telegram Bot",
   }, {
     id: 5,
     title: "project title 5",
@@ -158,7 +158,7 @@ export const PROJECTS = [
     tags: ["React-Native", "Expo", "TypeScript", "Drizzle-ORM"],
     githubUrl: "https://github.com/imanlangaran/RN_DentalLabAcc",
     featured: true,
-    category: "Mobile-App",
+    category: "Mobile App",
   }
 ]
 
