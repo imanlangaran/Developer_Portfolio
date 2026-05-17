@@ -140,6 +140,16 @@ export const PROJECTS = [
     githubUrl: "https://github.com/imanlangaran/python-telegram-bot",
     featured: false,
     category: "Telegram-Bot",
+  }, {
+    id: 5,
+    title: "project title 5",
+    description: "project description 5",
+    image: false,
+    tags: ["React", "Tailwind", "Vite", "Three.js", "JavaScript"],
+    liveUrl: "https://imanlangaran.github.io/3D-portfolio-1/",
+    githubUrl: "https://github.com/imanlangaran/3D-portfolio-1",
+    featured: false,
+    category: "Frontend",
   },
 ]
 
