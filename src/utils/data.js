@@ -100,7 +100,7 @@ export const STATS = [
 
 
 export const PROJECTS = [
-    {
+  {
     id: 1,
     title: "project title 1",
     description: "project description 1",
@@ -110,14 +110,13 @@ export const PROJECTS = [
     githubUrl: "https://github.com/imanlangaran/Next_Js_Library",
     featured: true,
     category: "Full Stack",
-  },  
+  },
   {
     id: 2,
     title: "project title 2",
     description: "project description 2",
     image: PROJECT_IMG_2,
-    tags: ["React Native", "API", "Tailwind", "Expo"],
-    // liveUrl: "#",
+    tags: ["React-Native", "JavaScript", "API", "Tailwind", "Expo"],
     githubUrl: "https://github.com/imanlangaran/RN_Movie",
     featured: false,
     category: "Mobile App",
@@ -141,7 +140,7 @@ export const PROJECTS = [
     githubUrl: "https://github.com/imanlangaran/python-telegram-bot",
     featured: false,
     category: "Telegram-Bot",
-  }
+  },
 ]
 
 export const JOURNEY_STEPS = [
