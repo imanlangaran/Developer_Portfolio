@@ -150,7 +150,16 @@ export const PROJECTS = [
     githubUrl: "https://github.com/imanlangaran/3D-portfolio-1",
     featured: false,
     category: "Frontend",
-  },
+  }, {
+    id: 6,
+    title: "project title 6",
+    description: "project description 6",
+    image: false,
+    tags: ["React-Native", "Expo", "TypeScript", "Drizzle-ORM"],
+    githubUrl: "https://github.com/imanlangaran/RN_DentalLabAcc",
+    featured: true,
+    category: "Mobile-App",
+  }
 ]
 
 export const JOURNEY_STEPS = [
