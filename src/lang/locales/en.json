@@ -147,6 +147,9 @@
   "project title 4": "Telegram Product Catalog Bot",
   "project description 4": "A Telegram bot application for managing and showcasing products through an interactive chat interface. The project uses TinyDB for lightweight data storage and supports role-based access with admin and regular users. Admins can manage product information, including descriptions, images, and videos, while normal users can browse and select products directly from the bot’s product list. The system provides a simple and user-friendly way to display multimedia product catalogs inside Telegram.",
 
+  "project title 5": "3D Portfolio Website",
+  "project description 5": "A modern interactive 3D portfolio website built with React and Vite, featuring smooth animations, responsive design, and immersive visual elements to showcase projects, skills, and personal information in an engaging user experience.",
+
   "404 header": "You&apos;ve drifted off the map",
   "404 desc": "The page you&apos;re looking for doesn&apos;t exist, was moved, or may have vanished into a parallel universe. Don&apos;t worry — there&apos;s a safe route back home.",
   "404 Back to Home": "Back to Home",
