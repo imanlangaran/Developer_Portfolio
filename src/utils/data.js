@@ -132,6 +132,16 @@ export const PROJECTS = [
     featured: true,
     category: "backend",
   },
+  {
+    id: 4,
+    title: "project title 4",
+    description: "project description 4",
+    image: false,
+    tags: ["Python", "Telegram-Bot", "MySQL"],
+    githubUrl: "https://github.com/imanlangaran/python-telegram-bot",
+    featured: false,
+    category: "Telegram-Bot",
+  }
 ]
 
 export const JOURNEY_STEPS = [
