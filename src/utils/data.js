@@ -168,6 +168,15 @@ export const PROJECTS = [
     githubUrl: "https://github.com/imanlangarann/Pulse-oximeter",
     featured: false,
     category: "Embedded Systems",
+  }, {
+    id: 8,
+    title: "project title 8",
+    description: "project description 8",
+    image: false,
+    tags: ["React-Native", "Expo", "TypeScript"],
+    githubUrl: "https://github.com/imanlangaran/RN_BudgetBuddy",
+    featured: false,
+    category: "Mobile App",
   }
 ]
 

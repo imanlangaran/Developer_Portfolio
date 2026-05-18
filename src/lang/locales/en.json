@@ -159,6 +159,9 @@
   "project title 7": "Pulse Oximeter Monitoring System",
   "project description 7": "An embedded systems and IoT-based pulse oximeter project developed with Arduino and MAX30102 sensor technology to measure real-time heart rate (BPM) and blood oxygen saturation (SpO₂). The system features sensor integration through I2C communication, real-time biomedical data processing, and serial/OLED visualization for healthcare and biomedical engineering applications.",
 
+  "project title 8": "React Native Budget Buddy",
+  "project description 8": "A modern React Native budgeting and personal finance management application built with Expo, featuring expense tracking, budget management, transaction monitoring, and a clean mobile-first user interface designed to help users manage daily financial activities efficiently.",
+
   "404 header": "You&apos;ve drifted off the map",
   "404 desc": "The page you&apos;re looking for doesn&apos;t exist, was moved, or may have vanished into a parallel universe. Don&apos;t worry — there&apos;s a safe route back home.",
   "404 Back to Home": "Back to Home",
