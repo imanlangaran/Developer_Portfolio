@@ -159,6 +159,15 @@ export const PROJECTS = [
     githubUrl: "https://github.com/imanlangaran/RN_DentalLabAcc",
     featured: true,
     category: "Mobile App",
+  }, {
+    id: 7,
+    title: "project title 7",
+    description: "project description 7",
+    image: false,
+    tags: ["Arduino", "Embedded Systems", "MAX30102", "IoT"],
+    githubUrl: "https://github.com/imanlangarann/Pulse-oximeter",
+    featured: false,
+    category: "Embedded Systems",
   }
 ]
 

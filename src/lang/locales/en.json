@@ -41,6 +41,7 @@
   "Web App": "Web App",
   "Mobile App": "Mobile App",
   "Telegram Bot": "Telegram Bot",
+  "Embedded Systems": "Embedded Systems",
   "Featured": "Featured",
   "Live Demo": "Live Demo",
   "GitHub": "GitHub",
@@ -154,6 +155,9 @@
 
   "project title 6": "React Native Dental Lab",
   "project description 6": "A modern React Native dental laboratory management application built with Expo and TypeScript, featuring accounting management, doctor and clinic record handling, multilingual support, local database integration with Drizzle ORM, and a scalable mobile-first architecture designed for efficient dental lab workflows.",
+
+  "project title 7": "Pulse Oximeter Monitoring System",
+  "project description 7": "An embedded systems and IoT-based pulse oximeter project developed with Arduino and MAX30102 sensor technology to measure real-time heart rate (BPM) and blood oxygen saturation (SpO₂). The system features sensor integration through I2C communication, real-time biomedical data processing, and serial/OLED visualization for healthcare and biomedical engineering applications.",
 
   "404 header": "You&apos;ve drifted off the map",
   "404 desc": "The page you&apos;re looking for doesn&apos;t exist, was moved, or may have vanished into a parallel universe. Don&apos;t worry — there&apos;s a safe route back home.",
