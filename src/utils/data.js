@@ -13,6 +13,7 @@ import {
   Mail,
   MapPin,
   Phone,
+  Zap,
 } from 'lucide-react';
 
 import { FiGithub, FiLinkedin } from 'react-icons/fi';
@@ -223,7 +224,7 @@ export const JOURNEY_STEPS = [
   },
   {
     year: "2024",
-    title: "Senior Developer",
+    title: "Junior Developer",
     company: "DPM",
     description: "JOURNEY_STEP_5",
     description_text:
@@ -231,15 +232,16 @@ export const JOURNEY_STEPS = [
     icon: Award,
     color: "bg-pink-500",
   },
-  // {
-  //   year: "2025",
-  //   title: "Senior Developer",
-  //   company: "Present",
-  //   description:
-  //     "Currently building innovative solutions and exploring new technologies Like/",
-  //   icon: Zap,
-  //   color: "bg-cyan-500",
-  // }
+  {
+    year: "2025",
+    title: "Senior Developer",
+    company: "PART.CORP",
+    description: "JOURNEY_STEP_6",
+    description_text:
+      "Currently building innovative solutions and exploring new technologies Like/",
+    icon: Zap,
+    color: "bg-cyan-500",
+  }
 ]
 
 export const PASSIONS = [
