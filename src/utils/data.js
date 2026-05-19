@@ -13,6 +13,7 @@ import {
   Mail,
   MapPin,
   Phone,
+  Zap,
 } from 'lucide-react';
 
 import { FiGithub, FiLinkedin } from 'react-icons/fi';
@@ -98,8 +99,9 @@ export const STATS = [
 ];
 
 
+
 export const PROJECTS = [
-    {
+  {
     id: 1,
     title: "project title 1",
     description: "project description 1",
@@ -109,14 +111,13 @@ export const PROJECTS = [
     githubUrl: "https://github.com/imanlangaran/Next_Js_Library",
     featured: true,
     category: "Full Stack",
-  },  
+  },
   {
     id: 2,
     title: "project title 2",
     description: "project description 2",
     image: PROJECT_IMG_2,
-    tags: ["React Native", "API", "Tailwind", "Expo"],
-    // liveUrl: "#",
+    tags: ["React-Native", "JavaScript", "API", "Tailwind", "Expo"],
     githubUrl: "https://github.com/imanlangaran/RN_Movie",
     featured: false,
     category: "Mobile App",
@@ -125,11 +126,59 @@ export const PROJECTS = [
     id: 3,
     title: "project title 3",
     description: "project description 3",
+    image: false,
     tags: ["Python", "FastApi", "Swagger", "MySQL"],
     githubUrl: "https://github.com/imanlangaran/SpeachToSummaryText_backend",
     featured: true,
-    category: "backend",
+    category: "Backend",
   },
+  {
+    id: 4,
+    title: "project title 4",
+    description: "project description 4",
+    image: false,
+    tags: ["Python", "Telegram-Bot", "MySQL"],
+    githubUrl: "https://github.com/imanlangaran/python-telegram-bot",
+    featured: false,
+    category: "Telegram Bot",
+  }, {
+    id: 5,
+    title: "project title 5",
+    description: "project description 5",
+    image: false,
+    tags: ["React", "Tailwind", "Vite", "Three.js", "JavaScript"],
+    liveUrl: "https://imanlangaran.github.io/3D-portfolio-1/",
+    githubUrl: "https://github.com/imanlangaran/3D-portfolio-1",
+    featured: false,
+    category: "Frontend",
+  }, {
+    id: 6,
+    title: "project title 6",
+    description: "project description 6",
+    image: false,
+    tags: ["React-Native", "Expo", "TypeScript", "Drizzle-ORM"],
+    githubUrl: "https://github.com/imanlangaran/RN_DentalLabAcc",
+    featured: true,
+    category: "Mobile App",
+  }, {
+    id: 7,
+    title: "project title 7",
+    description: "project description 7",
+    image: false,
+    tags: ["Arduino", "Embedded Systems", "MAX30102", "IoT"],
+    githubUrl: "https://github.com/imanlangarann/Pulse-oximeter",
+    featured: false,
+    category: "Embedded Systems",
+  }, {
+    id: 8,
+    title: "project title 8",
+    description: "project description 8",
+    image: false,
+    tags: ["React-Native", "Expo", "TypeScript"],
+    githubUrl: "https://github.com/imanlangaran/RN_BudgetBuddy",
+    featured: false,
+    category: "Mobile App",
+  }
 ]
 
 export const JOURNEY_STEPS = [
@@ -175,7 +224,7 @@ export const JOURNEY_STEPS = [
   },
   {
     year: "2024",
-    title: "Senior Developer",
+    title: "Junior Developer",
     company: "DPM",
     description: "JOURNEY_STEP_5",
     description_text:
@@ -183,15 +232,16 @@ export const JOURNEY_STEPS = [
     icon: Award,
     color: "bg-pink-500",
   },
-  // {
-  //   year: "2025",
-  //   title: "Senior Developer",
-  //   company: "Present",
-  //   description:
-  //     "Currently building innovative solutions and exploring new technologies Like/",
-  //   icon: Zap,
-  //   color: "bg-cyan-500",
-  // }
+  {
+    year: "2025",
+    title: "Senior Developer",
+    company: "PART.CORP",
+    description: "JOURNEY_STEP_6",
+    description_text:
+      "Currently building innovative solutions and exploring new technologies Like/",
+    icon: Zap,
+    color: "bg-cyan-500",
+  }
 ]
 
 export const PASSIONS = [

@@ -97,6 +97,7 @@ const App = () => {
   }
 
   return (
+    // <div className={`scroll-smooth scrollbar-thin scrollbar-thumb-blue-500 ${isDarkMode ? "scrollbar-track-gray-950" : "scrollbar-track-gray-200"}`}>
     <>
       <NavBar />
       <HeroSection />

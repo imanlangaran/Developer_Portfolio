@@ -20,6 +20,7 @@ import Actions from "../Components/Page/ProjectDetail/Actions";
 import Description from "../Components/Page/ProjectDetail/Description";
 import TeckStack from "../Components/Page/ProjectDetail/TeckStack";
 import NavBar from "../Components/NavBar";
+import { useTranslation } from "react-i18next";
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -29,6 +30,7 @@ export default function ProjectDetail() {
   const modalContentRef = useRef(null);
   const [readmeHtml, setReadmeHtml] = useState("");
   const [isLoadingReadme, setIsLoadingReadme] = useState(false);
+  const { i18n } = useTranslation();
 
   // --------------------------------------------------
   // NAVIGATION DATA
@@ -63,7 +65,7 @@ export default function ProjectDetail() {
   // README URLS
   // --------------------------------------------------
   const readmeUrls = useMemo(() => {
-    return getGithubReadmeUrl(project.githubUrl, "en");
+    return getGithubReadmeUrl(project.githubUrl, i18n.language);
   }, [project.githubUrl]);
 
   // --------------------------------------------------
@@ -177,7 +179,7 @@ export default function ProjectDetail() {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-xl"
+      className="fixed inset-0 z-9999 flex items-center justify-center bg-black/60 backdrop-blur-xl"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -187,7 +189,7 @@ export default function ProjectDetail() {
 
       {/* PROGRESS BAR */}
       <motion.div
-        className={`fixed top-0 left-0 right-0 h-[3px] origin-left z-[10000] ${isDarkMode ? "bg-blue-400" : "bg-blue-600"}`}
+        className={`fixed top-0 left-0 right-0 h-3px origin-left z-10000 ${isDarkMode ? "bg-blue-400" : "bg-blue-600"}`}
         style={{ scaleX }}
       />
 
@@ -217,7 +219,7 @@ export default function ProjectDetail() {
           ease: "easeInOut",
         }}
         onClick={(e) => e.stopPropagation()}
-        className={`relative w-full h-full mt-34 md:mt-14 md:h-[85vh] md:max-w-6xl md:rounded-3xl overflow-hidden border shadow-2xl ${isDarkMode ? `bg-[#0b1120] border-white/10 shadow-blue-500/10` : `bg-white border-black/10 shadow-blue-500/20`}`}
+        className={`relative w-full h-full mt-34 md:mt-14 md:h-[85vh] md:max-w-6xl md:rounded-3xl overflow-hidden border shadow-2xl ${isDarkMode ? `bg-gray-900 border-white/10 shadow-blue-500/10` : `bg-gray-50 border-black/10 shadow-blue-500/20`}`}
       >
 
         {/* GLOW */}
@@ -234,15 +236,16 @@ export default function ProjectDetail() {
         {/* SCROLLABLE CONTENT */}
         <div
           ref={modalContentRef}
-          className={`h-full overflow-y-auto scroll-smooth ${isDarkMode ? "scrollbar-dark" : "scrollbar-light"}`}
+          className={`h-full overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-blue-500 ${isDarkMode ? "scrollbar-track-gray-950" : "scrollbar-track-gray-200"}`}
         >
 
           {/* HERO */}
           <Hero
             id={project.id}
             image={project.image}
-            title={project.title}
-            subtitle={project.subtitle}
+            title={i18n.t(project.title)}
+            subtitle={i18n.t(project.subtitle)}
+            isDarkMode={isDarkMode}
           />
 
           {/* CONTENT */}
@@ -261,7 +264,7 @@ export default function ProjectDetail() {
 
             {/* DESCRIPTION */}
             <Description
-              description={project.description}
+              description={i18n.t(project.description)}
               isDarkMode={isDarkMode}
             />
 
