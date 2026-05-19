@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { useTheme } from "../context/ThemeContext";
@@ -27,6 +27,11 @@ export default function ProjectDetail() {
   const { i18n } = useTranslation();
 
   // --------------------------------------------------
+  // PROJECT
+  // --------------------------------------------------
+  const project = PROJECTS.find((p) => p.id === parseInt(id));
+
+  // --------------------------------------------------
   // NAVIGATION DATA
   // --------------------------------------------------
   const navigationData = useMemo(
@@ -44,22 +49,19 @@ export default function ProjectDetail() {
   );
 
   // --------------------------------------------------
-  // PROJECT
+  // README
   // --------------------------------------------------
-  const project = PROJECTS.find((p) => p.id === parseInt(id));
+  const { readmeHtml, isLoading: isLoadingReadme } = useProjectReadme(
+    project?.githubUrl,
+    i18n.language,
+  );
 
   // --------------------------------------------------
-  // NOT FOUND
+  // HANDLERS
   // --------------------------------------------------
-  if (!project) {
-    return <NotFound />;
-  }
-
-  const {
-    readmeHtml,
-    isLoading: isLoadingReadme,
-    error: readmeError,
-  } = useProjectReadme(project?.githubUrl, i18n.language);
+  const handleClose = useCallback(() => {
+    navigate(navigationData.to, navigationData.options);
+  }, [navigate, navigationData]);
 
   // --------------------------------------------------
   // LOCK BODY SCROLL
@@ -89,7 +91,7 @@ export default function ProjectDetail() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [handleClose]);
 
   // --------------------------------------------------
   // SCROLL PROGRESS
@@ -104,11 +106,11 @@ export default function ProjectDetail() {
   });
 
   // --------------------------------------------------
-  // HANDLERS
+  // NOT FOUND
   // --------------------------------------------------
-  const handleClose = () => {
-    navigate(navigationData.to, navigationData.options);
-  };
+  if (!project) {
+    return <NotFound />;
+  }
 
   return (
     <motion.div
@@ -121,7 +123,9 @@ export default function ProjectDetail() {
     >
       {/* PROGRESS BAR */}
       <motion.div
-        className={`fixed top-0 left-0 right-0 h-3px origin-left z-10000 ${isDarkMode ? "bg-blue-400" : "bg-blue-600"}`}
+        className={`fixed top-0 left-0 right-0 h-3px origin-left z-10000 ${
+          isDarkMode ? "bg-blue-400" : "bg-blue-600"
+        }`}
         style={{ scaleX }}
       />
 
@@ -151,7 +155,11 @@ export default function ProjectDetail() {
           ease: "easeInOut",
         }}
         onClick={(e) => e.stopPropagation()}
-        className={`relative w-full h-full mt-34 md:mt-14 md:h-[85vh] md:max-w-6xl md:rounded-3xl overflow-hidden border shadow-2xl ${isDarkMode ? `bg-gray-900 border-white/10 shadow-blue-500/10` : `bg-gray-50 border-black/10 shadow-blue-500/20`}`}
+        className={`relative w-full h-full mt-34 md:mt-14 md:h-[85vh] md:max-w-6xl md:rounded-3xl overflow-hidden border shadow-2xl ${
+          isDarkMode
+            ? "bg-gray-900 border-white/10 shadow-blue-500/10"
+            : "bg-gray-50 border-black/10 shadow-blue-500/20"
+        }`}
       >
         {/* GLOW */}
         <div
@@ -168,7 +176,9 @@ export default function ProjectDetail() {
         {/* SCROLLABLE CONTENT */}
         <div
           ref={modalContentRef}
-          className={`h-full overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-blue-500 ${isDarkMode ? "scrollbar-track-gray-950" : "scrollbar-track-gray-200"}`}
+          className={`h-full overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-blue-500 ${
+            isDarkMode ? "scrollbar-track-gray-950" : "scrollbar-track-gray-200"
+          }`}
         >
           {/* HERO */}
           <Hero
@@ -203,20 +213,26 @@ export default function ProjectDetail() {
             {project.githubUrl && (
               <div className="mt-14">
                 <h3
-                  className={`text-xl font-semibold mb-6 ${isDarkMode ? "text-white" : "text-black"}`}
+                  className={`text-xl font-semibold mb-6 ${
+                    isDarkMode ? "text-white" : "text-black"
+                  }`}
                 >
                   README
                 </h3>
 
                 {isLoadingReadme ? (
                   <div
-                    className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
+                    className={`text-sm ${
+                      isDarkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
                   >
                     Loading README...
                   </div>
                 ) : (
                   <div
-                    className={`prose prose-lg max-w-none ${isDarkMode ? "prose-invert" : ""}`}
+                    className={`prose prose-lg max-w-none ${
+                      isDarkMode ? "prose-invert" : ""
+                    }`}
                     dangerouslySetInnerHTML={{ __html: readmeHtml }}
                   />
                 )}
