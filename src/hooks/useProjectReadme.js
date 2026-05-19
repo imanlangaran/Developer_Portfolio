@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { marked } from "marked";
+import { Marked } from "marked";
 import { baseUrl } from "marked-base-url";
 
 import { getGithubReadmeUrl } from "../utils/getGithubReadmeUrl";
@@ -9,6 +9,9 @@ export default function useProjectReadme(githubUrl, language) {
   const [readmeHtml, setReadmeHtml] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const parser = new Marked();
+
+
 
   // --------------------------------------------------
   // README URLS
@@ -18,6 +21,28 @@ export default function useProjectReadme(githubUrl, language) {
 
     return getGithubReadmeUrl(githubUrl, language);
   }, [githubUrl, language]);
+
+  parser.use(baseUrl(readmeUrls.base), {
+    walkTokens(token) {
+      if (token.type !== "html") return;
+
+      token.text = token.text.replace(
+        /<img\b([^>]*?)\bsrc=(["'])(.*?)\2([^>]*?)>/gi,
+        (match, before, quote, src, after) => {
+          if (/^(https?:|data:|blob:|\/\/)/i.test(src)) {
+            return match;
+          }
+
+          return `<img${before}src=${quote}${new URL(src, readmeUrls.base).href}${quote}${after}>`;
+        },
+      );
+    },
+  });
+
+  parser.setOptions({
+    gfm: true,
+    breaks: true
+  })
 
   // --------------------------------------------------
   // FETCH README
@@ -50,24 +75,8 @@ export default function useProjectReadme(githubUrl, language) {
 
         const markdown = await response.text();
 
-        marked.use(baseUrl(readmeUrls.base), {
-          walkTokens(token) {
-            if (token.type !== "html") return;
 
-            token.text = token.text.replace(
-              /<img\b([^>]*?)\bsrc=(["'])(.*?)\2([^>]*?)>/gi,
-              (match, before, quote, src, after) => {
-                if (/^(https?:|data:|blob:|\/\/)/i.test(src)) {
-                  return match;
-                }
-
-                return `<img${before}src=${quote}${new URL(src, readmeUrls.base).href}${quote}${after}>`;
-              },
-            );
-          },
-        });
-
-        const html = marked(markdown);
+        const html = parser.parse(markdown);
 
         setReadmeHtml(html);
       } catch (err) {

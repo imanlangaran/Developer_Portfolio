@@ -207,7 +207,9 @@ export default function ProjectDetail() {
             />
 
             {/* TECH STACK */}
-            {project.tags?.length > 0 && <TeckStack techStack={project.tags} />}
+            {project.tags?.length > 0 && (
+              <TeckStack techStack={project.tags} isDarkMode={isDarkMode} />
+            )}
 
             {/* README */}
             {project.githubUrl && (
@@ -230,9 +232,11 @@ export default function ProjectDetail() {
                   </div>
                 ) : (
                   <div
-                    className={`prose prose-lg max-w-none ${
-                      isDarkMode ? "prose-invert" : ""
-                    }`}
+                    key={isDarkMode ? "dark" : "light"}
+                    // className={`prose prose-lg max-w-none transition-colors duration-300 ${
+                    //   isDarkMode ? "prose-invert text-white" : "text-black"
+                    // }`}
+                    className="markdown-body"
                     dangerouslySetInnerHTML={{ __html: readmeHtml }}
                   />
                 )}
