@@ -237,6 +237,7 @@ export default function ProjectDetail() {
                     //   isDarkMode ? "prose-invert text-white" : "text-black"
                     // }`}
                     className="markdown-body"
+                    style={{"--bgColor-default": "transparent"}}
                     dangerouslySetInnerHTML={{ __html: readmeHtml }}
                   />
                 )}
