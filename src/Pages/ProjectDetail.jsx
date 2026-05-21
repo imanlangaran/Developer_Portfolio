@@ -123,7 +123,7 @@ export default function ProjectDetail() {
     >
       {/* PROGRESS BAR */}
       <motion.div
-        className={`fixed top-0 left-0 right-0 h-3px origin-left z-10000 ${
+        className={`fixed top-0 left-0 right-0 h-0.5 origin-left z-10000 ${
           isDarkMode ? "bg-blue-400" : "bg-blue-600"
         }`}
         style={{ scaleX }}
