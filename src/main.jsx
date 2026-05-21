@@ -9,8 +9,9 @@ import { LangProvider } from "./context/LangContext.jsx";
 
 import AnimatedRoutes from "./AnimatedRoutes.jsx";
 
-import "github-markdown-css/github-markdown.css";
-
+// import "github-markdown-css/github-markdown.css";
+import "github-markdown-css/github-markdown-light.css";
+import "github-markdown-css/github-markdown-dark.css";
 
 createRoot(document.getElementById("root")).render(
   // TODO: get basename from vite.config.js

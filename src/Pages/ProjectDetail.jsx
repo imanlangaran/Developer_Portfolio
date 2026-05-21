@@ -236,8 +236,11 @@ export default function ProjectDetail() {
                     // className={`prose prose-lg max-w-none transition-colors duration-300 ${
                     //   isDarkMode ? "prose-invert text-white" : "text-black"
                     // }`}
-                    className="markdown-body"
-                    style={{"--bgColor-default": "transparent"}}
+                    className={`markdown-body ${isDarkMode ? "markdown-body-dark text-white" : "markdown-body-light text-black"}`}
+                    style={{
+                      backgroundColor: "transparent",
+                      color: isDarkMode ? "light" : "black",
+                    }}
                     dangerouslySetInnerHTML={{ __html: readmeHtml }}
                   />
                 )}
