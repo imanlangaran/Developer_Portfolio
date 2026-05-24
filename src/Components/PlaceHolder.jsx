@@ -7,6 +7,7 @@ import {
   Globe,
   Layers3,
 } from 'lucide-react';
+import { useIsMd } from '../hooks/useIsMd';
 
 const floatingIcons = [
   { Icon: Database, x: '10%', y: '20%', delay: 0 },
@@ -20,6 +21,8 @@ export default function PlaceHolder({ isDarkMode, isFullSize = false }) {
 
   const floatingParticleScale = isFullSize ? 20 : 2;
   const floatingIconSize = isFullSize ? 56 : 28;
+
+  const isMd = useIsMd();
 
   return (
     <div
@@ -109,7 +112,7 @@ export default function PlaceHolder({ isDarkMode, isFullSize = false }) {
             <div
               className={`h-2 rounded animate-pulse delay-300 ${isDarkMode ? 'bg-gray-500/50' : 'bg-gray-400/60'} w-2/3`}
             />
-            {isFullSize && (
+            {isFullSize && isMd && (
               <>
                 <div
                   className={`h-2 rounded animate-pulse ${isDarkMode ? 'bg-blue-400/70' : 'bg-blue-500/60'} w-3/4`}
