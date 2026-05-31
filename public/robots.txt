@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /Developer_Portfolio/
+Disallow: /Developer_Portfolio/node_modules/
+
+User-agent: Googlebot
+Allow: /Developer_Portfolio/
+
+Sitemap: https://imanlangaran.github.io/Developer_Portfolio/sitemap.xml
