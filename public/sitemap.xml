@@ -7,36 +7,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://imanlangaran.github.io/Developer_Portfolio/#home</loc>
-    <lastmod>2025-05-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://imanlangaran.github.io/Developer_Portfolio/#skills</loc>
-    <lastmod>2025-05-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://imanlangaran.github.io/Developer_Portfolio/#work</loc>
-    <lastmod>2025-05-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://imanlangaran.github.io/Developer_Portfolio/#about</loc>
-    <lastmod>2025-05-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://imanlangaran.github.io/Developer_Portfolio/#contact</loc>
-    <lastmod>2025-05-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://imanlangaran.github.io/Developer_Portfolio/project/1</loc>
     <lastmod>2025-05-31</lastmod>
     <changefreq>monthly</changefreq>

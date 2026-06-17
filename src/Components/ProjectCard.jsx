@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { FiGithub } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import PlaceHolder from './PlaceHolder';
+import PlaceHolder from "./PlaceHolder";
 
 const ProjectCard = ({ project, index, isDarkMode }) => {
   const { i18n } = useTranslation();
@@ -36,12 +36,15 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
       }}
       className="group relative cursor-pointer"
       onClick={() => handleClick()}
+      role="article"
+      aria-label={`Project: ${project.title}`}
     >
       <div
-        className={`rounded-2xl overflow-hidden border transition-all duration-500 ${isDarkMode
+        className={`rounded-2xl overflow-hidden border transition-all duration-500 ${
+          isDarkMode
             ? "bg-gray-900/50 border-gray-800 hover:border-gray-700 hover:shadow-2xl hover:shadow-blue-500/10"
             : "bg-white/80 border-gray-200 hover:border-gray-300 hover:shadow-2xl hover:shadow-blue-500/10"
-          } backdrop-blur-sm`}
+        } backdrop-blur-sm`}
       >
         <motion.div
           layoutId={`project-image-${project.id}`}
@@ -61,6 +64,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
                 duration: 0.4,
                 ease: "easeOut",
               }}
+              title={project.title}
             />
           ) : (
             // no Image → show placeholder UI
@@ -78,10 +82,11 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
 
           <div className="absolute top-4 right-4">
             <span
-              className={`text-xs px-3 py-1 rounded-full font-medium ${isDarkMode
+              className={`text-xs px-3 py-1 rounded-full font-medium ${
+                isDarkMode
                   ? "bg-gray-800/80 text-gray-300"
                   : "bg-white/80 text-gray-700"
-                } backdrop-blur-sm`}
+              } backdrop-blur-sm`}
             >
               {i18n.t(project.category)}
             </span>
@@ -130,8 +135,9 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
             {i18n.t(project.title)}
           </h3>
           <p
-            className={` text-sm leading-relaxed mb-4 ${isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+            className={` text-sm leading-relaxed mb-4 ${
+              isDarkMode ? "text-gray-400" : "text-gray-600"
+            }`}
           >
             {i18n.t(project.description)}
           </p>
@@ -140,10 +146,11 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
             {project.tags.map((tag, i) => (
               <span
                 key={i}
-                className={`text-xs px-3 py-1 rounded-full ${isDarkMode
+                className={`text-xs px-3 py-1 rounded-full ${
+                  isDarkMode
                     ? "bg-gray-800 text-gray-300"
                     : "bg-gray-100 text-gray-700"
-                  }`}
+                }`}
               >
                 {tag}
               </span>
