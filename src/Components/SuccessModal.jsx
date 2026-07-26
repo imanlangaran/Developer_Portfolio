@@ -9,7 +9,7 @@ const SuccessModal = ({
   isDarkMode,
   isSuccesseded,
 }) => {
-  const { i18n } = useTranslation('contact');
+  const { t, i18n } = useTranslation('contact');
 
   return (
     <AnimatePresence>
@@ -63,7 +63,7 @@ const SuccessModal = ({
               transition={{ delay: 0.3 }}
               className="text-2xl font-medium mb-2"
             >
-              {i18n.t(isSuccesseded ? "Message Sent" : "Message Not Sent")}!
+              {t(isSuccesseded ? "Message Sent" : "Message Not Sent")}!
             </motion.h3>
 
             <motion.p
@@ -75,7 +75,7 @@ const SuccessModal = ({
               } mb-6`}
             >
               {/* Tank you for reaching out! I'll get back to you within 24 hours. */}
-              {i18n.t(
+              {t(
                 isSuccesseded
                   ? "Message Sent subtitle"
                   : "Message Not Sent subtitle"

@@ -24,7 +24,7 @@ export default function ProjectDetail() {
   const location = useLocation();
   const { isDarkMode } = useTheme();
   const modalContentRef = useRef(null);
-  const { i18n } = useTranslation('projects');
+  const { t, i18n } = useTranslation('projects');
 
   // --------------------------------------------------
   // PROJECT
@@ -111,8 +111,8 @@ export default function ProjectDetail() {
   useEffect(() => {
     if (!project) return;
 
-    const projectTitle = i18n.t(project.title);
-    const projectDescription = i18n.t(project.description);
+    const projectTitle = t(project.title);
+    const projectDescription = t(project.description);
     const pageTitle = `${projectTitle} | Iman Langaran Portfolio`;
     const pageDescription = `${projectDescription}. Built with ${project.tags?.join(", ")}. View the source code on GitHub and live demo.`;
 
@@ -256,8 +256,8 @@ export default function ProjectDetail() {
           <Hero
             id={project.id}
             image={project.image}
-            title={i18n.t(project.title)}
-            subtitle={i18n.t(project.subtitle)}
+            title={t(project.title)}
+            subtitle={t(project.subtitle)}
             isDarkMode={isDarkMode}
           />
 
@@ -274,7 +274,7 @@ export default function ProjectDetail() {
 
             {/* DESCRIPTION */}
             <Description
-              description={i18n.t(project.description)}
+              description={t(project.description)}
               isDarkMode={isDarkMode}
             />
 

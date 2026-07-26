@@ -25,7 +25,7 @@ const Footer = () => {
   const { scrollYProgress } = useScroll();
   const scrollY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
-  const { i18n } = useTranslation('footer');
+  const { t, i18n } = useTranslation('footer');
   const { lang } = useLang();
 
   // define social links ??
@@ -139,7 +139,7 @@ const Footer = () => {
                     </motion.div>
                     <span>
                       {/* Iman Langaran */}
-                      {i18n.t("my name")}
+                      {t("my name")}
                     </span>
                   </motion.div>
 
@@ -150,7 +150,7 @@ const Footer = () => {
                     } max-w-md mx-auto`}
                   >
                     {/* Crafting digital Experiences with passion, presision, and touch of magic. */}
-                    {i18n.t("footer subtitle")}
+                    {t("footer subtitle")}
                   </motion.p>
                 </motion.div>
 
@@ -230,7 +230,7 @@ const Footer = () => {
                     }`}
                   >
                     {/* Built with React & Framer Motion • Designed with care */}
-                    {i18n.t("build with")}
+                    {t("build with")}
                   </p>
                 </motion.div>
 
@@ -256,7 +256,7 @@ const Footer = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <ArrowUp size={16} />
-                    <span>{i18n.t("Back to top")}</span>
+                    <span>{t("Back to top")}</span>
                   </motion.button>
                 </motion.div>
               </motion.div>

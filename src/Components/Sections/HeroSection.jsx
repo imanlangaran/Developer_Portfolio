@@ -22,7 +22,7 @@ const PROFILE_PIC = "https://avatars.githubusercontent.com/imanlangaran";
 
 const HeroSection = () => {
   const { isDarkMode } = useTheme();
-  const { i18n } = useTranslation('hero');
+  const { t, i18n } = useTranslation('hero');
   const { lang } = useLang();
 
   const { scrollY } = useScroll();
@@ -154,7 +154,7 @@ const HeroSection = () => {
                     i18n.language === "En" ? "tracking-widest" : ""
                   } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
                 >
-                  {i18n.t("Full‑Stack Web Developer")}
+                  {t("Full‑Stack Web Developer")}
                 </motion.div>
 
                 <motion.h1
@@ -197,7 +197,7 @@ const HeroSection = () => {
                       <span
                         className={`${isDarkMode ? "text-white" : "text-gray-900"}`}
                       >
-                        {i18n.t("Engineering")}
+                        {t("Engineering")}
                       </span>
                       <br />
                       <span
@@ -208,7 +208,7 @@ const HeroSection = () => {
                           textShadow: "0 4px 24px rgba(0, 168, 255, 0.25)",
                         }}
                       >
-                        {i18n.t("Experiences")},
+                        {t("Experiences")},
                       </span>
                       <br />
                       <span
@@ -218,7 +218,7 @@ const HeroSection = () => {
                           i18n.language === "En" ? "tracking-tight" : ""
                         }`}
                       >
-                        {i18n.t("Not Just Apps")}
+                        {t("Not Just Apps")}
                       </span>
                     </>
                   )}
@@ -231,7 +231,7 @@ const HeroSection = () => {
                   } mb-8 max-w-xl mx-auto font-light leading-relaxed`}
                 >
                   {/* I develop scalable web and mobile apps that blend practical features, clean code, and modern technologies—crafted for real users. */}
-                  {i18n.t("hero subtitle")}
+                  {t("hero subtitle")}
                 </motion.p>
 
                 <motion.div
@@ -250,7 +250,7 @@ const HeroSection = () => {
                       i18n.language === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
-                    {i18n.t("Resume")}
+                    {t("Resume")}
                   </motion.a>
                   {/* <motion.button
                     whileHover={{ y: -2 }}
@@ -260,7 +260,7 @@ const HeroSection = () => {
                       i18n.language === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
-                    {i18n.t("View Work")}
+                    {t("View Work")}
                   </motion.button> */}
                   <motion.button
                     whileHover={{ y: -2 }}
@@ -274,7 +274,7 @@ const HeroSection = () => {
                       i18n.language === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
-                    {i18n.t("Get In Touch")}
+                    {t("Get In Touch")}
                   </motion.button>
                 </motion.div>
 
@@ -383,7 +383,7 @@ const HeroSection = () => {
                     i18n.language === "En" ? "tracking-widest" : ""
                   } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-6`}
                 >
-                  {i18n.t("Full‑Stack Web Developer")}
+                  {t("Full‑Stack Web Developer")}
                 </motion.div>
                 <motion.h1
                   variants={itemVariants}
@@ -394,7 +394,7 @@ const HeroSection = () => {
                       isDarkMode ? "text-white" : "text-gray-900"
                     } ${i18n.language === "En" ? "tracking-tight" : ""}`}
                   >
-                    {i18n.t("Engineering")}
+                    {t("Engineering")}
                   </span>
                   <br />
                   <span
@@ -405,7 +405,7 @@ const HeroSection = () => {
                     // className='text-blue-500 font-medium'
                     style={{ textShadow: "0 4px 24px rgba(0, 168, 255, 0.25)" }}
                   >
-                    {i18n.t("Experiences")} ,
+                    {t("Experiences")} ,
                   </span>
                   <br />
                   <span
@@ -415,7 +415,7 @@ const HeroSection = () => {
                       i18n.language === "En" ? "tracking-tight" : ""
                     }`}
                   >
-                    {i18n.t("Not Just Apps")}
+                    {t("Not Just Apps")}
                   </span>
                 </motion.h1>
 
@@ -426,7 +426,7 @@ const HeroSection = () => {
                   } mb-12 font-light leading-relaxed max-w-lg`}
                 >
                   {/* I develop scalable web and mobile apps that blend practical features, clean code, and modern technologies—crafted for real users. */}
-                  {i18n.t("hero subtitle")}
+                  {t("hero subtitle")}
                 </motion.p>
 
                 <motion.div variants={itemVariants} className="flex gap-6 mb-8">
@@ -442,7 +442,7 @@ const HeroSection = () => {
                       i18n.language === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
-                    {i18n.t("Resume")}
+                    {t("Resume")}
                   </motion.a>
                   {/* <motion.button
                     whileHover={{ y: -2 }}
@@ -452,7 +452,7 @@ const HeroSection = () => {
                       i18n.language === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
-                    {i18n.t("View Work")}
+                    {t("View Work")}
                   </motion.button> */}
                   <motion.button
                     whileHover={{ y: -2 }}
@@ -466,7 +466,7 @@ const HeroSection = () => {
                       i18n.language === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
-                    {i18n.t("Get In Touch")}
+                    {t("Get In Touch")}
                   </motion.button>
                 </motion.div>
 

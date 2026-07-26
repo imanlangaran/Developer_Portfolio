@@ -45,7 +45,7 @@ const ContactSection = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
-  const { i18n } = useTranslation('contact');
+  const { t, i18n } = useTranslation('contact');
   const { lang } = useLang();
 
   const handleInputChange = (key, value) => {
@@ -95,7 +95,7 @@ const ContactSection = () => {
     navigator.clipboard
       .writeText(copyText)
       .then(() => {
-        alert(i18n.t(successMessage));
+        alert(t(successMessage));
       })
       .catch((err) => {
         console.error("Failed to copy: ", err);
@@ -155,7 +155,7 @@ const ContactSection = () => {
                   i18n.language === "En" ? "tracking-widest" : ""
                 } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
               >
-                {i18n.t("Let's Connect")}
+                {t("Let's Connect")}
               </motion.div>
 
               <motion.h2
@@ -182,7 +182,7 @@ const ContactSection = () => {
                 }`}
               >
                 {/* Ready to start your next project? Let's discuss how we can bring your ideas to life. */}
-                {i18n.t("contact subtitle")}
+                {t("contact subtitle")}
               </motion.p>
             </motion.div>
 
@@ -202,7 +202,7 @@ const ContactSection = () => {
                   }`}
                 >
                   <h3 className="text-2xl font-medium mb-8">
-                    {i18n.t("Send me a message")}
+                    {t("Send me a message")}
                   </h3>
 
                   <form ref={formRef} className="space-y-6">
@@ -214,12 +214,12 @@ const ContactSection = () => {
                         handleInputChange={(text) =>
                           handleInputChange("name", text)
                         }
-                        label={i18n.t("Your Name")}
+                        label={t("Your Name")}
                       />
 
                       <TextInput
                         isDarkMode={isDarkMode}
-                        label={i18n.t("Email Address")}
+                        label={t("Email Address")}
                         value={formData.email}
                         id="email"
                         handleInputChange={(text) =>
@@ -230,7 +230,7 @@ const ContactSection = () => {
 
                     <TextInput
                       isDarkMode={isDarkMode}
-                      label={i18n.t("Your Message")}
+                      label={t("Your Message")}
                       value={formData.message}
                       id="message"
                       textarea
@@ -274,12 +274,12 @@ const ContactSection = () => {
                             }}
                             className="w-4 h-4 border-white border-t-transparent rounded-full"
                           />
-                          <span>{i18n.t("Sending")}...</span>
+                          <span>{t("Sending")}...</span>
                         </>
                       ) : (
                         <>
                           <Send size={18} />
-                          <span>{i18n.t("Send Message")}</span>
+                          <span>{t("Send Message")}</span>
                         </>
                       )}
                     </motion.button>
@@ -297,7 +297,7 @@ const ContactSection = () => {
                 {/* contact Informations */}
                 <motion.div variants={itemVariants}>
                   <h3 className="text-2xl font-medium mb-6">
-                    {i18n.t("Contact Information")}
+                    {t("Contact Information")}
                   </h3>
                   <div className="space-y-4">
                     {/* {CONTACT_INFO.map((info) => (
@@ -312,7 +312,7 @@ const ContactSection = () => {
                         } transition-all duration-300`}
                         onClick={() => {
                           navigator.clipboard
-                            .writeText(i18n.t(info.value))
+                            .writeText(t(info.value))
                             .then(() => {
                               alert("Copied to clipboard!");
                             })
@@ -334,13 +334,13 @@ const ContactSection = () => {
                               isDarkMode ? "text-gray-500" : "text-gray-600"
                             }`}
                           >
-                            {i18n.t(info.label)}
+                            {t(info.label)}
                           </div>
                           <div
                             className="font-medium"
                             style={{ direction: "ltr" }}
                           >
-                            {i18n.t(info.value)}
+                            {t(info.value)}
                           </div>
                         </div>
                       </motion.div>
@@ -368,13 +368,13 @@ const ContactSection = () => {
                             isDarkMode ? "text-gray-500" : "text-gray-600"
                           }`}
                         >
-                          {i18n.t("Location")}
+                          {t("Location")}
                         </div>
                         <div
                           className="font-medium"
                           style={{ direction: "ltr" }}
                         >
-                          {i18n.t("Mashhad, Iran")}
+                          {t("Mashhad, Iran")}
                         </div>
                       </div>
                     </motion.div>
@@ -404,13 +404,13 @@ const ContactSection = () => {
                             isDarkMode ? "text-gray-500" : "text-gray-600"
                           }`}
                         >
-                          {i18n.t("Email")}
+                          {t("Email")}
                         </div>
                         <div
                           className="font-medium"
                           style={{ direction: "ltr" }}
                         >
-                          {i18n.t("imanlangaran@gmail.com")}
+                          {t("imanlangaran@gmail.com")}
                         </div>
                       </div>
                     </motion.div>
@@ -422,7 +422,7 @@ const ContactSection = () => {
                           ? "bg-gray-800/30 hover:bg-gray-800/50"
                           : "bg-gray-50/50 hover:bg-gray-100/50"
                       } transition-all duration-300`}
-                      onClick={() => handleClick(i18n.t("my phone"), "Copied")}
+                      onClick={() => handleClick(t("my phone"), "Copied")}
                     >
                       <div
                         className={`p-3 rounded-lg ${
@@ -437,13 +437,13 @@ const ContactSection = () => {
                             isDarkMode ? "text-gray-500" : "text-gray-600"
                           }`}
                         >
-                          {i18n.t("Phone")}
+                          {t("Phone")}
                         </div>
                         <div
                           className="font-medium"
                           style={{ direction: "ltr" }}
                         >
-                          {i18n.t("my phone")}
+                          {t("my phone")}
                         </div>
                       </div>
                     </motion.div>
@@ -453,7 +453,7 @@ const ContactSection = () => {
                 {/* social link */}
                 <motion.div variants={itemVariants}>
                   <h3 className="text-xl font-medium mb-6">
-                    {i18n.t("My Socials")}
+                    {t("My Socials")}
                   </h3>
                   <div className="grid grid-cols-2 gap-4 ">
                     {SOCIAL_LINKS.map((social) => (
@@ -472,7 +472,7 @@ const ContactSection = () => {
                       >
                         <social.icon size={20} />
                         <span className="font-medium">
-                          {i18n.t(social.name)}
+                          {t(social.name)}
                         </span>
                       </motion.a>
                     ))}
@@ -491,7 +491,7 @@ const ContactSection = () => {
                   <div className="flex items-center space-x-3 mb-2">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
                     <span className="font-medium text-green-500">
-                      {i18n.t("Available for work")}
+                      {t("Available for work")}
                     </span>
                   </div>
                   <p
@@ -500,7 +500,7 @@ const ContactSection = () => {
                     }`}
                   >
                     {/* I'm currently available for freelance projects and full-time oppertunities. */}
-                    {i18n.t("Available for work subtitle")}
+                    {t("Available for work subtitle")}
                   </p>
                 </motion.div>
               </motion.div>

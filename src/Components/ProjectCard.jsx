@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import PlaceHolder from "./PlaceHolder";
 
 const ProjectCard = ({ project, index, isDarkMode }) => {
-  const { i18n } = useTranslation('projects');
+  const { t, i18n } = useTranslation('projects');
   const navigate = useNavigate();
 
   const cardVariants = {
@@ -75,7 +75,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
           {project.featured && (
             <div className="absolute top-4 left-4">
               <span className="bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-medium">
-                {i18n.t("Featured")}
+                {t("Featured")}
               </span>
             </div>
           )}
@@ -88,7 +88,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
                   : "bg-white/80 text-gray-700"
               } backdrop-blur-sm`}
             >
-              {i18n.t(project.category)}
+              {t(project.category)}
             </span>
           </div>
 
@@ -110,7 +110,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
                 className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full flex items-center space-x-2 text-sm font-medium transition-colors"
               >
                 <ExternalLink size={16} />
-                <span>{i18n.t('Live Demo')}</span>
+                <span>{t('Live Demo')}</span>
               </motion.a>
             )}
             {project.githubUrl && (
@@ -124,7 +124,7 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
                 className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-4 py-2 rounded-full flex items-center space-x-2 text-sm font-medium transition-all"
               >
                 <FiGithub size={16} />
-                <span>{i18n.t('GitHub')}</span>
+                <span>{t('GitHub')}</span>
               </motion.a>
             )}
           </motion.div> */}
@@ -132,14 +132,14 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
 
         <div className="p-6">
           <h3 className="text-xl font-medium mb-3 group-hover:text-blue-500 transition-colors">
-            {i18n.t(project.title)}
+            {t(project.title)}
           </h3>
           <p
             className={` text-sm leading-relaxed mb-4 ${
               isDarkMode ? "text-gray-400" : "text-gray-600"
             }`}
           >
-            {i18n.t(project.description)}
+            {t(project.description)}
           </p>
 
           <div className="flex flex-wrap gap-2">

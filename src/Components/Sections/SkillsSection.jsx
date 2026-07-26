@@ -21,7 +21,7 @@ const SkillsSection = () => {
   const { isDarkMode } = useTheme();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const { i18n } = useTranslation('skills');
+  const { t, i18n } = useTranslation('skills');
   const { lang } = useLang();
 
   const { scrollYProgress } = useScroll({
@@ -62,13 +62,13 @@ const SkillsSection = () => {
           </div>
           <div>
             <h3 className="text-xl font-medium mb-1">
-              {i18n.t(category.title)}
+              {t(category.title)}
             </h3>
             <p
               className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"
                 }`}
             >
-              {i18n.t(category.description)}
+              {t(category.description)}
             </p>
           </div>
         </div>
@@ -155,17 +155,17 @@ const SkillsSection = () => {
                 className={`text-sm uppercase ${i18n.language === "En" ? "tracking-widest" : ""
                   } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
               >
-                {i18n.t("Technical Experiense")}
+                {t("Technical Experiense")}
               </motion.div>
 
               <motion.h2
                 variants={itemVariants}
                 className="text-3xl md:text-5xl font-light mb-6"
               >
-                {i18n.t("Skills &")}
+                {t("Skills &")}
                 <span className="text-blue-500 font-medium">
                   {" "}
-                  {i18n.t("Technologies")}
+                  {t("Technologies")}
                 </span>
               </motion.h2>
 
@@ -175,7 +175,7 @@ const SkillsSection = () => {
                   } max-w-2xl mx-auto font-light`}
               >
                 {/* A comprehensive toolkit for building modern, scalable web applications from concept to deployment. */}
-                {i18n.t("skills subtitle")}
+                {t("skills subtitle")}
               </motion.p>
             </motion.div>
 
@@ -198,7 +198,7 @@ const SkillsSection = () => {
             >
               <motion.div variants={itemVariants} className="text-center mb-8">
                 <h3 className="text-xl font-medium mb-4">
-                  {i18n.t("Also Wirking With")}
+                  {t("Also Wirking With")}
                 </h3>
               </motion.div>
 
