@@ -16,7 +16,7 @@ const ProjectsSection = () => {
   const { isDarkMode } = useTheme();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation('projects');
   const { lang } = useLang();
 
   return (

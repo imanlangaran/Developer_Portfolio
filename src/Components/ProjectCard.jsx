@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import PlaceHolder from "./PlaceHolder";
 
 const ProjectCard = ({ project, index, isDarkMode }) => {
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation('projects');
   const navigate = useNavigate();
 
   const cardVariants = {

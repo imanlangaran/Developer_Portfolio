@@ -45,7 +45,7 @@ const ContactSection = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation('contact');
   const { lang } = useLang();
 
   const handleInputChange = (key, value) => {

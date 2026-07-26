@@ -24,7 +24,7 @@ export default function ProjectDetail() {
   const location = useLocation();
   const { isDarkMode } = useTheme();
   const modalContentRef = useRef(null);
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation('projects');
 
   // --------------------------------------------------
   // PROJECT

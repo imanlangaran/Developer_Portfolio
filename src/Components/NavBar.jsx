@@ -12,7 +12,7 @@ const navLinks = ["Home", "Skills", "Work", "About", "Contact"];
 const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation('common');
   const { setLang } = useLang();
   const { lang } = useLang();
 

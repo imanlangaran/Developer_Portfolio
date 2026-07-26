@@ -30,7 +30,7 @@ const AboutSection = () => {
     once: true,
     margin: "-50px",
   });
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation('about');
   const { lang } = useLang();
 
   const { scrollYProgress } = useScroll({

@@ -25,7 +25,7 @@ const Footer = () => {
   const { scrollYProgress } = useScroll();
   const scrollY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation('footer');
   const { lang } = useLang();
 
   // define social links ??

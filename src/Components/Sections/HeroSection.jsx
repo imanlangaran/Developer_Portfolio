@@ -22,7 +22,7 @@ const PROFILE_PIC = "https://avatars.githubusercontent.com/imanlangaran";
 
 const HeroSection = () => {
   const { isDarkMode } = useTheme();
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation('hero');
   const { lang } = useLang();
 
   const { scrollY } = useScroll();
