@@ -10,7 +10,11 @@ import {
 import { ArrowDown, Mail } from "lucide-react";
 import { FiGithub, FiLinkedin } from "react-icons/fi";
 
-import { containerVariants, getChangeLangDuration, itemVariants } from "../../utils/helper";
+import {
+  containerVariants,
+  getChangeLangDuration,
+  itemVariants,
+} from "../../utils/helper";
 import { useTranslation } from "react-i18next";
 import { useLang } from "../../context/LangContext";
 
@@ -70,11 +74,11 @@ const HeroSection = () => {
           key={lang}
           initial={{ opacity: 0, x: 0 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: '-100%' }}
-          transition={{ 
+          exit={{ opacity: 0, x: "-100%" }}
+          transition={{
             duration: getChangeLangDuration("s"),
-            ease: 'easeInOut'
-           }}
+            ease: "easeInOut",
+          }}
         >
           <div className="absolute inset-0 overflow-hidden">
             <motion.div
@@ -159,32 +163,65 @@ const HeroSection = () => {
                     i18n.language === "En" ? "tracking-wider" : ""
                   }`}
                 >
-                  <span
-                    className={`${isDarkMode ? "text-white" : "text-gray-900"}`}
-                  >
-                    {i18n.t("Engineering")}
-                  </span>
-                  <br />
-                  <span
-                    // className='bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 text-transparent bg-clip-text font-medium tracking-wide ml-2'
-                    className={`bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium ${
-                      i18n.language === "En" ? "tracking-wide" : ""
-                    }`}
-                    // className='text-blue-500 font-medium ml-2'
-                    style={{ textShadow: "0 4px 24px rgba(0, 168, 255, 0.25)" }}
-                  >
-                    {i18n.t("Experiences")},
-                  </span>
-                  <br />
-                  <span
-                    className={`${
-                      isDarkMode ? "text-white " : "text-gray-900"
-                    } italic font-light text-nowrap ${
-                      i18n.language === "En" ? "tracking-tight" : ""
-                    }`}
-                  >
-                    {i18n.t("Not Just Apps")}
-                  </span>
+                  {i18n.language === "En" ? (
+                    <>
+                      <span
+                        className={`${isDarkMode ? "text-white" : "text-gray-900"}`}
+                      >
+                        Full Stack Developer &amp; Engineer
+                      </span>
+                      <br />
+                      <span
+                        className={`bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium ${
+                          i18n.language === "En" ? "tracking-wide" : ""
+                        }`}
+                        style={{
+                          textShadow: "0 4px 24px rgba(0, 168, 255, 0.25)",
+                        }}
+                      >
+                        Digital Experiences,
+                      </span>
+                      <br />
+                      <span
+                        className={`${
+                          isDarkMode ? "text-white " : "text-gray-900"
+                        } italic font-light text-nowrap ${
+                          i18n.language === "En" ? "tracking-tight" : ""
+                        }`}
+                      >
+                        Not Just Apps
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span
+                        className={`${isDarkMode ? "text-white" : "text-gray-900"}`}
+                      >
+                        {i18n.t("Engineering")}
+                      </span>
+                      <br />
+                      <span
+                        className={`bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium ${
+                          i18n.language === "En" ? "tracking-wide" : ""
+                        }`}
+                        style={{
+                          textShadow: "0 4px 24px rgba(0, 168, 255, 0.25)",
+                        }}
+                      >
+                        {i18n.t("Experiences")},
+                      </span>
+                      <br />
+                      <span
+                        className={`${
+                          isDarkMode ? "text-white " : "text-gray-900"
+                        } italic font-light text-nowrap ${
+                          i18n.language === "En" ? "tracking-tight" : ""
+                        }`}
+                      >
+                        {i18n.t("Not Just Apps")}
+                      </span>
+                    </>
+                  )}
                 </motion.h1>
 
                 <motion.p
@@ -205,6 +242,9 @@ const HeroSection = () => {
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     href="./ImanLangaran1404-4-1.pdf"
+                    download="Iman_Langaran_Resume.pdf"
+                    title="Download Iman Langaran's Resume (PDF)"
+                    aria-label="Download resume as PDF"
                     target="_blank"
                     className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase ${
                       i18n.language === "En" ? "tracking-wider" : ""
@@ -243,13 +283,35 @@ const HeroSection = () => {
                   className="flex justify-center space-x-6 mb-8"
                 >
                   {[
-                    { icon: FiGithub, href: "https://github.com/imanlangaran" },
-                    { icon: FiLinkedin, href: "https://www.linkedin.com/in/imanlangaran" },
-                    { icon: Mail, href: "mailto:imanlangaran@gmail.com" },
+                    {
+                      icon: FiGithub,
+                      href: "https://github.com/imanlangaran",
+                      label: "GitHub Profile",
+                    },
+                    {
+                      icon: FiLinkedin,
+                      href: "https://www.linkedin.com/in/imanlangaran",
+                      label: "LinkedIn Profile",
+                    },
+                    {
+                      icon: Mail,
+                      href: "mailto:imanlangaran@gmail.com",
+                      label: "Email Contact",
+                    },
                   ].map((item, index) => (
                     <motion.a
                       key={index}
                       href={item.href}
+                      title={item.label}
+                      aria-label={item.label}
+                      rel={
+                        item.href.startsWith("mailto")
+                          ? undefined
+                          : "noopener noreferrer"
+                      }
+                      target={
+                        item.href.startsWith("mailto") ? undefined : "_blank"
+                      }
                       whileHover={{ y: -3, scale: 1.1 }}
                       className={`p-3 rounded-full transition-colors ${
                         isDarkMode
@@ -372,6 +434,9 @@ const HeroSection = () => {
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     href="./ImanLangaran1404-4-1.pdf"
+                    download="Iman_Langaran_Resume.pdf"
+                    title="Download Iman Langaran's Resume (PDF)"
+                    aria-label="Download resume as PDF"
                     target="_blank"
                     className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase ${
                       i18n.language === "En" ? "tracking-wider" : ""
@@ -411,7 +476,10 @@ const HeroSection = () => {
                 >
                   {[
                     { icon: FiGithub, href: "https://github.com/imanlangaran" },
-                    { icon: FiLinkedin, href: "https://www.linkedin.com/in/imanlangaran" },
+                    {
+                      icon: FiLinkedin,
+                      href: "https://www.linkedin.com/in/imanlangaran",
+                    },
                     { icon: Mail, href: "mailto:imanlangaran@gmail.com" },
                   ].map((item, index) => (
                     <motion.a
@@ -489,9 +557,10 @@ const HeroSection = () => {
                   >
                     <img
                       src={PROFILE_PIC}
-                      alt="Profile"
+                      alt="Iman Langaran - Full Stack Developer specializing in React, Node.js, TypeScript and Python"
                       className="w-full h-full object-cover"
                       loading="eager"
+                      decoding="async"
                     />
                   </motion.div>
 

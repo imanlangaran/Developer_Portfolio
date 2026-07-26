@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build",
+    "build": "vite build && npm run generate-sitemap",
+    "generate-sitemap": "node scripts/generate-sitemap.js",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "seo:check": "npm run build && lighthouse https://imanlangaran.github.io/Developer_Portfolio"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -23,7 +25,8 @@
     "react-i18next": "^15.6.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.15.0",
-    "tailwindcss": "^4.3.0"
+    "tailwindcss": "^4.3.0",
+    "terser": "^5.48.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",

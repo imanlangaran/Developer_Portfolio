@@ -106,6 +106,78 @@ export default function ProjectDetail() {
   });
 
   // --------------------------------------------------
+  // DYNAMIC SEO META TAGS
+  // --------------------------------------------------
+  useEffect(() => {
+    if (!project) return;
+
+    const projectTitle = i18n.t(project.title);
+    const projectDescription = i18n.t(project.description);
+    const pageTitle = `${projectTitle} | Iman Langaran Portfolio`;
+    const pageDescription = `${projectDescription}. Built with ${project.tags?.join(", ")}. View the source code on GitHub and live demo.`;
+
+    // Update document title
+    document.title = pageTitle;
+
+    // Update/create meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement("meta");
+      metaDescription.name = "description";
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.content = pageDescription;
+
+    // Update Open Graph tags
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (!ogTitle) {
+      ogTitle = document.createElement("meta");
+      ogTitle.setAttribute("property", "og:title");
+      document.head.appendChild(ogTitle);
+    }
+    ogTitle.content = pageTitle;
+
+    let ogDescription = document.querySelector(
+      'meta[property="og:description"]',
+    );
+    if (!ogDescription) {
+      ogDescription = document.createElement("meta");
+      ogDescription.setAttribute("property", "og:description");
+      document.head.appendChild(ogDescription);
+    }
+    ogDescription.content = pageDescription;
+
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (!ogUrl) {
+      ogUrl = document.createElement("meta");
+      ogUrl.setAttribute("property", "og:url");
+      document.head.appendChild(ogUrl);
+    }
+
+    // TODO: get this url from config files
+    ogUrl.content = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
+
+    if (project.image) {
+      let ogImage = document.querySelector('meta[property="og:image"]');
+      if (!ogImage) {
+        ogImage = document.createElement("meta");
+        ogImage.setAttribute("property", "og:image");
+        document.head.appendChild(ogImage);
+      }
+      ogImage.content = project.image;
+    }
+
+    // Update canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
+  }, [project, id, i18n]);
+
+  // --------------------------------------------------
   // NOT FOUND
   // --------------------------------------------------
   if (!project) {

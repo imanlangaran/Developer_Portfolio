@@ -8,7 +8,11 @@ import {
 } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
 import { useRef } from "react";
-import { containerVariants, getChangeLangDuration, itemVariants } from "../../utils/helper";
+import {
+  containerVariants,
+  getChangeLangDuration,
+  itemVariants,
+} from "../../utils/helper";
 import { ArrowUp, Code2, Heart } from "lucide-react";
 import { SOCIAL_LINKS } from "../../utils/data";
 import { useTranslation } from "react-i18next";
