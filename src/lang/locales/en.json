@@ -142,6 +142,13 @@
 
   "Copied": "Copied to clipboard!",
 
+  "Name is required": "Please enter your name",
+  "Name is too short": "Name must be at least 2 characters",
+  "Email is required": "Please enter your email address",
+  "Invalid email format": "Please enter a valid email address (e.g., name@example.com)",
+  "Message is required": "Please write your message",
+  "Message is too short": "Message must be at least 10 characters",
+
   "project title 1": "Library Managment",
   "project description 1": "A full-stack library management system, sing up new members after confirmation, adding, borrowing, deleting books and ... ",
 
