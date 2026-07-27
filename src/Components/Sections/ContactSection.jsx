@@ -7,7 +7,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   containerVariants,
   getChangeLangDuration,
@@ -124,14 +124,55 @@ const ContactSection = () => {
     };
     setErrors(newErrors);
     setTouched({ name: true, email: true, message: true });
+
+    // Focus the first invalid field for quick correction
+    const firstInvalid = Object.entries(newErrors).find(
+      ([, err]) => err !== null
+    );
+    if (firstInvalid) {
+      const el = document.getElementById(firstInvalid[0]);
+      if (el) el.focus();
+    }
+
     return Object.values(newErrors).every((err) => err === null);
   };
 
   const handleBlur = (field) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
-    const error = validateField(field, formData[field]);
+    // Auto-trim whitespace
+    const trimmed = formData[field].trim();
+    setFormData((prev) => ({ ...prev, [field]: trimmed }));
+    const error = validateField(field, trimmed);
     setErrors((prev) => ({ ...prev, [field]: error }));
   };
+
+  // Debounced onChange validation — runs 400ms after the user stops typing
+  useEffect(() => {
+    if (!touched.name) return;
+    const timer = setTimeout(() => {
+      const error = validateField("name", formData.name);
+      setErrors((prev) => ({ ...prev, name: error }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [formData.name, touched.name]);
+
+  useEffect(() => {
+    if (!touched.email) return;
+    const timer = setTimeout(() => {
+      const error = validateField("email", formData.email);
+      setErrors((prev) => ({ ...prev, email: error }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [formData.email, touched.email]);
+
+  useEffect(() => {
+    if (!touched.message) return;
+    const timer = setTimeout(() => {
+      const error = validateField("message", formData.message);
+      setErrors((prev) => ({ ...prev, message: error }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [formData.message, touched.message]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -326,6 +367,17 @@ const ContactSection = () => {
                       error={touched.message ? errors.message : null}
                       onBlur={() => handleBlur("message")}
                     />
+                    {touched.message && (
+                      <div className="flex justify-end -mt-4">
+                        <span
+                          className={`text-xs ${
+                            isDarkMode ? "text-gray-500" : "text-gray-400"
+                          }`}
+                        >
+                          {formData.message.length} / 500
+                        </span>
+                      </div>
+                    )}
 
                     {/* Hidden metadata fields */}
                     <input
