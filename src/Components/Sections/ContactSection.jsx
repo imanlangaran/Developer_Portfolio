@@ -124,6 +124,16 @@ const ContactSection = () => {
     };
     setErrors(newErrors);
     setTouched({ name: true, email: true, message: true });
+
+    // Focus the first invalid field for quick correction
+    const firstInvalid = Object.entries(newErrors).find(
+      ([, err]) => err !== null
+    );
+    if (firstInvalid) {
+      const el = document.getElementById(firstInvalid[0]);
+      if (el) el.focus();
+    }
+
     return Object.values(newErrors).every((err) => err === null);
   };
 
