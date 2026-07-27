@@ -367,6 +367,17 @@ const ContactSection = () => {
                       error={touched.message ? errors.message : null}
                       onBlur={() => handleBlur("message")}
                     />
+                    {touched.message && (
+                      <div className="flex justify-end -mt-4">
+                        <span
+                          className={`text-xs ${
+                            isDarkMode ? "text-gray-500" : "text-gray-400"
+                          }`}
+                        >
+                          {formData.message.length} / 500
+                        </span>
+                      </div>
+                    )}
 
                     {/* Hidden metadata fields */}
                     <input
