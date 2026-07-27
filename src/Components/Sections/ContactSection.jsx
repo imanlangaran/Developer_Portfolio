@@ -129,7 +129,10 @@ const ContactSection = () => {
 
   const handleBlur = (field) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
-    const error = validateField(field, formData[field]);
+    // Auto-trim whitespace
+    const trimmed = formData[field].trim();
+    setFormData((prev) => ({ ...prev, [field]: trimmed }));
+    const error = validateField(field, trimmed);
     setErrors((prev) => ({ ...prev, [field]: error }));
   };
 
