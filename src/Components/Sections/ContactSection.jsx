@@ -7,7 +7,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   containerVariants,
   getChangeLangDuration,
@@ -132,6 +132,34 @@ const ContactSection = () => {
     const error = validateField(field, formData[field]);
     setErrors((prev) => ({ ...prev, [field]: error }));
   };
+
+  // Debounced onChange validation — runs 400ms after the user stops typing
+  useEffect(() => {
+    if (!touched.name) return;
+    const timer = setTimeout(() => {
+      const error = validateField("name", formData.name);
+      setErrors((prev) => ({ ...prev, name: error }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [formData.name, touched.name]);
+
+  useEffect(() => {
+    if (!touched.email) return;
+    const timer = setTimeout(() => {
+      const error = validateField("email", formData.email);
+      setErrors((prev) => ({ ...prev, email: error }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [formData.email, touched.email]);
+
+  useEffect(() => {
+    if (!touched.message) return;
+    const timer = setTimeout(() => {
+      const error = validateField("message", formData.message);
+      setErrors((prev) => ({ ...prev, message: error }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [formData.message, touched.message]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
