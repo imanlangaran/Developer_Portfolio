@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import { getLangFromLocalStorageOrDefault } from "../utils/helper";
+import LanguageDetector from "i18next-browser-languagedetector";
 
 import common_en from "./locales/en/common.json";
 import hero_en from "./locales/en/hero.json";
@@ -21,6 +21,7 @@ import footer_fa from "./locales/fa/footer.json";
 import notFound_fa from "./locales/fa/notFound.json";
 
 i18n
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
@@ -59,7 +60,12 @@ i18n
     defaultNS: "common",
     fallbackNS: "common",
 
-    lng: getLangFromLocalStorageOrDefault(),
+    fallbackLng: "En",
+
+    detection: {
+      order: ["localStorage", "navigator"],
+      caches: ["localStorage"],
+    },
 
     keySeparator: false,
 
@@ -67,5 +73,15 @@ i18n
       escapeValue: false,
     },
   });
+
+// Sync DOM attributes on every language change (global, registered once)
+i18n.on("languageChanged", (lng) => {
+  document.documentElement.dir = lng === "Fa" ? "rtl" : "ltr";
+  document.documentElement.lang = lng.toLowerCase();
+  const langClass = document.getElementById("langClass");
+  if (langClass) {
+    langClass.className = `font-${lng.toLowerCase()}`;
+  }
+});
 
 export default i18n;
