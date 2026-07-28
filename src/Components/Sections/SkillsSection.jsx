@@ -55,8 +55,7 @@ const SkillsSection = () => {
       >
         <div className="flex items-center mb-6">
           <div
-            className={`p-3 rounded-xl ${isDarkMode ? "bg-gray-800" : "bg-gray-100"
-              } mr-4`}
+            className={`p-3 rounded-xl ${isDarkMode ? "bg-gray-800" : "bg-gray-100"} ${lang === "En" ? "mr-4" : "ml-4"}`}
           >
             <category.icon size={24} className="text-blue-500" />
           </div>
