@@ -4,8 +4,20 @@ import i18n from "../lang/i18n";
 
 const langContext = createContext();
 
+const langDirMap = {
+  En: "ltr",
+  Fa: "rtl",
+};
+
 export const LangProvider = ({ children }) => {
   const [lang, setLang] = useState(i18n.language);
+
+  // Set DOM attributes on mount (languageChanged event doesn't fire on init)
+  useEffect(() => {
+    document.documentElement.dir = langDirMap[lang] || "ltr";
+    document.documentElement.lang = lang.toLowerCase();
+    document.getElementById("langClass").className = `font-${lang.toLowerCase()}`;
+  }, []);
 
   useEffect(() => {
     i18n.changeLanguage(lang);
