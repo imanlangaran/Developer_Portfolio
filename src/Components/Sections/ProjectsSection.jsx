@@ -16,7 +16,7 @@ const ProjectsSection = () => {
   const { isDarkMode } = useTheme();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const { t, i18n } = useTranslation('projects');
+  const { t } = useTranslation('projects');
   const { lang } = useLang();
 
   return (
@@ -65,7 +65,7 @@ const ProjectsSection = () => {
               <motion.div
                 variants={itemVariants}
                 className={`text-sm uppercase ${
-                  i18n.language === "En" ? "tracking-widest" : ""
+                  lang === "En" ? "tracking-widest" : ""
                 } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
               >
                 {t("Featured Work")}
@@ -76,12 +76,12 @@ const ProjectsSection = () => {
                 className="text-3xl md:text-5xl font-light mb-6"
               >
                 {/* should swap when persian */}
-                {i18n.language === "En" && t("Recent")}
+                {lang === "En" && t("Recent")}
                 <span className="text-blue-500 font-medium">
                   {" "}
                   {t("Projects")}{" "}
                 </span>
-                {i18n.language !== "En" && t("Recent")}
+                {lang !== "En" && t("Recent")}
               </motion.h2>
 
               <motion.p

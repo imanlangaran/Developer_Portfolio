@@ -47,7 +47,7 @@ const ContactSection = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
-  const { t, i18n } = useTranslation('contact');
+  const { t } = useTranslation('contact');
   const { lang } = useLang();
 
   const handleInputChange = (key, value) => {
@@ -274,7 +274,7 @@ const ContactSection = () => {
               <motion.div
                 variants={itemVariants}
                 className={`text-sm uppercase ${
-                  i18n.language === "En" ? "tracking-widest" : ""
+                  lang === "En" ? "tracking-widest" : ""
                 } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
               >
                 {t("Let's Connect")}
@@ -284,7 +284,7 @@ const ContactSection = () => {
                 variants={itemVariants}
                 className="text-3xl md:text-5xl font-light mb-6"
               >
-                {i18n.language === "En" ? (
+                {lang === "En" ? (
                   <>
                     Get In
                     <span className="text-blue-500 font-medium"> Touch</span>
@@ -398,7 +398,7 @@ const ContactSection = () => {
                       whileHover={{ y: -2, scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className={`w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white py-4 rounded-xl text-sm uppercase ${
-                        i18n.language === "En" ? "tracking-wider" : ""
+                        lang === "En" ? "tracking-wider" : ""
                       } font-medium transition-all duration-300 flex items-center justify-center space-x-2`}
                       onClick={handleSubmit}
                     >

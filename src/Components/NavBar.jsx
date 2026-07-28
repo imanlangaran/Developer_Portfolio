@@ -12,7 +12,7 @@ const navLinks = ["Home", "Skills", "Work", "About", "Contact"];
 const NavBar = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { i18n } = useTranslation('common');
+  const { t } = useTranslation('common');
   const { setLang } = useLang();
   const { lang } = useLang();
 
@@ -57,7 +57,7 @@ const NavBar = () => {
                 isDarkMode ? "text-white" : "text-black"
               }`}
             >
-              {i18n.t("my name")}
+              {t("my name")}
             </span>
           </motion.div>
 
@@ -70,14 +70,14 @@ const NavBar = () => {
                 whileHover={{ y: -2 }}
                 onClick={() => handleClick(item)}
                 className={`text-sm uppercase ${
-                  i18n.language === "En" ? "tracking-wider" : ""
+                  lang === "En" ? "tracking-wider" : ""
                 } transition-colors ${
                   isDarkMode
                     ? "text-gray-400 hover:text-white"
                     : "text-gray-600 hover:text-gray-900"
                 }`}
               >
-                {i18n.t(item)}
+                {t(item)}
               </motion.button>
             ))}
           </div>
@@ -86,7 +86,7 @@ const NavBar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => changeLanguage(i18n.t("other lang"))}
+              onClick={() => changeLanguage(t("other lang"))}
               className={`p-2 rounded-full transition-colors ${
                 isDarkMode
                   ? "text-gray-400 hover:text-white hover:bg-gray-800"
@@ -94,7 +94,7 @@ const NavBar = () => {
               }`}
             >
               <div className="flex items-center justify-center w-[18px] h-[18px]">
-                {i18n.t("other lang")}
+                {t("other lang")}
               </div>
             </motion.button>
             <motion.button
@@ -117,7 +117,7 @@ const NavBar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => changeLanguage(i18n.t("other lang"))}
+              onClick={() => changeLanguage(t("other lang"))}
               className={`p-2 rounded-full transition-colors ${
                 isDarkMode
                   ? "text-gray-400 hover:text-white hover:bg-gray-800"
@@ -125,7 +125,7 @@ const NavBar = () => {
               }`}
             >
               <div className="flex items-center justify-center w-[18px] h-[18px]">
-                {i18n.t("other lang")}
+                {t("other lang")}
               </div>
             </motion.button>
             <motion.button
@@ -172,14 +172,14 @@ const NavBar = () => {
                   whileHover={{ x: 5 }}
                   onClick={() => handleClick(item)}
                   className={`block w-full text-left py-2 text-sm uppercase ${
-                    i18n.language === "En" ? "tracking-wider" : ""
+                    lang === "En" ? "tracking-wider" : ""
                   } transition-colors ${
                     isDarkMode
                       ? "text-gray-400 hover:text-white"
                       : "text-gray-600 hover:text-gray-900"
                   }`}
                 >
-                  {i18n.t(item)}
+                  {t(item)}
                 </motion.button>
               ))}
             </motion.div>

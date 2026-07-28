@@ -25,7 +25,7 @@ const Footer = () => {
   const { scrollYProgress } = useScroll();
   const scrollY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
-  const { t, i18n } = useTranslation('footer');
+  const { t } = useTranslation('footer');
   const { lang } = useLang();
 
   // define social links ??
@@ -220,7 +220,7 @@ const Footer = () => {
                       isDarkMode ? "text-gray-500" : "text-gray-600"
                     }`}
                   >
-                    {i18n.language === "En"
+                    {lang === "En"
                       ? `© ${new Date().getFullYear()} Iman Langaran. All rights reserved.`
                       : `© ${new Date().getFullYear()} تمامی حقوق این وبسایت متعلق به ایمان لنگران میباشد.`}
                   </p>

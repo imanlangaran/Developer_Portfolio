@@ -21,7 +21,7 @@ const SkillsSection = () => {
   const { isDarkMode } = useTheme();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const { t, i18n } = useTranslation('skills');
+  const { t } = useTranslation('skills');
   const { lang } = useLang();
 
   const { scrollYProgress } = useScroll({
@@ -152,7 +152,7 @@ const SkillsSection = () => {
             >
               <motion.div
                 variants={itemVariants}
-                className={`text-sm uppercase ${i18n.language === "En" ? "tracking-widest" : ""
+                className={`text-sm uppercase ${lang === "En" ? "tracking-widest" : ""
                   } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
               >
                 {t("Technical Experiense")}

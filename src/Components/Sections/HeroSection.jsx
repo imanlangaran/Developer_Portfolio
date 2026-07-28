@@ -22,7 +22,7 @@ const PROFILE_PIC = "https://avatars.githubusercontent.com/imanlangaran";
 
 const HeroSection = () => {
   const { isDarkMode } = useTheme();
-  const { t, i18n } = useTranslation('hero');
+  const { t } = useTranslation('hero');
   const { lang } = useLang();
 
   const { scrollY } = useScroll();
@@ -151,7 +151,7 @@ const HeroSection = () => {
                 <motion.div
                   variants={textVariants}
                   className={`text-sm uppercase ${
-                    i18n.language === "En" ? "tracking-widest" : ""
+                    lang === "En" ? "tracking-widest" : ""
                   } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
                 >
                   {t("Full‑Stack Web Developer")}
@@ -160,10 +160,10 @@ const HeroSection = () => {
                 <motion.h1
                   variants={itemVariants}
                   className={`text-3xl md:text-5xl font-light mb-5 leading-tight w-min mx-auto text-start ${
-                    i18n.language === "En" ? "tracking-wider" : ""
+                    lang === "En" ? "tracking-wider" : ""
                   }`}
                 >
-                  {i18n.language === "En" ? (
+                  {lang === "En" ? (
                     <>
                       <span
                         className={`${isDarkMode ? "text-white" : "text-gray-900"}`}
@@ -173,7 +173,7 @@ const HeroSection = () => {
                       <br />
                       <span
                         className={`bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium ${
-                          i18n.language === "En" ? "tracking-wide" : ""
+                          lang === "En" ? "tracking-wide" : ""
                         }`}
                         style={{
                           textShadow: "0 4px 24px rgba(0, 168, 255, 0.25)",
@@ -186,7 +186,7 @@ const HeroSection = () => {
                         className={`${
                           isDarkMode ? "text-white " : "text-gray-900"
                         } italic font-light text-nowrap ${
-                          i18n.language === "En" ? "tracking-tight" : ""
+                          lang === "En" ? "tracking-tight" : ""
                         }`}
                       >
                         Not Just Apps
@@ -202,7 +202,7 @@ const HeroSection = () => {
                       <br />
                       <span
                         className={`bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium ${
-                          i18n.language === "En" ? "tracking-wide" : ""
+                          lang === "En" ? "tracking-wide" : ""
                         }`}
                         style={{
                           textShadow: "0 4px 24px rgba(0, 168, 255, 0.25)",
@@ -215,7 +215,7 @@ const HeroSection = () => {
                         className={`${
                           isDarkMode ? "text-white " : "text-gray-900"
                         } italic font-light text-nowrap ${
-                          i18n.language === "En" ? "tracking-tight" : ""
+                          lang === "En" ? "tracking-tight" : ""
                         }`}
                       >
                         {t("Not Just Apps")}
@@ -247,7 +247,7 @@ const HeroSection = () => {
                     aria-label="Download resume as PDF"
                     target="_blank"
                     className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase ${
-                      i18n.language === "En" ? "tracking-wider" : ""
+                      lang === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
                     {t("Resume")}
@@ -257,7 +257,7 @@ const HeroSection = () => {
                     whileTap={{ scale: 0.98 }}
                     onClick={() => scrollToSection("work")}
                     className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase ${
-                      i18n.language === "En" ? "tracking-wider" : ""
+                      lang === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
                     {t("View Work")}
@@ -271,7 +271,7 @@ const HeroSection = () => {
                         ? "border-gray-700 hover:border-gray-600 text-gray-300"
                         : "border-gray-300 hover:border-gray-400 text-gray-700"
                     } px-8 py-3 rounded-full text-sm uppercase ${
-                      i18n.language === "En" ? "tracking-wider" : ""
+                      lang === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
                     {t("Get In Touch")}
@@ -327,7 +327,7 @@ const HeroSection = () => {
                 <motion.div
                   variants={itemVariants}
                   className={`flex justify-center items-center space-x-6 text-xs uppercase ${
-                    i18n.language === "En" ? "tracking-widest" : ""
+                    lang === "En" ? "tracking-widest" : ""
                   } flex-wrap`}
                 >
                   <span
@@ -380,7 +380,7 @@ const HeroSection = () => {
                 <motion.div
                   variants={textVariants}
                   className={`text-sm uppercase ${
-                    i18n.language === "En" ? "tracking-widest" : ""
+                    lang === "En" ? "tracking-widest" : ""
                   } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-6`}
                 >
                   {t("Full‑Stack Web Developer")}
@@ -392,7 +392,7 @@ const HeroSection = () => {
                   <span
                     className={`${
                       isDarkMode ? "text-white" : "text-gray-900"
-                    } ${i18n.language === "En" ? "tracking-tight" : ""}`}
+                    } ${lang === "En" ? "tracking-tight" : ""}`}
                   >
                     {t("Engineering")}
                   </span>
@@ -400,7 +400,7 @@ const HeroSection = () => {
                   <span
                     // className='bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 text-transparent bg-clip-text font-medium tracking-wide'
                     className={`bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 text-transparent bg-clip-text font-medium ${
-                      i18n.language === "En" ? "tracking-wide" : ""
+                      lang === "En" ? "tracking-wide" : ""
                     }`}
                     // className='text-blue-500 font-medium'
                     style={{ textShadow: "0 4px 24px rgba(0, 168, 255, 0.25)" }}
@@ -412,7 +412,7 @@ const HeroSection = () => {
                     className={`${
                       isDarkMode ? "text-white italic" : "text-gray-900 italic"
                     } font-light ${
-                      i18n.language === "En" ? "tracking-tight" : ""
+                      lang === "En" ? "tracking-tight" : ""
                     }`}
                   >
                     {t("Not Just Apps")}
@@ -439,7 +439,7 @@ const HeroSection = () => {
                     aria-label="Download resume as PDF"
                     target="_blank"
                     className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase ${
-                      i18n.language === "En" ? "tracking-wider" : ""
+                      lang === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
                     {t("Resume")}
@@ -449,7 +449,7 @@ const HeroSection = () => {
                     whileTap={{ scale: 0.98 }}
                     onClick={() => scrollToSection("work")}
                     className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full text-sm uppercase ${
-                      i18n.language === "En" ? "tracking-wider" : ""
+                      lang === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
                     {t("View Work")}
@@ -463,7 +463,7 @@ const HeroSection = () => {
                         ? "border-gray-700 hover:border-gray-600 text-gray-300"
                         : "border-gray-300 hover:border-gray-400 text-gray-700"
                     } px-8 py-4 rounded-full text-sm uppercase ${
-                      i18n.language === "En" ? "tracking-wider" : ""
+                      lang === "En" ? "tracking-wider" : ""
                     } font-medium transition-all duration-300`}
                   >
                     {t("Get In Touch")}
@@ -509,7 +509,7 @@ const HeroSection = () => {
                   <motion.div
                     variants={itemVariants}
                     className={`flex items-center space-x-8 text-xs uppercase ${
-                      i18n.language === "En" ? "tracking-widest" : ""
+                      lang === "En" ? "tracking-widest" : ""
                     } absolute -top-16 -start-28`}
                   >
                     <span

@@ -12,7 +12,7 @@ const TextInput = ({
   error = null,
   onBlur = () => {},
 }) => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const InputComponent = textarea ? "textarea" : "input";
 
   return (
@@ -49,7 +49,7 @@ const TextInput = ({
             isDarkMode ? "text-red-400" : "text-red-500"
           }`}
         >
-          {i18n.t(error)}
+          {t(error)}
         </p>
       )}
     </div>

@@ -30,7 +30,7 @@ const AboutSection = () => {
     once: true,
     margin: "-50px",
   });
-  const { t, i18n } = useTranslation('about');
+  const { t } = useTranslation('about');
   const { lang } = useLang();
 
   const { scrollYProgress } = useScroll({
@@ -112,7 +112,7 @@ const AboutSection = () => {
               <motion.div
                 variants={itemVariants}
                 className={`text-sm uppercase ${
-                  i18n.language === "En" ? "tracking-widest" : ""
+                  lang === "En" ? "tracking-widest" : ""
                 } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
               >
                 {t("Get to Know Me")}
@@ -331,7 +331,7 @@ const AboutSection = () => {
                   whileHover={{ y: -2, scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                   className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase ${
-                    i18n.language === "En" ? "tracking-wider" : ""
+                    lang === "En" ? "tracking-wider" : ""
                   } font-medium transition-all duration-300`}
                   onClick={() => {
                     const element = document.getElementById("contact");
