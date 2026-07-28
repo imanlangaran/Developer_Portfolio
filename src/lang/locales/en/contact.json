@@ -15,6 +15,13 @@
   "Available for work": "Available for work",
   "Available for work subtitle": "I'm currently available for freelance projects and full-time oppertunities.",
 
+  "Name is required": "Please enter your name",
+  "Name is too short": "Name must be at least 2 characters",
+  "Email is required": "Please enter your email address",
+  "Invalid email format": "Please enter a valid email address (e.g., name@example.com)",
+  "Message is required": "Please write your message",
+  "Message is too short": "Message must be at least 10 characters",
+
   "Message Sent": "Message Sent",
   "Message Sent subtitle": "Thank you for reaching out! I'll get back to you within 24 hours.",
   "Message Not Sent": "Something Went wrong!!!",

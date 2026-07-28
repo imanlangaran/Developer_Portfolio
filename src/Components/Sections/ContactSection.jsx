@@ -7,7 +7,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   containerVariants,
   getChangeLangDuration,
@@ -37,6 +37,8 @@ const ContactSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const formRef = useRef(null);
+  const titleRef = useRef(null);
+  const siteNameRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -53,41 +55,161 @@ const ContactSection = () => {
       ...formData,
       [key]: value,
     });
+    // Clear error for this field when user starts typing
+    setErrors((prev) => ({ ...prev, [key]: null }));
   };
+
+  const [errors, setErrors] = useState({
+    name: null,
+    email: null,
+    message: null,
+  });
+
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    message: false,
+  });
+
+  const validateField = (field, value) => {
+    const rules = {
+      name: [
+        {
+          test: (v) => v.trim().length > 0,
+          key: "Name is required",
+        },
+        {
+          test: (v) => v.trim().length >= 2,
+          key: "Name is too short",
+        },
+      ],
+      email: [
+        {
+          test: (v) => v.trim().length > 0,
+          key: "Email is required",
+        },
+        {
+          test: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+          key: "Invalid email format",
+        },
+      ],
+      message: [
+        {
+          test: (v) => v.trim().length > 0,
+          key: "Message is required",
+        },
+        {
+          test: (v) => v.trim().length >= 10,
+          key: "Message is too short",
+        },
+      ],
+    };
+
+    const fieldRules = rules[field];
+    if (!fieldRules) return null;
+
+    for (const rule of fieldRules) {
+      if (!rule.test(value)) {
+        return rule.key;
+      }
+    }
+    return null;
+  };
+
+  const validateAll = () => {
+    const newErrors = {
+      name: validateField("name", formData.name),
+      email: validateField("email", formData.email),
+      message: validateField("message", formData.message),
+    };
+    setErrors(newErrors);
+    setTouched({ name: true, email: true, message: true });
+
+    // Focus the first invalid field for quick correction
+    const firstInvalid = Object.entries(newErrors).find(
+      ([, err]) => err !== null
+    );
+    if (firstInvalid) {
+      const el = document.getElementById(firstInvalid[0]);
+      if (el) el.focus();
+    }
+
+    return Object.values(newErrors).every((err) => err === null);
+  };
+
+  const handleBlur = (field) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    // Auto-trim whitespace
+    const trimmed = formData[field].trim();
+    setFormData((prev) => ({ ...prev, [field]: trimmed }));
+    const error = validateField(field, trimmed);
+    setErrors((prev) => ({ ...prev, [field]: error }));
+  };
+
+  // Debounced onChange validation — runs 400ms after the user stops typing
+  useEffect(() => {
+    if (!touched.name) return;
+    const timer = setTimeout(() => {
+      const error = validateField("name", formData.name);
+      setErrors((prev) => ({ ...prev, name: error }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [formData.name, touched.name]);
+
+  useEffect(() => {
+    if (!touched.email) return;
+    const timer = setTimeout(() => {
+      const error = validateField("email", formData.email);
+      setErrors((prev) => ({ ...prev, email: error }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [formData.email, touched.email]);
+
+  useEffect(() => {
+    if (!touched.message) return;
+    const timer = setTimeout(() => {
+      const error = validateField("message", formData.message);
+      setErrors((prev) => ({ ...prev, message: error }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [formData.message, touched.message]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateAll()) return;
+
     setIsSubmitting(true);
 
-    // const now = new Date();
-    // const formatted = now.toLocaleString();
-    // setFormData((prev) => ({ ...prev, time: formatted }));
     setFormData({
       ...formData,
       time: new Date().toLocaleString(),
     });
 
-    //simulate apit call
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
-
     try {
+      // Populate hidden metadata fields right before submit (always fresh)
+      siteNameRef.current.value = window.location.origin;
+      titleRef.current.value = document.title;
+
       await emailjs.sendForm(
         import.meta.env.VITE_APP_EMAILJS_SERVIECE_ID,
         import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
         formRef.current,
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
       );
+      setIsSuccesseded(true);
       setFormData({ name: "", email: "", message: "", time: "" });
+      setTouched({ name: false, email: false, message: false });
+      setErrors({ name: null, email: null, message: null });
     } catch (error) {
       setIsSuccesseded(false);
       console.error("Error sending message:", error);
     } finally {
-      setIsSuccesseded(true);
       setIsSubmitting(false);
       setShowSuccess(true);
     }
 
-    // auto hide success modal after 5 secods
+    // auto hide success modal after 5 seconds
     setTimeout(() => setShowSuccess(false), 5000);
   };
 
@@ -215,6 +337,8 @@ const ContactSection = () => {
                           handleInputChange("name", text)
                         }
                         label={t("Your Name")}
+                        error={touched.name ? errors.name : null}
+                        onBlur={() => handleBlur("name")}
                       />
 
                       <TextInput
@@ -222,9 +346,12 @@ const ContactSection = () => {
                         label={t("Email Address")}
                         value={formData.email}
                         id="email"
+                        type="email"
                         handleInputChange={(text) =>
                           handleInputChange("email", text)
                         }
+                        error={touched.email ? errors.email : null}
+                        onBlur={() => handleBlur("email")}
                       />
                     </div>
 
@@ -237,19 +364,31 @@ const ContactSection = () => {
                       handleInputChange={(text) =>
                         handleInputChange("message", text)
                       }
+                      error={touched.message ? errors.message : null}
+                      onBlur={() => handleBlur("message")}
                     />
+                    {touched.message && (
+                      <div className="flex justify-end -mt-4">
+                        <span
+                          className={`text-xs ${
+                            isDarkMode ? "text-gray-500" : "text-gray-400"
+                          }`}
+                        >
+                          {formData.message.length} / 500
+                        </span>
+                      </div>
+                    )}
 
                     {/* Hidden metadata fields */}
-                    {/* <input type="hidden" name="siteName" value={siteName} /> */}
                     <input
                       type="hidden"
                       name="siteName"
-                      value={window.location.origin}
+                      ref={siteNameRef}
                     />
                     <input
                       type="hidden"
                       name="title"
-                      value={document.title}
+                      ref={titleRef}
                     />
                     {/* <input type="hidden" name="siteName" value="developer portfolio github" /> */}
                     <input type="hidden" name="time" value={formData.time} />
