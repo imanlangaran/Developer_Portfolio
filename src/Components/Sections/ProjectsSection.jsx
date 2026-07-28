@@ -16,7 +16,7 @@ const ProjectsSection = () => {
   const { isDarkMode } = useTheme();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const { i18n } = useTranslation();
+  const { t } = useTranslation('projects');
   const { lang } = useLang();
 
   return (
@@ -65,10 +65,10 @@ const ProjectsSection = () => {
               <motion.div
                 variants={itemVariants}
                 className={`text-sm uppercase ${
-                  i18n.language === "En" ? "tracking-widest" : ""
+                  lang === "En" ? "tracking-widest" : ""
                 } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
               >
-                {i18n.t("Featured Work")}
+                {t("Featured Work")}
               </motion.div>
 
               <motion.h2
@@ -76,12 +76,12 @@ const ProjectsSection = () => {
                 className="text-3xl md:text-5xl font-light mb-6"
               >
                 {/* should swap when persian */}
-                {i18n.language === "En" && i18n.t("Recent")}
+                {lang === "En" && t("Recent")}
                 <span className="text-blue-500 font-medium">
                   {" "}
-                  {i18n.t("Projects")}{" "}
+                  {t("Projects")}{" "}
                 </span>
-                {i18n.language !== "En" && i18n.t("Recent")}
+                {lang !== "En" && t("Recent")}
               </motion.h2>
 
               <motion.p
@@ -91,7 +91,7 @@ const ProjectsSection = () => {
                 } max-w-2xl mx-auto font-light`}
               >
                 {/* A collection of projects that showcase my experiense in building modern web application and solving complex problems. */}
-                {i18n.t("project subtitle")}
+                {t("project subtitle")}
               </motion.p>
             </motion.div>
 

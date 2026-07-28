@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const NotFound = () => {
   const { isDarkMode } = useTheme();
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation('notFound');
 
   const handleContactClick = () => {
     navigate("/", { state: { scrollTo: "contact" } });
@@ -124,7 +124,7 @@ const NotFound = () => {
             }`}
           >
             {/* You&apos;ve drifted off the map */}
-            {i18n.t("404 header")}
+            {t("404 header")}
           </motion.h1>
 
           {/* Subtitle */}
@@ -136,7 +136,7 @@ const NotFound = () => {
               isDarkMode ? "text-white/70" : "text-slate-600"
             }`}
           >
-            {i18n.t("404 desc")}
+            {t("404 desc")}
           </motion.p>
 
           {/* Decorative route line */}
@@ -171,7 +171,7 @@ const NotFound = () => {
                 }`}
               >
                 <span>←</span>
-                {i18n.t("404 Back to Home")}
+                {t("404 Back to Home")}
               </Link>
             </motion.div>
 
@@ -186,7 +186,7 @@ const NotFound = () => {
                   : "border-slate-300 bg-white/70 text-slate-900 hover:bg-white shadow-sm"
               }`}
             >
-              {i18n.t("404 Report issue")}
+              {t("404 Report issue")}
             </motion.button>
           </motion.div>
 
@@ -210,7 +210,7 @@ const NotFound = () => {
                   isDarkMode ? "bg-cyan-400" : "bg-blue-500"
                 }`}
               />
-              <p className="text-sm sm:text-base">{i18n.t("404 Tip")}</p>
+              <p className="text-sm sm:text-base">{t("404 Tip")}</p>
             </div>
           </motion.div>
         </div>

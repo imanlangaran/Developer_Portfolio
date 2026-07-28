@@ -30,7 +30,7 @@ const AboutSection = () => {
     once: true,
     margin: "-50px",
   });
-  const { i18n } = useTranslation();
+  const { t } = useTranslation('about');
   const { lang } = useLang();
 
   const { scrollYProgress } = useScroll({
@@ -112,20 +112,20 @@ const AboutSection = () => {
               <motion.div
                 variants={itemVariants}
                 className={`text-sm uppercase ${
-                  i18n.language === "En" ? "tracking-widest" : ""
+                  lang === "En" ? "tracking-widest" : ""
                 } ${isDarkMode ? "text-gray-500" : "text-gray-600"} mb-4`}
               >
-                {i18n.t("Get to Know Me")}
+                {t("Get to Know Me")}
               </motion.div>
 
               <motion.h2
                 variants={itemVariants}
                 className="text-3xl md:text-5xl font-light mb-6"
               >
-                {i18n.t("About title")}
+                {t("About title")}
                 <span className="text-blue-500 font-medium">
                   {" "}
-                  {i18n.t("Me")}
+                  {t("Me")}
                 </span>
               </motion.h2>
             </motion.div>
@@ -147,7 +147,7 @@ const AboutSection = () => {
                   }`}
                 >
                   <h3 className="text-2xl font-medium mb-6">
-                    {i18n.t("My Mission")}
+                    {t("My Mission")}
                   </h3>
                   <p
                     className={`text-lg leading-relaxed mb-6 ${
@@ -155,7 +155,7 @@ const AboutSection = () => {
                     }`}
                   >
                     {/* I believe technology should be a bridge that connects people and solves real-world problems. My passion lies in crafting digital experiences that are not just functional, but delightful and accessible to everyone. */}
-                    {i18n.t("about subtitle")}
+                    {t("about subtitle")}
                   </p>
                   <p
                     className={`text-base leading-relaxed ${
@@ -163,14 +163,14 @@ const AboutSection = () => {
                     }`}
                   >
                     {/* When I'm not coding, you'll find me exploring new frameworks, contributing to open source, or mentoring aspiring developers. I love the constant evolution of web technologies and the endless possibilities they bring to create meaningful digital experiences. */}
-                    {i18n.t("about subtitle2")}
+                    {t("about subtitle2")}
                   </p>
                 </motion.div>
 
                 {/* what i love building */}
                 <motion.div variants={itemVariants} className="space-y-4">
                   <h3 className="text-xl font-medium mb-6">
-                    {i18n.t("What I Love Building")}
+                    {t("What I Love Building")}
                   </h3>
                   <div className="grid gap-4">
                     {PASSIONS.map((passion) => (
@@ -193,14 +193,14 @@ const AboutSection = () => {
                         </div>
                         <div>
                           <h4 className="font-medium mb-1">
-                            {i18n.t(passion.title)}
+                            {t(passion.title)}
                           </h4>
                           <p
                             className={`text-sm ${
                               isDarkMode ? "text-gray-400" : "text-gray-600"
                             }`}
                           >
-                            {i18n.t(passion.description)}
+                            {t(passion.description)}
                           </p>
                         </div>
                       </motion.div>
@@ -218,7 +218,7 @@ const AboutSection = () => {
                       isDarkMode ? "text-gray-500" : "text-gray-600"
                     } mb-4 `}
                   >
-                    {i18n.t("Crafted with passion by")}
+                    {t("Crafted with passion by")}
                   </div>
 
                   {/* digital signature */}
@@ -227,7 +227,7 @@ const AboutSection = () => {
                 </div> */}
                   <div className="text-lg font-medium text-blue-500 mt-2">
                     {/* Iman Langaran */}
-                    {i18n.t("my name")}
+                    {t("my name")}
                   </div>
                 </motion.div>
               </motion.div>
@@ -241,7 +241,7 @@ const AboutSection = () => {
                 className="relative"
               >
                 <h3 className="text-2xl font-medium mb-8 text-center lg:text-left">
-                  {i18n.t("My Developer Journey")}
+                  {t("My Developer Journey")}
                 </h3>
 
                 <div
@@ -275,7 +275,7 @@ const AboutSection = () => {
                       >
                         <div className="flex items-center justify-between mb-2">
                           <h4 className="text-xl font-medium">
-                            {i18n.t(step.title)}
+                            {t(step.title)}
                           </h4>
                           <span
                             className={`text-sm px-3 py-1 rounded-full ${
@@ -284,7 +284,7 @@ const AboutSection = () => {
                                 : "bg-gray-100 text-gray-700"
                             }`}
                           >
-                            {i18n.t(step.year)}
+                            {t(step.year)}
                           </span>
                         </div>
                         <div
@@ -292,14 +292,14 @@ const AboutSection = () => {
                             isDarkMode ? "text-blue-400" : "text-blue-600"
                           }`}
                         >
-                          {i18n.t(step.company)}
+                          {t(step.company)}
                         </div>
                         <p
                           className={`text-sm leading-relaxed ${
                             isDarkMode ? "text-gray-400" : "text-gray-600"
                           }`}
                         >
-                          {i18n.t(step.description)}
+                          {t(step.description)}
                         </p>
                       </div>
                     </motion.div>
@@ -324,14 +324,14 @@ const AboutSection = () => {
                     isDarkMode ? "text-gray-400" : "text-gray-600"
                   }`}
                 >
-                  {i18n.t("Ready to bring your ideas to life?")}
+                  {t("Ready to bring your ideas to life?")}
                 </p>
 
                 <motion.button
                   whileHover={{ y: -2, scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                   className={`bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full text-sm uppercase ${
-                    i18n.language === "En" ? "tracking-wider" : ""
+                    lang === "En" ? "tracking-wider" : ""
                   } font-medium transition-all duration-300`}
                   onClick={() => {
                     const element = document.getElementById("contact");
@@ -340,7 +340,7 @@ const AboutSection = () => {
                     }
                   }}
                 >
-                  {i18n.t("Let's Work Together")}
+                  {t("Let's Work Together")}
                 </motion.button>
               </motion.div>
             </motion.div>

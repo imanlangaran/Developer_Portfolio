@@ -1,0 +1,29 @@
+{
+  "Let's Connect": "Let's Connect",
+  "contact subtitle": "Ready to start your next project? Let's discuss how we can bring your ideas to life.",
+
+  "Send me a message": "Send me a message",
+  "Your Name": "Your Name",
+  "Email Address": "Email Address",
+  "Your Message": "Your Message",
+  "Send Message": "Send Message",
+  "Sending": "Sending",
+
+  "Contact Information": "Contact Information",
+  "My Socials": "My Socials",
+
+  "Available for work": "Available for work",
+  "Available for work subtitle": "I'm currently available for freelance projects and full-time oppertunities.",
+
+  "Name is required": "Please enter your name",
+  "Name is too short": "Name must be at least 2 characters",
+  "Email is required": "Please enter your email address",
+  "Invalid email format": "Please enter a valid email address (e.g., name@example.com)",
+  "Message is required": "Please write your message",
+  "Message is too short": "Message must be at least 10 characters",
+
+  "Message Sent": "Message Sent",
+  "Message Sent subtitle": "Thank you for reaching out! I'll get back to you within 24 hours.",
+  "Message Not Sent": "Something Went wrong!!!",
+  "Message Not Sent subtitle": "Oops! Looks like your message didn't go through.I'm working on it — feel free to email or call me in the meantime!"
+}
