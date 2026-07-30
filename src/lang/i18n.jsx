@@ -61,6 +61,7 @@ i18n
     fallbackNS: "common",
 
     fallbackLng: "En",
+    supportedLngs: ["En", "Fa"],
 
     detection: {
       order: ["localStorage", "navigator"],

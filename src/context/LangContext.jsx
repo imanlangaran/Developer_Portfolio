@@ -10,7 +10,15 @@ const langDirMap = {
 };
 
 export const LangProvider = ({ children }) => {
-  const [lang, setLang] = useState(i18n.language);
+  // Normalize detected language to our supported keys ("En" or "Fa")
+  // Browser languages like "en-US", "en-GB", "fa-IR" are mapped accordingly
+  const normalizeLang = (lng) => {
+    if (!lng) return "En";
+    const lower = String(lng).toLowerCase();
+    return lower.startsWith("fa") ? "Fa" : "En";
+  };
+
+  const [lang, setLang] = useState(normalizeLang(i18n.language));
 
   // Set DOM attributes on mount (languageChanged event doesn't fire on init)
   useEffect(() => {
