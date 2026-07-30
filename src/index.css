@@ -4,34 +4,25 @@
 
 @theme {
   --font-display: "Urbanist", sans-serif;
-  --font-en: "Urbanist", sans-serif;
-  --font-fa: "Vazirmatn", sans-serif;
+}
+
+/*
+  Tailwind v4 JIT does not detect dynamically constructed class names
+  like `font-${lang.toLowerCase()}`, so font-en and font-fa must be
+  defined explicitly in the utilities layer.
+*/
+@layer utilities {
+  .font-en {
+    font-family: "Urbanist", sans-serif;
+  }
+  .font-fa {
+    font-family: "Vazirmatn", sans-serif;
+  }
 }
 
 @layer base {
-  /* html {
-    font-family: var(--font-display);
-  } */
-
   body {
     background-color: #000;
     overflow-x: hidden;
   }
 }
-
-/* .markdown-body {
-  background-color: transparent;
-  color: inherit;
-
-  width: 100%;
-  max-width: 100%;
-
-  overflow-x: hidden;
-}
-
-.markdown-body table {
-  display: block;
-  width: max-content;
-  max-width: 100%;
-  overflow-x: auto;
-} */
