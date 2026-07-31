@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import {
   // eslint-disable-next-line no-unused-vars
   motion,
   useScroll,
   useTransform,
+  useMotionValue,
+  useSpring,
   AnimatePresence,
 } from "framer-motion";
-import { ArrowDown, Mail } from "lucide-react";
+import { ArrowDown, Mail, ArrowRight } from "lucide-react";
 import { FiGithub, FiLinkedin } from "react-icons/fi";
 
 import {
@@ -24,6 +26,315 @@ const HeroSection = () => {
   const { isDarkMode } = useTheme();
   const { t } = useTranslation('hero');
   const { lang } = useLang();
+
+  // =============================================================
+  // HERO CTA BUTTON — ANIMATION VARIANTS (Issue #33)
+  // =============================================================
+  // 19 variants — switch by changing HERO_CTA_VARIANT:
+  //
+  //  Idle attention:
+  //    'glowPulse'    brand gradient + breathing glow  (recommended)
+  //    'sonar'        expanding cyan radar ring
+  //    'orbital'      rotating gradient ring (echoes profile image)
+  //    'shine'        periodic shine sweep
+  //    'levitate'     gentle floating
+  //    'gradientShift' brand gradient slowly shifting
+  //    'heartbeat'    lub-dub glow pulse
+  //    'electron'     orbiting dot
+  //    'caret'        blinking terminal cursor
+  //    'float'        outline + floating (original secondary style)
+  //
+  //  Hover / cursor-driven:
+  //    'magneticHover' button leans toward the cursor
+  //    'spotlight'    glow follows the cursor
+  //    'tilt'         3D perspective tilt
+  //    'letters'      staggered letter lift
+  //    'animatedArrow' arrow slides in on hover
+  //    'fill'         outline → gradient fill on hover
+  //    'lift'         elevation on hover
+  //    'neon'         flickering neon glow on hover
+  //    'ripple'       click ripple
+  // =============================================================
+  const HERO_CTA_VARIANT = 'glowPulse';
+
+  // --- Motion state for cursor-driven variants ---
+  // The hero renders TWO buttons (mobile + desktop views), so the
+  // magnetic variant keeps a separate ref for each — sharing one
+  // ref breaks on mobile (the hidden desktop button would win it).
+  const magneticRefMobile = useRef(null);
+  const magneticRefDesktop = useRef(null);
+  const magneticX = useMotionValue(0);
+  const magneticY = useMotionValue(0);
+  const springMX = useSpring(magneticX, { stiffness: 200, damping: 18 });
+  const springMY = useSpring(magneticY, { stiffness: 200, damping: 18 });
+
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const springTiltX = useSpring(tiltX, { stiffness: 200, damping: 20 });
+  const springTiltY = useSpring(tiltY, { stiffness: 200, damping: 20 });
+  const rotateX = useTransform(springTiltY, [-0.5, 0.5], [8, -8]);
+  const rotateY = useTransform(springTiltX, [-0.5, 0.5], [-8, 8]);
+
+  const [ripples, setRipples] = useState([]);
+
+  const handleSpotlightMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  };
+
+  const handleMagneticMove = (e, ref) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    magneticX.set((e.clientX - (rect.left + rect.width / 2)) * 0.25);
+    magneticY.set((e.clientY - (rect.top + rect.height / 2)) * 0.25);
+  };
+  const handleMagneticLeave = () => {
+    magneticX.set(0);
+    magneticY.set(0);
+  };
+
+  const handleTiltMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    tiltX.set((e.clientX - rect.left) / rect.width - 0.5);
+    tiltY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+  const handleTiltLeave = () => {
+    tiltX.set(0);
+    tiltY.set(0);
+  };
+
+  const handleRippleDown = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setRipples((prev) => [
+      ...prev,
+      {
+        id: `${Date.now()}-${Math.random()}`,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      },
+    ]);
+  };
+  const removeRipple = (id) =>
+    setRipples((prev) => prev.filter((r) => r.id !== id));
+
+  // Base classes shared by every variant.
+  const ctaBase = `
+    font-medium transition-all duration-300
+    rounded-full text-sm uppercase
+    ${lang === "En" ? "tracking-wider" : ""}
+    cursor-pointer
+  `;
+
+  const padding = (isMobile) => (isMobile ? "px-8 py-3" : "px-8 py-4");
+
+  // The hero's brand gradient (matches the headline: cyan→blue→cyan).
+  // Every filled variant uses it, so the CTA reads as *the* accent
+  // element while the Resume button keeps its solid blue fill.
+  const brandFill = (isMobile) => `
+    ${padding(isMobile)}
+    bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500
+    text-white
+    hover:from-cyan-400 hover:via-blue-500 hover:to-cyan-400
+  `;
+
+  // The original secondary (outline) surface.
+  const outline = (isMobile) => `
+    ${padding(isMobile)}
+    border ${isDarkMode ? "border-gray-700 text-gray-300" : "border-gray-300 text-gray-700"}
+    hover:border-blue-500/60
+  `;
+
+  // =============================================================
+  // VARIANT MAP — each entry: { classes(isMobile), content?, props? }
+  // =============================================================
+  const HERO_CTA_VARIANTS = {
+    /* ---------- Idle attention ---------- */
+
+    // Brand gradient + breathing cyan↔blue glow (recommended)
+    glowPulse: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-glow-pulse`,
+    },
+
+    // Expanding cyan radar ring
+    sonar: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-sonar`,
+    },
+
+    // Rotating gradient ring — echoes the profile image's rings
+    orbital: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-orbital`,
+    },
+
+    // Periodic shine sweep
+    shine: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-shine`,
+    },
+
+    // Gentle floating (pauses on hover)
+    levitate: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-levitate`,
+    },
+
+    // Brand gradient slowly shifting position
+    gradientShift: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-gradient-shift`,
+    },
+
+    // Lub-dub glow pulse
+    heartbeat: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-heartbeat`,
+    },
+
+    // Glowing dot orbiting the button
+    electron: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-electron`,
+    },
+
+    // Blinking terminal cursor
+    caret: {
+      classes: (m) => `${ctaBase} ${brandFill(m)}`,
+      content: (txt) => (
+        <span className="inline-flex items-center">
+          {txt}
+          <span className="hero-cta-caret ms-2">|</span>
+        </span>
+      ),
+    },
+
+    // Original secondary style: outline + floating
+    float: {
+      classes: (m) => `${ctaBase} ${outline(m)} hero-cta-float`,
+    },
+
+    /* ---------- Hover / cursor-driven ---------- */
+
+    // The pill leans toward the cursor with spring physics
+    magneticHover: {
+      classes: (m) => `${ctaBase} ${brandFill(m)}`,
+      props: (isMobile) => {
+        const ref = isMobile ? magneticRefMobile : magneticRefDesktop;
+        return {
+          ref,
+          style: { x: springMX, y: springMY },
+          onMouseMove: (e) => handleMagneticMove(e, ref),
+          onMouseLeave: handleMagneticLeave,
+          whileHover: { scale: 1.04 },
+          whileTap: { scale: 0.96 },
+        };
+      },
+    },
+
+    // Radial glow that follows the cursor
+    spotlight: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-spotlight overflow-hidden isolate`,
+      props: () => ({ onMouseMove: handleSpotlightMove }),
+    },
+
+    // 3D perspective tilt
+    tilt: {
+      classes: (m) => `${ctaBase} ${brandFill(m)}`,
+      props: () => ({
+        style: { rotateX, rotateY, transformPerspective: 600 },
+        onMouseMove: handleTiltMove,
+        onMouseLeave: handleTiltLeave,
+      }),
+    },
+
+    // Letters lift with a stagger
+    letters: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} group`,
+      content: (txt) => {
+        // Arabic-script languages (Fa) must not be split into letters
+        if (lang !== 'En') return txt;
+        return (
+          <span className="inline-flex">
+            {txt.split('').map((ch, i) => (
+              <span
+                key={i}
+                className="inline-block transition-transform duration-200 ease-out group-hover:-translate-y-[3px]"
+                style={{ transitionDelay: `${i * 30}ms` }}
+              >
+                {ch}
+              </span>
+            ))}
+          </span>
+        );
+      },
+    },
+
+    // Arrow slides in on hover
+    animatedArrow: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} group`,
+      content: (txt) => (
+        <span className="inline-flex items-center gap-2">
+          <span>{txt}</span>
+          <ArrowRight size={16} className="hero-cta-arrow" />
+        </span>
+      ),
+    },
+
+    // Outline idle → brand gradient sweeps in on hover
+    fill: {
+      classes: (m) =>
+        `${ctaBase} ${outline(m)} hero-cta-fill overflow-hidden isolate group hover:text-white`,
+    },
+
+    // Elevation + soft shadow on hover
+    lift: {
+      classes: (m) =>
+        `${ctaBase} ${brandFill(m)} shadow-sm hover:-translate-y-0.5 hover:shadow-lg hover:shadow-cyan-500/20`,
+    },
+
+    // Flickering neon glow on hover
+    neon: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} hero-cta-neon`,
+    },
+
+    // Expanding ripple from the click point
+    ripple: {
+      classes: (m) => `${ctaBase} ${brandFill(m)} overflow-hidden isolate`,
+      props: () => ({ onMouseDown: handleRippleDown }),
+      content: (txt) => (
+        <>
+          {txt}
+          {ripples.map((r) => (
+            <motion.span
+              key={r.id}
+              className="absolute rounded-full bg-white/40 pointer-events-none"
+              style={{
+                left: r.x,
+                top: r.y,
+                width: 80,
+                height: 80,
+                x: '-50%',
+                y: '-50%',
+                zIndex: -1,
+              }}
+              initial={{ scale: 0, opacity: 0.6 }}
+              animate={{ scale: 3, opacity: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              onAnimationComplete={() => removeRipple(r.id)}
+            />
+          ))}
+        </>
+      ),
+    },
+  };
+
+  const activeCta =
+    HERO_CTA_VARIANTS[HERO_CTA_VARIANT] || HERO_CTA_VARIANTS.glowPulse;
+
+  const getHeroCtaClasses = (isMobile) => activeCta.classes(isMobile);
+  const getHeroCtaContent = () =>
+    activeCta.content
+      ? activeCta.content(t("Get In Touch"))
+      : t("Get In Touch");
+  const getHeroCtaProps = (isMobile) => ({
+    // Every variant scrolls to the contact section on click.
+    onClick: () => scrollToSection("contact"),
+    ...(activeCta.props ? activeCta.props(isMobile) : {}),
+  });
 
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, -100]);
@@ -262,20 +573,52 @@ const HeroSection = () => {
                   >
                     {t("View Work")}
                   </motion.button> */}
+                  {/* ================================================
+                     HERO CTA BUTTON — Issue #33
+                     ★ Currently active: glowPulse
+                     To switch, change HERO_CTA_VARIANT above.
+                     ================================================
+
+                     Variant 1 — Soft Glow Pulse (default) ★
+                  */}
                   <motion.button
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => scrollToSection("contact")}
-                    className={`border ${
-                      isDarkMode
-                        ? "border-gray-700 hover:border-gray-600 text-gray-300"
-                        : "border-gray-300 hover:border-gray-400 text-gray-700"
-                    } px-8 py-3 rounded-full text-sm uppercase ${
-                      lang === "En" ? "tracking-wider" : ""
-                    } font-medium transition-all duration-300`}
+                    {...getHeroCtaProps(true)}
+                    className={getHeroCtaClasses(true)}
                   >
-                    {t("Get In Touch")}
+                    {getHeroCtaContent()}
                   </motion.button>
+
+                  {/* ---- Variant 2: Floating / Breathing Animation ----
+                  <motion.button
+                    {...getHeroCtaProps()}
+                    className={getHeroCtaClasses(true)}
+                  >
+                    {getHeroCtaContent()}
+                  </motion.button> */}
+
+                  {/* ---- Variant 3: Shine Sweep ----
+                  <motion.button
+                    {...getHeroCtaProps()}
+                    className={getHeroCtaClasses(true)}
+                  >
+                    {getHeroCtaContent()}
+                  </motion.button> */}
+
+                  {/* ---- Variant 4: Magnetic Hover Effect ----
+                  <motion.button
+                    {...getHeroCtaProps()}
+                    className={getHeroCtaClasses(true)}
+                  >
+                    {getHeroCtaContent()}
+                  </motion.button> */}
+
+                  {/* ---- Variant 5: Animated Arrow ----
+                  <motion.button
+                    {...getHeroCtaProps()}
+                    className={getHeroCtaClasses(true)}
+                  >
+                    {getHeroCtaContent()}
+                  </motion.button> */}
                 </motion.div>
 
                 <motion.div
@@ -454,20 +797,52 @@ const HeroSection = () => {
                   >
                     {t("View Work")}
                   </motion.button> */}
+                  {/* ================================================
+                     HERO CTA BUTTON — Issue #33
+                     ★ Currently active: glowPulse
+                     To switch, change HERO_CTA_VARIANT above.
+                     ================================================
+
+                     Variant 1 — Soft Glow Pulse (default) ★
+                  */}
                   <motion.button
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => scrollToSection("contact")}
-                    className={`border ${
-                      isDarkMode
-                        ? "border-gray-700 hover:border-gray-600 text-gray-300"
-                        : "border-gray-300 hover:border-gray-400 text-gray-700"
-                    } px-8 py-4 rounded-full text-sm uppercase ${
-                      lang === "En" ? "tracking-wider" : ""
-                    } font-medium transition-all duration-300`}
+                    {...getHeroCtaProps(false)}
+                    className={getHeroCtaClasses(false)}
                   >
-                    {t("Get In Touch")}
+                    {getHeroCtaContent()}
                   </motion.button>
+
+                  {/* ---- Variant 2: Floating / Breathing Animation ----
+                  <motion.button
+                    {...getHeroCtaProps()}
+                    className={getHeroCtaClasses(false)}
+                  >
+                    {getHeroCtaContent()}
+                  </motion.button> */}
+
+                  {/* ---- Variant 3: Shine Sweep ----
+                  <motion.button
+                    {...getHeroCtaProps()}
+                    className={getHeroCtaClasses(false)}
+                  >
+                    {getHeroCtaContent()}
+                  </motion.button> */}
+
+                  {/* ---- Variant 4: Magnetic Hover Effect ----
+                  <motion.button
+                    {...getHeroCtaProps()}
+                    className={getHeroCtaClasses(false)}
+                  >
+                    {getHeroCtaContent()}
+                  </motion.button> */}
+
+                  {/* ---- Variant 5: Animated Arrow ----
+                  <motion.button
+                    {...getHeroCtaProps()}
+                    className={getHeroCtaClasses(false)}
+                  >
+                    {getHeroCtaContent()}
+                  </motion.button> */}
                 </motion.div>
 
                 <motion.div

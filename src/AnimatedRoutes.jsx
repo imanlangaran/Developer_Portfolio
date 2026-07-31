@@ -4,6 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import App from "./App";
 import NotFound from "./Pages/NotFound";
 import ProjectDetail from "./Pages/ProjectDetail";
+import CtaDemo from "./Pages/CtaDemo";
 import { useEffect } from "react";
 
 function RedirectHandler() {
@@ -32,6 +33,7 @@ export default function AnimatedRoutes() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<App />} />
           <Route path="/project/:id" element={<ProjectDetail />} />
+          <Route path="/cta-demo" element={<CtaDemo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>

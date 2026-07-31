@@ -26,3 +26,604 @@
     overflow-x: hidden;
   }
 }
+
+/* ============================================================
+   CTA BUTTON ANIMATIONS — Issue #33
+   ============================================================
+   Each variant is self-contained. Toggle which one is active
+   inside the component files (NavBar.jsx / HeroSection.jsx).
+   ============================================================ */
+
+/* ---------- Navbar CTA Animations ---------- */
+
+/*
+ * Variant 1 — Animated Gradient Text
+ * Smoothly shifting gradient across the text itself.
+ */
+@keyframes gradientTextShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.nav-cta-gradient-text {
+  background-size: 200% auto !important;
+  animation: gradientTextShift 4s ease infinite;
+  /* soft glow — mirrors the hero headline's gradient text shadow */
+  text-shadow: 0 2px 18px rgba(0, 168, 255, 0.18);
+}
+
+/*
+ * Variant 2 — Animated Gradient Border (Preferred)
+ * Conic‑like border created via a pseudo‑element with a
+ * sweeping gradient that rotates endlessly.
+ */
+@keyframes borderGradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.nav-cta-gradient-border {
+  position: relative;
+  z-index: 0;
+  border: none !important;
+}
+.nav-cta-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  padding: 2px;
+  background: linear-gradient(60deg, #3b82f6, #8b5cf6, #06b6d4, #f472b6, #3b82f6);
+  background-size: 300% 300%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderGradientShift 4s linear infinite;
+  z-index: -1;
+}
+.nav-cta-gradient-border:hover::before {
+  animation-duration: 1.5s;
+}
+
+/*
+ * Variant 3 — Aurora Background
+ * Soft blurred gradient that breathes behind the button.
+ */
+@keyframes auroraShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.nav-cta-aurora {
+  position: relative;
+  z-index: 0;
+}
+.nav-cta-aurora::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899, #06b6d4, #3b82f6);
+  background-size: 400% 400%;
+  animation: auroraShift 6s ease infinite;
+  filter: blur(10px);
+  opacity: 0.6;
+  z-index: -1;
+}
+.nav-cta-aurora:hover::before {
+  opacity: 0.85;
+  filter: blur(8px);
+}
+
+/*
+ * Variant 4 — Halo: Dynamic Glow (refined, default active)
+ * Borderless breathing glow cycling the hero's own accent colors
+ * (blue ↔ cyan). No outline, no new shape — the button keeps the
+ * navbar's pill language and simply glows.
+ */
+@keyframes glowShift {
+  0%, 100% { box-shadow: 0 0 10px rgba(59,130,246,.25), 0 0 22px rgba(59,130,246,.10); }
+  50%      { box-shadow: 0 0 16px rgba(6,182,212,.32), 0 0 34px rgba(6,182,212,.14); }
+}
+.nav-cta-dynamic-glow {
+  animation: glowShift 3.5s ease-in-out infinite;
+}
+.nav-cta-dynamic-glow:hover {
+  animation-duration: 1.5s;
+}
+
+/*
+ * Variant 5 — Animated Underline
+ * A gradient underline that sweeps from left to right periodically.
+ */
+@keyframes underlineSlide {
+  0%   { transform: scaleX(0); transform-origin: left; }
+  48%  { transform: scaleX(1); transform-origin: left; }
+  52%  { transform: scaleX(1); transform-origin: right; }
+  100% { transform: scaleX(0); transform-origin: right; }
+}
+.nav-cta-underline {
+  position: relative;
+}
+.nav-cta-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #06b6d4, #3b82f6, #06b6d4);
+  transform: scaleX(0);
+  animation: underlineSlide 4s ease-in-out infinite;
+}
+.nav-cta-underline:hover::after {
+  animation-duration: 1.5s;
+  height: 2.5px;
+}
+
+/* ============================================================
+   NAVBAR CTA — EXTENDED VARIANTS (Issue #33, round 2)
+   ============================================================ */
+
+/* Sonar — radar ping rings expanding from the pill */
+.nav-cta-sonar { position: relative; }
+.nav-cta-sonar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(59, 130, 246, 0.45);
+  pointer-events: none;
+  animation: sonarPing 3s ease-out infinite;
+}
+@keyframes sonarPing {
+  0%        { transform: scale(1);    opacity: 0.7; }
+  70%, 100% { transform: scale(1.55); opacity: 0;   }
+}
+.nav-cta-sonar:hover::after {
+  animation-duration: 1.5s;
+}
+
+/* Scanline — terminal scan sweeping vertically through the pill */
+.nav-cta-scanline { position: relative; }
+.nav-cta-scanline::before {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: -8px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.8), transparent);
+  animation: scanlineSweep 4s ease-in-out infinite;
+}
+@keyframes scanlineSweep {
+  0%        { top: -8px;             opacity: 0; }
+  10%       { opacity: 1; }
+  45%       { top: calc(100% + 6px); opacity: 1; }
+  55%, 100% { top: calc(100% + 6px); opacity: 0; }
+}
+
+/* Electron — a glowing dot orbiting the pill (atom) */
+.nav-cta-electron { position: relative; }
+.nav-cta-electron::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -7px;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 9999px;
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+  transform-origin: 50% 25px; /* orbit radius → pill center */
+  animation: electronOrbit 3.5s linear infinite;
+}
+@keyframes electronOrbit {
+  to { transform: rotate(360deg); }
+}
+
+/* Caret — blinking terminal cursor */
+.nav-cta-caret,
+.hero-cta-caret {
+  font-weight: 700;
+  color: #06b6d4;
+  text-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
+  animation: caretBlink 1.1s steps(1) infinite;
+}
+@keyframes caretBlink {
+  0%, 45%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Heartbeat — double-pulse glow (lub-dub) */
+@keyframes heartbeatGlow {
+  0%, 100%  { box-shadow: 0 0 8px rgba(59, 130, 246, 0.18); }
+  12%       { box-shadow: 0 0 18px rgba(59, 130, 246, 0.45), 0 0 34px rgba(59, 130, 246, 0.18); }
+  24%       { box-shadow: 0 0 8px rgba(59, 130, 246, 0.18); }
+  36%       { box-shadow: 0 0 14px rgba(6, 182, 212, 0.40), 0 0 28px rgba(6, 182, 212, 0.16); }
+  48%, 100% { box-shadow: 0 0 8px rgba(59, 130, 246, 0.18); }
+}
+.nav-cta-heartbeat {
+  animation: heartbeatGlow 3.2s ease-in-out infinite;
+}
+.nav-cta-heartbeat:hover {
+  animation-duration: 1.6s;
+}
+
+/* Wave — liquid gradient shifting inside the pill */
+@keyframes waveShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.nav-cta-wave {
+  background-image: linear-gradient(
+    120deg,
+    rgba(59, 130, 246, 0.22),
+    rgba(6, 182, 212, 0.10),
+    rgba(59, 130, 246, 0.22)
+  );
+  background-size: 200% 100%;
+  animation: waveShift 5s ease-in-out infinite;
+}
+.nav-cta-wave:hover {
+  animation-duration: 2.5s;
+}
+
+/* Comet — periodic shine sweep across the pill */
+.nav-cta-comet { position: relative; }
+.nav-cta-comet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: skewX(-20deg);
+  animation: navCometSweep 4.5s ease-in-out infinite;
+}
+@keyframes navCometSweep {
+  0%   { left: -60%; }
+  45%  { left: 160%; }
+  100% { left: 160%; }
+}
+.nav-cta-comet:hover::before {
+  animation-duration: 2s;
+}
+
+/* Spotlight — radial glow that follows the cursor inside the pill */
+.nav-cta-spotlight { position: relative; isolation: isolate; }
+.nav-cta-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: radial-gradient(
+    70px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(59, 130, 246, 0.30),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.nav-cta-spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Fill — gradient sweeps across the pill on hover */
+.nav-cta-fill { position: relative; isolation: isolate; }
+.nav-cta-fill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+  z-index: -1;
+}
+.nav-cta-fill:hover::before {
+  transform: scaleX(1);
+}
+
+/* Arrow — slides in on hover */
+.nav-cta-arrow,
+.hero-cta-arrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.group:hover .nav-cta-arrow,
+.group:hover .hero-cta-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Neon — flickering cyan text glow on hover */
+.nav-cta-neon:hover {
+  animation: neonFlicker 1.4s steps(2, start) infinite;
+}
+@keyframes neonFlicker {
+  0%   { text-shadow: 0 0 6px rgba(34, 211, 238, 0.70), 0 0 18px rgba(34, 211, 238, 0.35); }
+  25%  { text-shadow: 0 0 4px rgba(34, 211, 238, 0.40), 0 0 12px rgba(34, 211, 238, 0.20); }
+  50%  { text-shadow: 0 0 8px rgba(34, 211, 238, 0.80), 0 0 22px rgba(34, 211, 238, 0.40); }
+  75%  { text-shadow: 0 0 4px rgba(34, 211, 238, 0.50), 0 0 12px rgba(34, 211, 238, 0.20); }
+  100% { text-shadow: 0 0 7px rgba(34, 211, 238, 0.75), 0 0 20px rgba(34, 211, 238, 0.35); }
+}
+
+
+/* ---------- Hero Section CTA Animations ---------- */
+
+/*
+ * Variant 1 — Soft Glow Pulse (default active)
+ * Breathing glow in the hero's brand palette (cyan ↔ blue).
+ * The CTA fill itself uses the headline's cyan→blue→cyan gradient,
+ * so it stands apart from the solid-blue Resume button.
+ */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(6, 182, 212, 0.25), 0 0 18px rgba(6, 182, 212, 0.10); }
+  50%      { box-shadow: 0 0 20px rgba(59, 130, 246, 0.45), 0 0 42px rgba(59, 130, 246, 0.18); }
+}
+.hero-cta-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+.hero-cta-glow-pulse:hover {
+  animation-duration: 1.2s;
+}
+
+/*
+ * Variant 2 — Floating / Breathing Animation
+ * Moves upward a few pixels and smoothly returns.
+ */
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-7px); }
+}
+.hero-cta-float {
+  animation: heroFloat 3.5s ease-in-out infinite;
+}
+.hero-cta-float:hover {
+  animation-play-state: paused;
+}
+
+/*
+ * Variant 3 — Shine Sweep
+ * Light reflection that sweeps across the button periodically.
+ */
+.hero-cta-shine {
+  position: relative;
+  overflow: hidden;
+}
+.hero-cta-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: shineSweep 5s ease-in-out infinite;
+}
+@keyframes shineSweep {
+  0%    { left: -60%; }
+  40%   { left: 160%; }
+  100%  { left: 160%; }
+}
+.hero-cta-shine:hover::before {
+  animation-duration: 2.5s;
+}
+
+/*
+ * Variant 5 — Animated Arrow
+ * Arrow icon slides subtly when hovered or periodically.
+ */
+.hero-cta-arrow-icon {
+  display: inline-block;
+  animation: arrowBob 2.5s ease-in-out infinite;
+}
+@keyframes arrowBob {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(5px); }
+}
+.hero-cta-arrow-icon-hover {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.group:hover .hero-cta-arrow-icon-hover {
+  transform: translateX(6px);
+}
+
+/* ============================================================
+   HERO CTA — EXTENDED VARIANTS (Issue #33, round 2)
+   ============================================================ */
+
+/* Sonar — expanding cyan radar ring */
+.hero-cta-sonar { position: relative; }
+.hero-cta-sonar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(6, 182, 212, 0.5);
+  pointer-events: none;
+  animation: heroSonarPing 2.8s ease-out infinite;
+}
+@keyframes heroSonarPing {
+  0%        { transform: scale(1);   opacity: 0.7; }
+  70%, 100% { transform: scale(1.4); opacity: 0;   }
+}
+.hero-cta-sonar:hover::after {
+  animation-duration: 1.4s;
+}
+
+/* Orbital — rotating gradient ring echoing the profile-image rings */
+.hero-cta-orbital { position: relative; isolation: isolate; }
+.hero-cta-orbital::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 9999px;
+  padding: 2px;
+  background: linear-gradient(60deg, #06b6d4, #3b82f6, #8b5cf6, #06b6d4);
+  background-size: 300% 300%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderGradientShift 5s linear infinite;
+  z-index: -1;
+}
+.hero-cta-orbital:hover::before {
+  animation-duration: 2.5s;
+}
+
+/* Levitate — gentle floating on the brand gradient (pauses on hover) */
+.hero-cta-levitate {
+  animation: heroFloat 4s ease-in-out infinite;
+}
+.hero-cta-levitate:hover {
+  animation-play-state: paused;
+}
+
+/* Gradient shift — the brand gradient slowly breathes sideways */
+@keyframes heroGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.hero-cta-gradient-shift {
+  background-size: 200% auto !important;
+  animation: heroGradientShift 6s ease-in-out infinite;
+}
+.hero-cta-gradient-shift:hover {
+  animation-duration: 3s;
+}
+
+/* Heartbeat — lub-dub glow pulse (reuses heartbeatGlow) */
+.hero-cta-heartbeat {
+  animation: heartbeatGlow 3.2s ease-in-out infinite;
+}
+.hero-cta-heartbeat:hover {
+  animation-duration: 1.6s;
+}
+
+/* Electron — glowing dot orbiting the taller hero pill */
+.hero-cta-electron { position: relative; }
+.hero-cta-electron::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 9999px;
+  background: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+  transform-origin: 50% 32px; /* orbit radius → taller pill center */
+  animation: electronOrbit 3.5s linear infinite;
+}
+
+/* Spotlight — radial glow that follows the cursor inside the pill */
+.hero-cta-spotlight { position: relative; isolation: isolate; }
+.hero-cta-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: radial-gradient(
+    90px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(34, 211, 238, 0.35),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.hero-cta-spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Fill — outline idle, brand gradient sweeps in on hover */
+.hero-cta-fill { position: relative; isolation: isolate; }
+.hero-cta-fill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #06b6d4, #3b82f6, #06b6d4);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+.hero-cta-fill:hover::before {
+  transform: scaleX(1);
+}
+
+/* Neon — flickering cyan glow on hover (reuses neonFlicker) */
+.hero-cta-neon:hover {
+  animation: neonFlicker 1.4s steps(2, start) infinite;
+}
+
+/* ---------- Accessibility: respect reduced-motion preferences ----------
+   Pauses all CTA animations for users who opt out of motion.
+   Buttons keep their static styles — no animation, no decoration. */
+@media (prefers-reduced-motion: reduce) {
+  .nav-cta-gradient-text,
+  .nav-cta-gradient-border,
+  .nav-cta-aurora,
+  .nav-cta-dynamic-glow,
+  .nav-cta-underline,
+  .nav-cta-sonar,
+  .nav-cta-scanline,
+  .nav-cta-electron,
+  .nav-cta-caret,
+  .nav-cta-heartbeat,
+  .nav-cta-wave,
+  .nav-cta-comet,
+  .nav-cta-neon,
+  .hero-cta-glow-pulse,
+  .hero-cta-float,
+  .hero-cta-shine,
+  .hero-cta-arrow-icon,
+  .hero-cta-sonar,
+  .hero-cta-orbital,
+  .hero-cta-levitate,
+  .hero-cta-gradient-shift,
+  .hero-cta-heartbeat,
+  .hero-cta-electron,
+  .hero-cta-caret,
+  .hero-cta-neon,
+  .nav-cta-gradient-border::before,
+  .nav-cta-aurora::before,
+  .nav-cta-sonar::after,
+  .nav-cta-scanline::before,
+  .nav-cta-electron::before,
+  .nav-cta-comet::before,
+  .hero-cta-shine::before,
+  .hero-cta-sonar::after,
+  .hero-cta-orbital::before,
+  .hero-cta-electron::before,
+  .nav-cta-underline::after {
+    animation: none !important;
+  }
+  .hero-cta-float,
+  .hero-cta-levitate {
+    transform: none !important;
+  }
+}
