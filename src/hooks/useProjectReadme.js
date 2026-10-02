@@ -43,8 +43,8 @@ export default function useProjectReadme(project, language) {
           signal: controller.signal,
         });
 
-        // 2. fallback README
-        if (!response.ok) {
+        // 2. fallback README (only if localized fetch failed and fallback is different)
+        if (!response.ok && localizedUrl !== fallbackUrl) {
           response = await fetch(fallbackUrl, {
             signal: controller.signal,
           });

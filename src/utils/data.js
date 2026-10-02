@@ -181,6 +181,16 @@ export const PROJECTS = [
     type: "public",
     featured: true,
     category: "Full Stack",
+  },  {
+    id: 9,
+    title: "Enterprise Dashboard",
+    description: "Internal client management platform",
+    image: false,
+    tags: ["React", "Node.js", "PostgreSQL"],
+    type: "private",
+    slug: "example-project", // reads public/docs/enterprise-dashboard/README.md
+    featured: false,
+    category: "Full Stack"
   },
   {
     id: 2,
