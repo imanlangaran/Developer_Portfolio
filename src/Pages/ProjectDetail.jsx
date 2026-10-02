@@ -52,8 +52,15 @@ export default function ProjectDetail() {
   // README
   // --------------------------------------------------
   const { readmeHtml, isLoading: isLoadingReadme } = useProjectReadme(
-    project?.githubUrl,
+    project,
     i18n.language,
+  );
+
+  const hasReadme = Boolean(
+    project &&
+      (project.type === "private"
+        ? project.readme || project.slug
+        : project.githubUrl),
   );
 
   // --------------------------------------------------
@@ -175,7 +182,7 @@ export default function ProjectDetail() {
       document.head.appendChild(canonical);
     }
     canonical.href = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
-  }, [project, id, i18n]);
+  }, [project, id, i18n, t]);
 
   // --------------------------------------------------
   // NOT FOUND
@@ -264,10 +271,11 @@ export default function ProjectDetail() {
           {/* CONTENT */}
           <div className="max-w-4xl mx-auto px-5 md:px-10 py-10">
             {/* ACTIONS */}
-            {(project.githubUrl || project.liveUrl) && (
+            {((project.type !== "private" && project.githubUrl) || project.liveUrl) && (
               <Actions
-                githubUrl={project.githubUrl}
+                githubUrl={project.type === "private" ? null : project.githubUrl}
                 liveUrl={project.liveUrl}
+                type={project.type}
                 isDarkMode={isDarkMode}
               />
             )}
@@ -284,7 +292,7 @@ export default function ProjectDetail() {
             )}
 
             {/* README */}
-            {project.githubUrl && (
+            {hasReadme && (
               <div className="mt-14">
                 <h3
                   className={`text-xl font-semibold mb-6 ${

@@ -1,54 +1,35 @@
 import { useEffect, useMemo, useState } from "react";
-
 import { Marked } from "marked";
 import { baseUrl } from "marked-base-url";
 
-import { getGithubReadmeUrl } from "../utils/getGithubReadmeUrl";
+import { getProjectReadmeUrl } from "../utils/getProjectReadmeUrl";
 
-export default function useProjectReadme(githubUrl, language) {
+export default function useProjectReadme(project, language) {
   const [readmeHtml, setReadmeHtml] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const parser = new Marked();
-
-
 
   // --------------------------------------------------
   // README URLS
   // --------------------------------------------------
   const readmeUrls = useMemo(() => {
-    if (!githubUrl) return null;
+    return getProjectReadmeUrl(project, language);
+  }, [project, language]);
 
-    return getGithubReadmeUrl(githubUrl, language);
-  }, [githubUrl, language]);
-
-  parser.use(baseUrl(readmeUrls.base), {
-    walkTokens(token) {
-      if (token.type !== "html") return;
-
-      token.text = token.text.replace(
-        /<img\b([^>]*?)\bsrc=(["'])(.*?)\2([^>]*?)>/gi,
-        (match, before, quote, src, after) => {
-          if (/^(https?:|data:|blob:|\/\/)/i.test(src)) {
-            return match;
-          }
-
-          return `<img${before}src=${quote}${new URL(src, readmeUrls.base).href}${quote}${after}>`;
-        },
-      );
-    },
-  });
-
-  parser.setOptions({
-    gfm: true,
-    breaks: true
-  })
+  const localizedUrl = readmeUrls?.localized;
+  const fallbackUrl = readmeUrls?.fallback;
+  const baseUrlString = readmeUrls?.base;
 
   // --------------------------------------------------
   // FETCH README
   // --------------------------------------------------
   useEffect(() => {
-    if (!readmeUrls) return;
+    if (!localizedUrl || !fallbackUrl || !baseUrlString) {
+      setReadmeHtml("");
+      setIsLoading(false);
+      setError(null);
+      return;
+    }
 
     const controller = new AbortController();
 
@@ -58,13 +39,13 @@ export default function useProjectReadme(githubUrl, language) {
 
       try {
         // 1. localized README
-        let response = await fetch(readmeUrls.localized, {
+        let response = await fetch(localizedUrl, {
           signal: controller.signal,
         });
 
         // 2. fallback README
         if (!response.ok) {
-          response = await fetch(readmeUrls.fallback, {
+          response = await fetch(fallbackUrl, {
             signal: controller.signal,
           });
         }
@@ -75,12 +56,41 @@ export default function useProjectReadme(githubUrl, language) {
 
         const markdown = await response.text();
 
+        const parser = new Marked();
+
+        parser.use(baseUrl(baseUrlString), {
+          walkTokens(token) {
+            if (token.type !== "html") return;
+
+            token.text = token.text.replace(
+              /<img\b([^>]*?)\bsrc=(["'])(.*?)\2([^>]*?)>/gi,
+              (match, before, quote, src, after) => {
+                if (/^(https?:|data:|blob:|\/\/)/i.test(src)) {
+                  return match;
+                }
+
+                try {
+                  return `<img${before}src=${quote}${new URL(src, baseUrlString).href}${quote}${after}>`;
+                } catch {
+                  return match;
+                }
+              },
+            );
+          },
+        });
+
+        parser.setOptions({
+          gfm: true,
+          breaks: true,
+        });
 
         const html = parser.parse(markdown);
 
-        setReadmeHtml(html);
+        if (!controller.signal.aborted) {
+          setReadmeHtml(html);
+        }
       } catch (err) {
-        if (err.name === "AbortError") return;
+        if (err.name === "AbortError" || controller.signal.aborted) return;
 
         console.error(err);
 
@@ -103,7 +113,7 @@ export default function useProjectReadme(githubUrl, language) {
     return () => {
       controller.abort();
     };
-  }, [readmeUrls]);
+  }, [localizedUrl, fallbackUrl, baseUrlString]);
 
   return {
     readmeHtml,
