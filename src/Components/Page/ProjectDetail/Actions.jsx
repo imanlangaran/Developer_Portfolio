@@ -3,7 +3,9 @@ import { motion } from "framer-motion";
 import { FiGithub } from "react-icons/fi";
 import { ExternalLink } from "lucide-react";
 
-const Actions = ({ githubUrl, liveUrl, isDarkMode }) => {
+const Actions = ({ githubUrl, liveUrl, isDarkMode, type }) => {
+  const showGithub = type !== "private" && Boolean(githubUrl);
+
   return (
     <div
       className="
@@ -11,7 +13,7 @@ const Actions = ({ githubUrl, liveUrl, isDarkMode }) => {
                   mb-10
                 "
     >
-      {githubUrl && (
+      {showGithub && (
         <motion.a
           whileHover={{
             y: -2,
