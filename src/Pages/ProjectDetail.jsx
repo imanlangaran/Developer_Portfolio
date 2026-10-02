@@ -4,9 +4,8 @@ import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { useTheme } from "../context/ThemeContext";
-
 import { PROJECTS } from "../utils/data";
-
+import { containerVariants, itemVariants } from "../utils/helper";
 import useProjectReadme from "../hooks/useProjectReadme";
 
 import NotFound from "./NotFound";
@@ -15,7 +14,6 @@ import Hero from "../Components/Page/ProjectDetail/Hero";
 import Actions from "../Components/Page/ProjectDetail/Actions";
 import Description from "../Components/Page/ProjectDetail/Description";
 import TeckStack from "../Components/Page/ProjectDetail/TeckStack";
-import NavBar from "../Components/NavBar";
 import { useTranslation } from "react-i18next";
 
 export default function ProjectDetail() {
@@ -24,7 +22,7 @@ export default function ProjectDetail() {
   const location = useLocation();
   const { isDarkMode } = useTheme();
   const modalContentRef = useRef(null);
-  const { t, i18n } = useTranslation('projects');
+  const { t, i18n } = useTranslation("projects");
 
   // --------------------------------------------------
   // PROJECT
@@ -175,7 +173,7 @@ export default function ProjectDetail() {
       document.head.appendChild(canonical);
     }
     canonical.href = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
-  }, [project, id, i18n]);
+  }, [project, id, i18n, t]);
 
   // --------------------------------------------------
   // NOT FOUND
@@ -186,7 +184,7 @@ export default function ProjectDetail() {
 
   return (
     <motion.div
-      className="fixed inset-0 z-9999 flex items-center justify-center bg-black/60 backdrop-blur-xl"
+      className="fixed inset-0 z-9999 flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -201,10 +199,7 @@ export default function ProjectDetail() {
         style={{ scaleX }}
       />
 
-      {/* NAVBAR */}
-      <NavBar />
-
-      {/* MODAL */}
+      {/* MODAL CONTAINER */}
       <motion.div
         layoutId={`project-card-${project.id}`}
         initial={{
@@ -227,20 +222,25 @@ export default function ProjectDetail() {
           ease: "easeInOut",
         }}
         onClick={(e) => e.stopPropagation()}
-        className={`relative w-full h-full mt-34 md:mt-14 md:h-[85vh] md:max-w-6xl md:rounded-3xl overflow-hidden border shadow-2xl ${
+        className={`relative w-full h-full md:h-[85vh] md:max-w-6xl rounded-2xl overflow-hidden border shadow-2xl ${
           isDarkMode
-            ? "bg-gray-900 border-white/10 shadow-blue-500/10"
-            : "bg-gray-50 border-black/10 shadow-blue-500/20"
+            ? "bg-gray-900 border-gray-800 shadow-blue-500/10"
+            : "bg-white border-gray-200 shadow-blue-500/10"
         }`}
       >
-        {/* GLOW */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle at top right, rgba(59,130,246,0.18), transparent 30%)",
-          }}
-        />
+        {/* AMBIENT GLOW */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div
+            className={`absolute -top-20 -right-20 w-80 h-80 rounded-full blur-3xl opacity-5 ${
+              isDarkMode ? "bg-blue-500" : "bg-blue-400"
+            }`}
+          />
+          <div
+            className={`absolute -bottom-20 -left-20 w-80 h-80 rounded-full blur-3xl opacity-5 ${
+              isDarkMode ? "bg-purple-500" : "bg-purple-400"
+            }`}
+          />
+        </div>
 
         {/* FLOATING CONTROLS */}
         <TopBar isDarkMode={isDarkMode} handleClose={handleClose} />
@@ -262,7 +262,12 @@ export default function ProjectDetail() {
           />
 
           {/* CONTENT */}
-          <div className="max-w-4xl mx-auto px-5 md:px-10 py-10">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="max-w-4xl mx-auto px-5 md:px-10 py-10 relative z-10"
+          >
             {/* ACTIONS */}
             {(project.githubUrl || project.liveUrl) && (
               <Actions
@@ -285,13 +290,13 @@ export default function ProjectDetail() {
 
             {/* README */}
             {project.githubUrl && (
-              <div className="mt-14">
+              <motion.div variants={itemVariants} className="mt-14">
                 <h3
-                  className={`text-xl font-semibold mb-6 ${
-                    isDarkMode ? "text-white" : "text-black"
+                  className={`text-xl font-medium mb-6 ${
+                    isDarkMode ? "text-white" : "text-gray-900"
                   }`}
                 >
-                  README
+                  {t("README")}
                 </h3>
 
                 {isLoadingReadme ? (
@@ -300,28 +305,28 @@ export default function ProjectDetail() {
                       isDarkMode ? "text-gray-400" : "text-gray-600"
                     }`}
                   >
-                    Loading README...
+                    {t("Loading README...")}
                   </div>
                 ) : (
                   <div
                     key={isDarkMode ? "dark" : "light"}
-                    // className={`prose prose-lg max-w-none transition-colors duration-300 ${
-                    //   isDarkMode ? "prose-invert text-white" : "text-black"
-                    // }`}
-                    className={`markdown-body ${isDarkMode ? "markdown-body-dark text-white" : "markdown-body-light text-black"}`}
+                    className={`markdown-body ${
+                      isDarkMode
+                        ? "markdown-body-dark text-gray-300"
+                        : "markdown-body-light text-gray-700"
+                    }`}
                     style={{
                       backgroundColor: "transparent",
-                      color: isDarkMode ? "light" : "black",
                     }}
                     dangerouslySetInnerHTML={{ __html: readmeHtml }}
                   />
                 )}
-              </div>
+              </motion.div>
             )}
 
             {/* SPACER */}
             <div className="h-20" />
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     </motion.div>
