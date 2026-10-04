@@ -29,7 +29,7 @@ export const SKILLS_CATEGORY = [
     skills: [
       { name: 'JavaScript', level: 99, color: 'bg-yellow-400' },
       { name: 'React', level: 95, color: 'bg-blue-500' },
-      { name: 'Next.js', level: 95, color: 'bg-gray-800' },
+      { name: 'Next.js', level: 95, color: 'bg-slate-500' },
       { name: 'React Native', level: 85, color: 'bg-pink-500' },
       { name: 'Tailwind Css', level: 92, color: 'bg-cyan-500' },
       { name: 'TypesScript', level: 90, color: 'bg-blue-600' },
