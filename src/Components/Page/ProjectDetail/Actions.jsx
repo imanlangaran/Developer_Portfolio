@@ -6,37 +6,17 @@ import { useTranslation } from "react-i18next";
 import { itemVariants } from "../../../utils/helper";
 import { useLang } from "../../../context/LangContext";
 
-const Actions = ({ githubUrl, liveUrl, isDarkMode }) => {
+const Actions = ({ githubUrl, liveUrl, isDarkMode, type }) => {
   const { t } = useTranslation(["common", "projects"]);
   const { lang } = useLang();
+  const showGithub = type !== "private" && Boolean(githubUrl);
 
   return (
     <motion.div
       variants={itemVariants}
       className="flex flex-wrap items-center gap-4 mb-10"
     >
-      {liveUrl && (
-        <motion.a
-          whileHover={{
-            y: -2,
-            scale: 1.02,
-          }}
-          whileTap={{
-            scale: 0.98,
-          }}
-          href={liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`inline-flex items-center gap-2 px-6 md:px-8 py-3 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium transition-all duration-300 shadow-lg shadow-blue-500/10 ${
-            lang === "En" ? "tracking-wider uppercase" : ""
-          }`}
-        >
-          <ExternalLink size={16} />
-          <span>{t("Live Demo")}</span>
-        </motion.a>
-      )}
-
-      {githubUrl && (
+      {showGithub && (
         <motion.a
           whileHover={{
             y: -2,
@@ -58,6 +38,27 @@ const Actions = ({ githubUrl, liveUrl, isDarkMode }) => {
         >
           <FiGithub size={16} />
           <span>{t("GitHub")}</span>
+        </motion.a>
+      )}
+
+      {liveUrl && (
+        <motion.a
+          whileHover={{
+            y: -2,
+            scale: 1.02,
+          }}
+          whileTap={{
+            scale: 0.98,
+          }}
+          href={liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-2 px-6 md:px-8 py-3 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium transition-all duration-300 shadow-lg shadow-blue-500/10 ${
+            lang === "En" ? "tracking-wider uppercase" : ""
+          }`}
+        >
+          <ExternalLink size={16} />
+          <span>{t("Live Demo")}</span>
         </motion.a>
       )}
     </motion.div>

@@ -100,6 +100,75 @@ export const STATS = [
 
 
 
+/**
+ * @typedef {Object} BaseProject
+ * @property {number} id - Unique numeric identifier for the project.
+ * @property {string} title - Project title or i18n translation key in the `projects` namespace.
+ * @property {string} description - Project description or i18n translation key.
+ * @property {string} [subtitle] - Optional subtitle or i18n translation key displayed in project detail hero.
+ * @property {string|boolean} [image] - Imported image asset or false to show the placeholder banner.
+ * @property {string[]} tags - Technologies and frameworks used.
+ * @property {string} [liveUrl] - Optional URL for live preview or production deployment.
+ * @property {boolean} [featured] - Whether the project is highlighted as featured.
+ * @property {string} category - Category label (e.g. 'Full Stack', 'Frontend', 'Backend', 'Mobile App', etc.).
+ *
+ * @typedef {BaseProject & {
+ *   type?: "public",
+ *   githubUrl: string
+ * }} PublicProject
+ * Public project configuration.
+ * - `type`: Optional, defaults to `"public"`.
+ * - `githubUrl`: Public GitHub repository URL (e.g. `https://github.com/username/repo`).
+ *   The project detail view fetches the README directly from GitHub raw content and displays a GitHub repository button.
+ *
+ * @typedef {BaseProject & {
+ *   type: "private",
+ *   slug?: string,
+ *   readme?: string,
+ *   githubUrl?: string
+ * }} PrivateProject
+ * Private project configuration (e.g. client work, proprietary apps, or non-public repos).
+ * - `type`: Set to `"private"`.
+ * - `slug` (or `readme`): Directory slug under `public/docs/<slug>/` where local markdown documentation is stored.
+ *   - English / Fallback: `public/docs/<slug>/README.md`
+ *   - Localized (e.g. Persian): `public/docs/<slug>/README-fa.md`
+ *   - Assets: Place images directly in `public/docs/<slug>/` and reference them relatively (e.g. `![Preview](./preview.png)`).
+ * - `githubUrl`: Not required and not displayed in the UI for private projects.
+ *
+ * @typedef {PublicProject | PrivateProject} Project
+ *
+ * @example
+ * // Public Project:
+ * {
+ *   id: 1,
+ *   title: "project title 1",
+ *   description: "project description 1",
+ *   image: PROJECT_IMG_1,
+ *   tags: ["Next.js", "React"],
+ *   type: "public",
+ *   githubUrl: "https://github.com/imanlangaran/repo",
+ *   liveUrl: "https://example.com",
+ *   featured: true,
+ *   category: "Full Stack"
+ * }
+ *
+ * @example
+ * // Private Project:
+ * {
+ *   id: 9,
+ *   title: "Enterprise Dashboard",
+ *   description: "Internal client management platform",
+ *   image: false,
+ *   tags: ["React", "Node.js", "PostgreSQL"],
+ *   type: "private",
+ *   slug: "enterprise-dashboard", // reads public/docs/enterprise-dashboard/README.md
+ *   liveUrl: "https://demo.example.com",
+ *   featured: false,
+ *   category: "Full Stack"
+ * }
+ */
+
+/** @type {Project[]} */
 export const PROJECTS = [
   {
     id: 1,
@@ -109,6 +178,7 @@ export const PROJECTS = [
     tags: ["Next.js", "Tailwind", "React", "NeonDb", "PostgreSQL"],
     liveUrl: "https://next-js-library.vercel.app/",
     githubUrl: "https://github.com/imanlangaran/Next_Js_Library",
+    type: "public",
     featured: true,
     category: "Full Stack",
   },
@@ -119,6 +189,7 @@ export const PROJECTS = [
     image: PROJECT_IMG_2,
     tags: ["React-Native", "JavaScript", "API", "Tailwind", "Expo"],
     githubUrl: "https://github.com/imanlangaran/RN_Movie",
+    type: "public",
     featured: false,
     category: "Mobile App",
   },
@@ -129,6 +200,7 @@ export const PROJECTS = [
     image: false,
     tags: ["Python", "FastApi", "Swagger", "MySQL"],
     githubUrl: "https://github.com/imanlangaran/SpeachToSummaryText_backend",
+    type: "public",
     featured: true,
     category: "Backend",
   },
@@ -139,6 +211,7 @@ export const PROJECTS = [
     image: false,
     tags: ["Python", "Telegram-Bot", "MySQL"],
     githubUrl: "https://github.com/imanlangaran/python-telegram-bot",
+    type: "public",
     featured: false,
     category: "Telegram Bot",
   }, {
@@ -149,6 +222,7 @@ export const PROJECTS = [
     tags: ["React", "Tailwind", "Vite", "Three.js", "JavaScript"],
     liveUrl: "https://imanlangaran.github.io/3D-portfolio-1/",
     githubUrl: "https://github.com/imanlangaran/3D-portfolio-1",
+    type: "public",
     featured: false,
     category: "Frontend",
   }, {
@@ -158,6 +232,7 @@ export const PROJECTS = [
     image: false,
     tags: ["React-Native", "Expo", "TypeScript", "Drizzle-ORM"],
     githubUrl: "https://github.com/imanlangaran/RN_DentalLabAcc",
+    type: "public",
     featured: true,
     category: "Mobile App",
   }, {
@@ -167,6 +242,7 @@ export const PROJECTS = [
     image: false,
     tags: ["Arduino", "Embedded Systems", "MAX30102", "IoT"],
     githubUrl: "https://github.com/imanlangarann/Pulse-oximeter",
+    type: "public",
     featured: false,
     category: "Embedded Systems",
   }, {
@@ -176,6 +252,7 @@ export const PROJECTS = [
     image: false,
     tags: ["React-Native", "Expo", "TypeScript"],
     githubUrl: "https://github.com/imanlangaran/RN_BudgetBuddy",
+    type: "public",
     featured: false,
     category: "Mobile App",
   }

@@ -50,8 +50,15 @@ export default function ProjectDetail() {
   // README
   // --------------------------------------------------
   const { readmeHtml, isLoading: isLoadingReadme } = useProjectReadme(
-    project?.githubUrl,
+    project,
     i18n.language,
+  );
+
+  const hasReadme = Boolean(
+    project &&
+      (project.type === "private"
+        ? project.readme || project.slug
+        : project.githubUrl),
   );
 
   // --------------------------------------------------
@@ -269,10 +276,11 @@ export default function ProjectDetail() {
             className="max-w-4xl mx-auto px-5 md:px-10 py-10 relative z-10"
           >
             {/* ACTIONS */}
-            {(project.githubUrl || project.liveUrl) && (
+            {((project.type !== "private" && project.githubUrl) || project.liveUrl) && (
               <Actions
-                githubUrl={project.githubUrl}
+                githubUrl={project.type === "private" ? null : project.githubUrl}
                 liveUrl={project.liveUrl}
+                type={project.type}
                 isDarkMode={isDarkMode}
               />
             )}
@@ -289,7 +297,7 @@ export default function ProjectDetail() {
             )}
 
             {/* README */}
-            {project.githubUrl && (
+            {hasReadme && (
               <motion.div variants={itemVariants} className="mt-14">
                 <h3
                   className={`text-xl font-medium mb-6 ${
@@ -317,6 +325,11 @@ export default function ProjectDetail() {
                     }`}
                     style={{
                       backgroundColor: "transparent",
+                      // Explicit inline color is required: main.jsx imports
+                      // github-markdown-light.css followed by github-markdown-dark.css,
+                      // so the dark theme base rule (.markdown-body { color: #f0f6fc })
+                      // always wins the cascade and would render white text in light mode.
+                      color: isDarkMode ? "#d1d5db" : "#374151",
                     }}
                     dangerouslySetInnerHTML={{ __html: readmeHtml }}
                   />
