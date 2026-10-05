@@ -13,8 +13,6 @@ import { scrollToSection } from "./utils/helper";
 
 // List of assets to preload (images, favicon, fonts)
 const ASSETS = [
-  // "@/src/assets/images/project-2.png",
-  // "@/src/assets/images/project-3.png",
   "@/public/logo.svg", // favicon
   // External profile image (optional, add if used in HeroSection)
   "https://avatars.githubusercontent.com/imanlangaran",
