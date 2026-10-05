@@ -8,6 +8,7 @@ import ContactSection from "./Components/Sections/ContactSection";
 import Footer from "./Components/Sections/Footer";
 
 import LoadingScreen from "./Components/LoadingScreen";
+import ScrollToTopButton from "./Components/ScrollToTopButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { scrollToSection } from "./utils/helper";
 
@@ -106,6 +107,8 @@ const App = () => {
       <AboutSection />
       <ContactSection />
       <Footer />
+      {/* Floating scroll-to-top button (watches the window scroll) */}
+      <ScrollToTopButton />
     </>
   );
 };
