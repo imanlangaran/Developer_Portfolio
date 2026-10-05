@@ -13,6 +13,7 @@ import {
 } from "../hooks/useProjectDates";
 
 import NotFound from "./NotFound";
+import ScrollToTopButton from "../Components/ScrollToTopButton";
 import TopBar from "../Components/Page/ProjectDetail/TopBar";
 import Hero from "../Components/Page/ProjectDetail/Hero";
 import Actions from "../Components/Page/ProjectDetail/Actions";
@@ -390,6 +391,10 @@ export default function ProjectDetail() {
             <div className="h-20" />
           </motion.div>
         </div>
+
+        {/* FLOATING SCROLL-TO-TOP BUTTON (anchored to the modal, watches the
+            scrollable content div above) */}
+        <ScrollToTopButton containerRef={modalContentRef} variant="absolute" />
       </motion.div>
     </motion.div>
   );

@@ -13,7 +13,7 @@ import {
   getChangeLangDuration,
   itemVariants,
 } from "../../utils/helper";
-import { ArrowUp, Code2, Heart } from "lucide-react";
+import { Code2, Heart } from "lucide-react";
 import { SOCIAL_LINKS } from "../../utils/data";
 import { useTranslation } from "react-i18next";
 import { useLang } from "../../context/LangContext";
@@ -29,10 +29,6 @@ const Footer = () => {
   const { lang } = useLang();
 
   // define social links ??
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   // Animated Gradient Line Component
   const AnimatedGradientLine = () => (
@@ -110,7 +106,9 @@ const Footer = () => {
             />
           </motion.div>
 
-          <div className="relative z-10 py-16">
+          <div className="relative z-10 pt-16 pb-24">
+            {/* pb-24 (96px) keeps the last footer line clear of the floating
+                ScrollToTopButton, which sits bottom-center at the page end. */}
             <div className="max-w-6xl mx-auto">
               {/* main Footer content */}
               <motion.div
@@ -232,32 +230,6 @@ const Footer = () => {
                     {/* Built with React & Framer Motion • Designed with care */}
                     {t("build with")}
                   </p>
-                </motion.div>
-
-                {/* Back to Top button */}
-                <motion.div variants={itemVariants}>
-                  <motion.button
-                    onClick={scrollToTop}
-                    className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      isDarkMode
-                        ? "bg-gray-800/50 hover:bg-gray-700/50 text-gray-400 hover:text-white"
-                        : "bg-gray-100/50 hover:bg-gray-200/50 text-gray-600 hover:text-gray-900"
-                    }
-                  backdrop-blur-sm border ${
-                    isDarkMode ? "border-gray-700" : "border-gray-300"
-                  }`}
-                    whileHover={{
-                      y: -2,
-                      scale: 1.05,
-                      boxShadow: isDarkMode
-                        ? "0 10px 25px rgba(59,130,249, 0.15)"
-                        : "0 10px 25px rgba(59,130,249, 0.1)",
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <ArrowUp size={16} />
-                    <span>{t("Back to top")}</span>
-                  </motion.button>
                 </motion.div>
               </motion.div>
             </div>
