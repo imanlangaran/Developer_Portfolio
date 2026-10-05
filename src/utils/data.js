@@ -111,6 +111,9 @@ export const STATS = [
  * @property {string} [liveUrl] - Optional URL for live preview or production deployment.
  * @property {boolean} [featured] - Whether the project is highlighted as featured.
  * @property {string} category - Category label (e.g. 'Full Stack', 'Frontend', 'Backend', 'Mobile App', etc.).
+ * @property {"completed" | "in-development"} status - Development status shown as a tag on the project card.
+ * @property {string} [lastCommitDate] - ISO date (`YYYY-MM-DD`) of the project's last commit.
+ *   Required date source for private projects; optional fallback for public ones if the GitHub API fetch fails.
  *
  * @typedef {BaseProject & {
  *   type?: "public",
@@ -134,6 +137,8 @@ export const STATS = [
  *   - Localized (e.g. Persian): `public/docs/<slug>/README-fa.md`
  *   - Assets: Place images directly in `public/docs/<slug>/` and reference them relatively (e.g. `![Preview](./preview.png)`).
  * - `githubUrl`: Not required and not displayed in the UI for private projects.
+ * - `lastCommitDate`: Since private repos can't be queried, this config value is the date source used for
+ *   sorting (newest → oldest) and for the approximate-time tag on the card.
  *
  * @typedef {PublicProject | PrivateProject} Project
  *
@@ -149,7 +154,8 @@ export const STATS = [
  *   githubUrl: "https://github.com/imanlangaran/repo",
  *   liveUrl: "https://example.com",
  *   featured: true,
- *   category: "Full Stack"
+ *   category: "Full Stack",
+ *   status: "completed"
  * }
  *
  * @example
@@ -164,7 +170,9 @@ export const STATS = [
  *   slug: "enterprise-dashboard", // reads public/docs/enterprise-dashboard/README.md
  *   liveUrl: "https://demo.example.com",
  *   featured: false,
- *   category: "Full Stack"
+ *   category: "Full Stack",
+ *   status: "in-development",
+ *   lastCommitDate: "2026-09-12" // required date source for private projects
  * }
  */
 
@@ -181,6 +189,7 @@ export const PROJECTS = [
     type: "public",
     featured: true,
     category: "Full Stack",
+    status: "completed",
   },
   {
     id: 2,
@@ -192,6 +201,7 @@ export const PROJECTS = [
     type: "public",
     featured: false,
     category: "Mobile App",
+    status: "completed",
   },
   {
     id: 3,
@@ -203,6 +213,7 @@ export const PROJECTS = [
     type: "public",
     featured: true,
     category: "Backend",
+    status: "in-development",
   },
   {
     id: 4,
@@ -214,6 +225,7 @@ export const PROJECTS = [
     type: "public",
     featured: false,
     category: "Telegram Bot",
+    status: "completed",
   }, {
     id: 5,
     title: "project title 5",
@@ -225,6 +237,7 @@ export const PROJECTS = [
     type: "public",
     featured: false,
     category: "Frontend",
+    status: "completed",
   }, {
     id: 6,
     title: "project title 6",
@@ -235,6 +248,7 @@ export const PROJECTS = [
     type: "public",
     featured: true,
     category: "Mobile App",
+    status: "in-development",
   }, {
     id: 7,
     title: "project title 7",
@@ -245,6 +259,7 @@ export const PROJECTS = [
     type: "public",
     featured: false,
     category: "Embedded Systems",
+    status: "completed",
   }, {
     id: 8,
     title: "project title 8",
@@ -255,6 +270,7 @@ export const PROJECTS = [
     type: "public",
     featured: false,
     category: "Mobile App",
+    status: "completed",
   }
 ]
 

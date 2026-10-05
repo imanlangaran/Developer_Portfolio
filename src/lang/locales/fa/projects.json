@@ -38,5 +38,7 @@
   "About Project": "درباره پروژه",
   "Tech Stack": "تکنولوژی‌ها",
   "README": "توضیحات پروژه",
-  "Loading README...": "در حال دریافت README..."
+  "Loading README...": "در حال دریافت README...",
+  "Completed": "تکمیل شده",
+  "In Development": "در حال توسعه"
 }

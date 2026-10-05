@@ -7,6 +7,10 @@ import { useTheme } from "../context/ThemeContext";
 import { PROJECTS } from "../utils/data";
 import { containerVariants, itemVariants } from "../utils/helper";
 import useProjectReadme from "../hooks/useProjectReadme";
+import {
+  resolveProjectDate,
+  useProjectDates,
+} from "../hooks/useProjectDates";
 
 import NotFound from "./NotFound";
 import TopBar from "../Components/Page/ProjectDetail/TopBar";
@@ -53,6 +57,15 @@ export default function ProjectDetail() {
     project,
     i18n.language,
   );
+
+  // --------------------------------------------------
+  // COMMIT DATE (shared cache with the projects grid)
+  // --------------------------------------------------
+  const {
+    dates: commitDates,
+    isLoading: isLoadingCommitDates,
+  } = useProjectDates();
+  const commitDate = project ? resolveProjectDate(project, commitDates) : null;
 
   const hasReadme = Boolean(
     project &&
@@ -295,9 +308,12 @@ export default function ProjectDetail() {
           {/* HERO */}
           <Hero
             id={project.id}
+            project={project}
             image={project.image}
             title={t(project.title)}
             subtitle={t(project.subtitle)}
+            commitDate={commitDate}
+            isLoadingCommitDate={isLoadingCommitDates}
             isDarkMode={isDarkMode}
           />
 

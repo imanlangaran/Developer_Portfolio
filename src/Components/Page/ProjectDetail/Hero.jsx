@@ -1,10 +1,20 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import PlaceHolder from "../../PlaceHolder";
+import ProjectMetaLine from "../../ProjectMetaLine";
 import { containerVariants, itemVariants } from "../../../utils/helper";
 import { useLang } from "../../../context/LangContext";
 
-const Hero = ({ id, image, title, subtitle, isDarkMode }) => {
+const Hero = ({
+  id,
+  project,
+  image,
+  title,
+  subtitle,
+  commitDate,
+  isLoadingCommitDate,
+  isDarkMode,
+}) => {
   const { lang } = useLang();
 
   return (
@@ -56,6 +66,17 @@ const Hero = ({ id, image, title, subtitle, isDarkMode }) => {
             {subtitle}
           </motion.p>
         )}
+
+        {/* Status + approximate commit time (skeleton while dates load) */}
+        <motion.div variants={itemVariants}>
+          <ProjectMetaLine
+            project={project}
+            commitDate={commitDate}
+            isLoading={isLoadingCommitDate}
+            variant="hero"
+            isDarkMode={isDarkMode}
+          />
+        </motion.div>
       </motion.div>
     </motion.div>
   );
