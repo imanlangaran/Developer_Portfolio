@@ -33,7 +33,7 @@ const TopBar = ({ isDarkMode, handleClose }) => {
         aria-label={t("Back")}
       >
         <ArrowLeft size={16} className="rtl:rotate-180" />
-        <span>{t("Back")}</span>
+        <span className="hidden sm:inline">{t("Back")}</span>
       </motion.button>
 
       {/* BRAND MARK (centered) */}
