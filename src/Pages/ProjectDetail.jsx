@@ -121,65 +121,98 @@ export default function ProjectDetail() {
     const pageTitle = `${projectTitle} | Iman Langaran Portfolio`;
     const pageDescription = `${projectDescription}. Built with ${project.tags?.join(", ")}. View the source code on GitHub and live demo.`;
 
+    // TODO: get this url from config files
+    const projectUrl = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
+
+    // Snapshot the current values first so the cleanup below can put the site
+    // defaults (from index.html) back when this page unmounts.
+    const previousTitle = document.title;
+    const restoreFns = [];
+
+    // Update a <meta>/<link> tag, remembering what it held beforehand. A tag
+    // that did not exist yet is remembered for removal instead.
+    const updateTag = ({ selector, tag, attributes, property, value }) => {
+      let element = document.querySelector(selector);
+
+      if (element) {
+        const previousValue = element[property];
+        restoreFns.push(() => {
+          element[property] = previousValue;
+        });
+      } else {
+        element = document.createElement(tag);
+        Object.entries(attributes).forEach(([name, attrValue]) => {
+          element.setAttribute(name, attrValue);
+        });
+        document.head.appendChild(element);
+        restoreFns.push(() => element.remove());
+      }
+
+      element[property] = value;
+    };
+
     // Update document title
     document.title = pageTitle;
 
-    // Update/create meta description
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement("meta");
-      metaDescription.name = "description";
-      document.head.appendChild(metaDescription);
-    }
-    metaDescription.content = pageDescription;
+    // Update meta description
+    updateTag({
+      selector: 'meta[name="description"]',
+      tag: "meta",
+      attributes: { name: "description" },
+      property: "content",
+      value: pageDescription,
+    });
 
     // Update Open Graph tags
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (!ogTitle) {
-      ogTitle = document.createElement("meta");
-      ogTitle.setAttribute("property", "og:title");
-      document.head.appendChild(ogTitle);
-    }
-    ogTitle.content = pageTitle;
+    updateTag({
+      selector: 'meta[property="og:title"]',
+      tag: "meta",
+      attributes: { property: "og:title" },
+      property: "content",
+      value: pageTitle,
+    });
 
-    let ogDescription = document.querySelector(
-      'meta[property="og:description"]',
-    );
-    if (!ogDescription) {
-      ogDescription = document.createElement("meta");
-      ogDescription.setAttribute("property", "og:description");
-      document.head.appendChild(ogDescription);
-    }
-    ogDescription.content = pageDescription;
+    updateTag({
+      selector: 'meta[property="og:description"]',
+      tag: "meta",
+      attributes: { property: "og:description" },
+      property: "content",
+      value: pageDescription,
+    });
 
-    let ogUrl = document.querySelector('meta[property="og:url"]');
-    if (!ogUrl) {
-      ogUrl = document.createElement("meta");
-      ogUrl.setAttribute("property", "og:url");
-      document.head.appendChild(ogUrl);
-    }
-
-    // TODO: get this url from config files
-    ogUrl.content = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
+    updateTag({
+      selector: 'meta[property="og:url"]',
+      tag: "meta",
+      attributes: { property: "og:url" },
+      property: "content",
+      value: projectUrl,
+    });
 
     if (project.image) {
-      let ogImage = document.querySelector('meta[property="og:image"]');
-      if (!ogImage) {
-        ogImage = document.createElement("meta");
-        ogImage.setAttribute("property", "og:image");
-        document.head.appendChild(ogImage);
-      }
-      ogImage.content = project.image;
+      updateTag({
+        selector: 'meta[property="og:image"]',
+        tag: "meta",
+        attributes: { property: "og:image" },
+        property: "content",
+        value: project.image,
+      });
     }
 
     // Update canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.rel = "canonical";
-      document.head.appendChild(canonical);
-    }
-    canonical.href = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
+    updateTag({
+      selector: 'link[rel="canonical"]',
+      tag: "link",
+      attributes: { rel: "canonical" },
+      property: "href",
+      value: projectUrl,
+    });
+
+    // Undo everything above on unmount, otherwise the tab title and SEO tags
+    // keep pointing at the project page after it is closed.
+    return () => {
+      document.title = previousTitle;
+      restoreFns.forEach((restore) => restore());
+    };
   }, [project, id, i18n, t]);
 
   // --------------------------------------------------
