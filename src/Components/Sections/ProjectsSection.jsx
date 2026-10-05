@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useTheme } from "../../context/ThemeContext";
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion, useInView } from "framer-motion";
@@ -8,6 +8,10 @@ import {
   itemVariants,
 } from "../../utils/helper";
 import { PROJECTS } from "../../utils/data";
+import {
+  resolveProjectDate,
+  useProjectDates,
+} from "../../hooks/useProjectDates";
 import ProjectCard from "../ProjectCard";
 import { useTranslation } from "react-i18next";
 import { useLang } from "../../context/LangContext";
@@ -18,6 +22,21 @@ const ProjectsSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const { t } = useTranslation('projects');
   const { lang } = useLang();
+  const commitDates = useProjectDates();
+
+  // Latest → oldest by last commit; projects without any known date sink to the bottom.
+  const sortedProjects = useMemo(
+    () =>
+      [...PROJECTS].sort((a, b) => {
+        const dateA = resolveProjectDate(a, commitDates);
+        const dateB = resolveProjectDate(b, commitDates);
+        if (!dateA && !dateB) return 0;
+        if (!dateA) return 1;
+        if (!dateB) return -1;
+        return new Date(dateB) - new Date(dateA);
+      }),
+    [commitDates]
+  );
 
   return (
     <div
@@ -101,11 +120,11 @@ const ProjectsSection = () => {
               variants={containerVariants}
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-              {PROJECTS.map((project, index) => (
+              {sortedProjects.map((project) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
-                  index={index}
+                  commitDate={resolveProjectDate(project, commitDates)}
                   isDarkMode={isDarkMode}
                 />
               ))}
