@@ -21,7 +21,7 @@ const BrandMark = () => {
       onClick={() => navigate("/")}
       aria-label={t("my name")}
       title={t("my name")}
-      className={`flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-md transition-all duration-300 ${
+      className={`flex items-center justify-center gap-2 h-10 w-10 sm:w-auto sm:px-3 rounded-full border shadow-md transition-all duration-300 ${
         isDarkMode
           ? "bg-gray-900 border-gray-700 text-white hover:border-gray-600"
           : "bg-white border-gray-300 text-gray-900 hover:border-gray-400"

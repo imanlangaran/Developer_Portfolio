@@ -23,7 +23,7 @@ const TopBar = ({ isDarkMode, handleClose }) => {
           scale: 0.95,
         }}
         onClick={handleClose}
-        className={`pointer-events-auto flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition-all duration-300 ${
+        className={`pointer-events-auto flex items-center justify-center gap-2 h-10 w-10 sm:w-auto sm:px-4 rounded-full border text-sm font-medium transition-all duration-300 ${
           lang === "En" ? "tracking-wider uppercase" : ""
         } ${
           isDarkMode
