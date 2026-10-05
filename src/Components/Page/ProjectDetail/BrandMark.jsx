@@ -21,14 +21,14 @@ const BrandMark = () => {
       onClick={() => navigate("/")}
       aria-label={t("my name")}
       title={t("my name")}
-      className={`flex items-center justify-center gap-2 h-10 w-10 sm:w-auto sm:px-3 rounded-full border shadow-md transition-all duration-300 ${
+      className={`flex items-center gap-2 h-10 px-3 rounded-full border shadow-md transition-all duration-300 ${
         isDarkMode
           ? "bg-gray-900 border-gray-700 text-white hover:border-gray-600"
           : "bg-white border-gray-300 text-gray-900 hover:border-gray-400"
       }`}
     >
       <Code2 size={20} className="text-blue-500 shrink-0" />
-      <span className="hidden sm:inline text-lg">{t("my name")}</span>
+      <span className="text-lg whitespace-nowrap">{t("my name")}</span>
     </motion.button>
   );
 };
