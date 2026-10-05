@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useLang } from "../../../context/LangContext";
 import LangToggle from "../../Preferences/LangToggle";
 import ThemeToggle from "../../Preferences/ThemeToggle";
+import BrandMark from "./BrandMark";
 
 const TopBar = ({ isDarkMode, handleClose }) => {
   const { t } = useTranslation("common");
@@ -34,6 +35,11 @@ const TopBar = ({ isDarkMode, handleClose }) => {
         <ArrowLeft size={16} className="rtl:rotate-180" />
         <span>{t("Back")}</span>
       </motion.button>
+
+      {/* BRAND MARK (centered) */}
+      <div className="mx-auto pointer-events-auto">
+        <BrandMark />
+      </div>
 
       {/* PREFERENCE TOGGLES + CLOSE BUTTON */}
       <div className="pointer-events-auto flex items-center gap-2">
