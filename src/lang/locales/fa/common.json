@@ -33,5 +33,9 @@
 
   "Copied": "در صفحه کلید کپی شد.",
   "Back": "بازگشت",
-  "Close": "بستن"
+  "Close": "بستن",
+
+  "Switch language": "تغییر زبان",
+  "Switch to light mode": "تغییر به حالت روشن",
+  "Switch to dark mode": "تغییر به حالت تاریک"
 }

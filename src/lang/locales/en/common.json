@@ -33,5 +33,9 @@
 
   "Copied": "Copied to clipboard!",
   "Back": "Back",
-  "Close": "Close"
+  "Close": "Close",
+
+  "Switch language": "Switch language",
+  "Switch to light mode": "Switch to light mode",
+  "Switch to dark mode": "Switch to dark mode"
 }
