@@ -22,7 +22,10 @@ const ProjectsSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const { t } = useTranslation('projects');
   const { lang } = useLang();
-  const commitDates = useProjectDates();
+  const {
+    dates: commitDates,
+    isLoading: isLoadingDates,
+  } = useProjectDates();
 
   // Latest → oldest by last commit; projects without any known date sink to the bottom.
   const sortedProjects = useMemo(
@@ -125,6 +128,7 @@ const ProjectsSection = () => {
                   key={project.id}
                   project={project}
                   commitDate={resolveProjectDate(project, commitDates)}
+                  isLoadingCommitDate={isLoadingDates}
                   isDarkMode={isDarkMode}
                 />
               ))}

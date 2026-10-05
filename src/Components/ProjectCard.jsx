@@ -1,38 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { FiGithub } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { formatRelativeTime } from "../utils/formatRelativeTime";
 import PlaceHolder from "./PlaceHolder";
+import ProjectMetaLine from "./ProjectMetaLine";
 
-/** i18n keys for each `status` value defined in `data.js`. */
-const STATUS_LABEL_KEYS = {
-  completed: "Completed",
-  "in-development": "In Development",
-};
-
-/** Dot + label colors per status. */
-const STATUS_STYLES = {
-  completed: {
-    dot: "bg-emerald-500",
-    text: "text-emerald-500",
-  },
-  "in-development": {
-    dot: "bg-amber-500",
-    text: "text-amber-500",
-  },
-};
-
-const ProjectCard = ({ project, isDarkMode, commitDate }) => {
-  const { t, i18n } = useTranslation('projects');
+const ProjectCard = ({ project, isDarkMode, commitDate, isLoadingCommitDate }) => {
+  const { t } = useTranslation('projects');
   const navigate = useNavigate();
-
-  const statusStyle = STATUS_STYLES[project.status];
-  const statusLabelKey = STATUS_LABEL_KEYS[project.status];
-  const statusLabel = statusStyle ? t(statusLabelKey) : "";
-  const timeLabel = formatRelativeTime(commitDate, i18n.language);
 
   const cardVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -160,39 +136,14 @@ const ProjectCard = ({ project, isDarkMode, commitDate }) => {
             {t(project.title)}
           </h3>
 
-          {/* Status + approximate commit time meta line */}
-          {(statusLabel || timeLabel) && (
-            <div
-              className={`flex items-center gap-2 text-xs mb-3 ${
-                isDarkMode ? "text-gray-500" : "text-gray-400"
-              }`}
-            >
-              {statusLabel && (
-                <span
-                  className={`inline-flex items-center gap-1.5 font-medium ${statusStyle.text}`}
-                >
-                  <span
-                    className={`w-2 h-2 rounded-full ${statusStyle.dot}`}
-                    aria-hidden="true"
-                  />
-                  {statusLabel}
-                </span>
-              )}
-
-              {statusLabel && timeLabel && (
-                <span className="opacity-40" aria-hidden="true">
-                  ·
-                </span>
-              )}
-
-              {timeLabel && (
-                <span className="inline-flex items-center gap-1.5">
-                  <Clock size={12} className="shrink-0" aria-hidden="true" />
-                  {timeLabel}
-                </span>
-              )}
-            </div>
-          )}
+          {/* Status + approximate commit time meta line (skeleton while dates load) */}
+          <ProjectMetaLine
+            project={project}
+            commitDate={commitDate}
+            isLoading={isLoadingCommitDate}
+            variant="card"
+            isDarkMode={isDarkMode}
+          />
 
           <p
             className={` text-sm leading-relaxed mb-4 ${

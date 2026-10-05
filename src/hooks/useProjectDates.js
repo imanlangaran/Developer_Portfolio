@@ -110,19 +110,30 @@ export const resolveProjectDate = (project, dates) =>
  * - falls back to the project's `lastCommitDate` config via `resolveProjectDate`,
  * - never surfaces an error to the UI (cards just omit the time tag).
  *
- * @returns {Record<string, string>} Map of project id → ISO commit date.
+ * @returns {{ dates: Record<string, string>, isLoading: boolean }}
+ *   `dates`: map of project id → ISO commit date.
+ *   `isLoading`: true only while a fetch is actually in flight — drives the
+ *   skeleton placeholders. Never stays true after the request settles (or when
+ *   a usable cache means no request is made at all).
  */
 export const useProjectDates = () => {
   const [dates, setDates] = useState(() => readCache()?.dates ?? {});
+  const [isLoading, setIsLoading] = useState(() => !isCacheUsable(readCache()));
 
   useEffect(() => {
     const cache = readCache();
-    if (isCacheUsable(cache)) return; // fresh (or in failure backoff) — nothing to do
+    if (isCacheUsable(cache)) {
+      setIsLoading(false);
+      return; // fresh (or in failure backoff) — nothing to do
+    }
 
     const publicProjects = PROJECTS.filter(
       (project) => project.type !== "private" && parseGithubRepo(project.githubUrl)
     );
-    if (publicProjects.length === 0) return;
+    if (publicProjects.length === 0) {
+      setIsLoading(false); // nothing will ever be fetched
+      return;
+    }
 
     let active = true;
 
@@ -136,6 +147,9 @@ export const useProjectDates = () => {
       })
       .catch(() => {
         /* offline / rate-limited → keep stale cache, hide unknown time tags */
+      })
+      .finally(() => {
+        setIsLoading(false); // settled either way — skeletons must resolve
       });
 
     return () => {
@@ -143,7 +157,7 @@ export const useProjectDates = () => {
     };
   }, []);
 
-  return dates;
+  return { dates, isLoading };
 };
 
 export default useProjectDates;
