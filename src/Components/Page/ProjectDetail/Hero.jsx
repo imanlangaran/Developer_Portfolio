@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import PlaceHolder from "../../PlaceHolder";
 import { containerVariants, itemVariants } from "../../../utils/helper";
 import { useLang } from "../../../context/LangContext";
+import BrandByline from "./BrandByline";
 
 const Hero = ({ id, image, title, subtitle, isDarkMode }) => {
   const { lang } = useLang();
@@ -39,6 +40,9 @@ const Hero = ({ id, image, title, subtitle, isDarkMode }) => {
         animate="visible"
         className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8 z-10"
       >
+        {/* BRAND BYLINE */}
+        <BrandByline />
+
         <motion.h1
           variants={itemVariants}
           className={`text-3xl md:text-5xl font-light text-white leading-tight ${
