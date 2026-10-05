@@ -270,7 +270,7 @@ export const PROJECTS = [
     type: "public",
     featured: false,
     category: "Mobile App",
-    status: "in-development",
+    status: "completed",
   }
 ]
 
