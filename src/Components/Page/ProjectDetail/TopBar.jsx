@@ -10,16 +10,29 @@ const TopBar = ({ isDarkMode, handleClose }) => {
   const { t } = useTranslation("common");
 
   return (
-    <div className="absolute top-4 left-4 right-4 z-50 flex items-center justify-between pointer-events-none">
+    // The flex spacers between the items distribute the leftover width evenly,
+    // so all three gaps in the row are always identical and never collapse
+    // (the row is at least content + 3 x 8px, otherwise BrandMark shrinks
+    // instead of pushing the close button past its right inset).
+    <div className="absolute top-4 left-4 right-4 z-50 flex items-center pointer-events-none">
       {/* BRAND MARK */}
-      <div className="pointer-events-auto">
+      <div className="pointer-events-auto min-w-0">
         <BrandMark />
       </div>
 
+      <div aria-hidden="true" className="flex-1 min-w-[8px]" />
       {/* PREFERENCE TOGGLES + CLOSE BUTTON */}
-      <div className="pointer-events-auto flex items-center gap-2">
+      <div className="pointer-events-auto">
         <LangToggle variant="topbar" />
+      </div>
+
+      <div aria-hidden="true" className="flex-1 min-w-[8px] md:flex-none md:w-2" />
+      <div className="pointer-events-auto">
         <ThemeToggle variant="topbar" />
+      </div>
+
+      <div aria-hidden="true" className="flex-1 min-w-[8px] md:flex-none md:w-2" />
+      <div className="pointer-events-auto">
         <motion.button
           whileHover={{
             rotate: 90,
