@@ -35,6 +35,9 @@
 
   "project title 8": "React Native Budget Buddy",
   "project description 8": "A modern React Native budgeting and personal finance management application built with Expo, featuring expense tracking, budget management, transaction monitoring, and a clean mobile-first user interface designed to help users manage daily financial activities efficiently.",
+
+  "project title 9": "Trade Agent",
+  "project description 9": "An AI-powered, read-only market analysis agent. It syncs multi-timeframe candle history into isolated Parquet stores, computes indicators deterministically outside the AI, and hands pre-computed snapshots to an LLM reasoning layer that evaluates a markdown-defined strategy and issues auditable entry/exit/risk proposals through a deterministic risk gate. The pipeline splits into an offline analyze run and a network sync run with a cron-style scheduler, every run is recorded as a JSON audit trail, and a FastAPI chart bridge draws the agent's trendlines on a live MetaTrader 5 chart. The agent can read and analyze, but it never executes a trade.",
   "About Project": "About Project",
   "Tech Stack": "Tech Stack",
   "README": "README",
