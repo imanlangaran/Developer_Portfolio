@@ -271,6 +271,19 @@ export const PROJECTS = [
     featured: false,
     category: "Mobile App",
     status: "completed",
+  },
+  {
+    id: 9,
+    title: "project title 9",
+    description: "project description 9",
+    image: false,
+    tags: ["Python", "LLM", "FastAPI", "CCXT", "Pandas", "Docker"],
+    type: "private",
+    slug: "trade-agent",
+    featured: false,
+    category: "AI Agent",
+    status: "in-development",
+    lastCommitDate: "2026-10-07",
   }
 ]
 
