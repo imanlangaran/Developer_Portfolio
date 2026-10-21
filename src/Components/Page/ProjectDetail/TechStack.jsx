@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { itemVariants } from "../../../utils/helper";
 
-const TeckStack = ({ techStack, isDarkMode }) => {
+const TechStack = ({ techStack, isDarkMode }) => {
   const { t } = useTranslation("projects");
 
   return (
@@ -35,4 +35,4 @@ const TeckStack = ({ techStack, isDarkMode }) => {
   );
 };
 
-export default TeckStack;
+export default TechStack;

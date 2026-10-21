@@ -18,7 +18,7 @@ import TopBar from "../Components/Page/ProjectDetail/TopBar";
 import Hero from "../Components/Page/ProjectDetail/Hero";
 import Actions from "../Components/Page/ProjectDetail/Actions";
 import Description from "../Components/Page/ProjectDetail/Description";
-import TeckStack from "../Components/Page/ProjectDetail/TeckStack";
+import TechStack from "../Components/Page/ProjectDetail/TechStack";
 import { useTranslation } from "react-i18next";
 
 export default function ProjectDetail() {
@@ -343,7 +343,7 @@ export default function ProjectDetail() {
 
             {/* TECH STACK */}
             {project.tags?.length > 0 && (
-              <TeckStack techStack={project.tags} isDarkMode={isDarkMode} />
+              <TechStack techStack={project.tags} isDarkMode={isDarkMode} />
             )}
 
             {/* README */}
