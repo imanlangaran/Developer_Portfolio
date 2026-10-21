@@ -17,6 +17,7 @@ import {
 } from "../../utils/helper";
 import { useTranslation } from "react-i18next";
 import { useLang } from "../../context/LangContext";
+import CtaButton from "../Button/CtaButton";
 
 const PROFILE_PIC = "https://avatars.githubusercontent.com/imanlangaran";
 
@@ -262,20 +263,12 @@ const HeroSection = () => {
                   >
                     {t("View Work")}
                   </motion.button> */}
-                  <motion.button
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
+                  <CtaButton
+                    size="heroMobile"
                     onClick={() => scrollToSection("contact")}
-                    className={`border ${
-                      isDarkMode
-                        ? "border-gray-700 hover:border-gray-600 text-gray-300"
-                        : "border-gray-300 hover:border-gray-400 text-gray-700"
-                    } px-8 py-3 rounded-full text-sm uppercase ${
-                      lang === "En" ? "tracking-wider" : ""
-                    } font-medium transition-all duration-300`}
                   >
                     {t("Get In Touch")}
-                  </motion.button>
+                  </CtaButton>
                 </motion.div>
 
                 <motion.div
@@ -454,20 +447,12 @@ const HeroSection = () => {
                   >
                     {t("View Work")}
                   </motion.button> */}
-                  <motion.button
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
+                  <CtaButton
+                    size="hero"
                     onClick={() => scrollToSection("contact")}
-                    className={`border ${
-                      isDarkMode
-                        ? "border-gray-700 hover:border-gray-600 text-gray-300"
-                        : "border-gray-300 hover:border-gray-400 text-gray-700"
-                    } px-8 py-4 rounded-full text-sm uppercase ${
-                      lang === "En" ? "tracking-wider" : ""
-                    } font-medium transition-all duration-300`}
                   >
                     {t("Get In Touch")}
-                  </motion.button>
+                  </CtaButton>
                 </motion.div>
 
                 <motion.div

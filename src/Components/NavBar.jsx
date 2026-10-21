@@ -6,10 +6,11 @@ import { Code2, Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLang } from "../context/LangContext";
 import { getChangeLangDuration, scrollToSection } from "../utils/helper";
+import CtaButton from "./Button/CtaButton";
 import LangToggle from "./Preferences/LangToggle";
 import ThemeToggle from "./Preferences/ThemeToggle";
 
-const navLinks = ["Home", "Skills", "Work", "About", "Contact"];
+const navLinks = ["Home", "Skills", "Work", "About"];
 
 const NavBar = () => {
   const { isDarkMode } = useTheme();
@@ -76,11 +77,14 @@ const NavBar = () => {
             ))}
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
+            <CtaButton size="nav" onClick={() => handleClick("Contact")}>
+              {t("Contact")}
+            </CtaButton>
+
             <LangToggle />
             <ThemeToggle />
           </div>
-          {/* </div> */}
 
           {/* mobile menu button */}
           <div className="md:hidden flex grow items-center ms-5 justify-end space-x-4">
