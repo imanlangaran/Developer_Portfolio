@@ -16,11 +16,12 @@ export function getGithubReadmeUrl(githubUrl, locale = "en") {
     const base = `https://raw.githubusercontent.com/${owner}/${cleanRepo}/HEAD/`;
 
     return {
-      localized: `${base}README-${locale.toLowerCase()}.md`,
+      localized: `${base}README-${(locale || "en").toLowerCase()}.md`,
       fallback: `${base}README.md`,
-      base
+      base,
     };
   } catch {
     return null;
   }
 }
+

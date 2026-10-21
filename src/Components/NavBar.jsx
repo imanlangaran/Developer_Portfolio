@@ -2,18 +2,19 @@ import { useRef, useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Code2, Menu, Moon, Sun, X } from "lucide-react";
+import { ArrowRight, Code2, Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLang } from "../context/LangContext";
 import { getChangeLangDuration, scrollToSection } from "../utils/helper";
+import LangToggle from "./Preferences/LangToggle";
+import ThemeToggle from "./Preferences/ThemeToggle";
 
 const navLinks = ["Home", "Skills", "Work", "About"];
 
 const NavBar = () => {
-  const { isDarkMode, toggleDarkMode } = useTheme();
+  const { isDarkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useTranslation('common');
-  const { setLang } = useLang();
   const { lang } = useLang();
 
   // =============================================================
@@ -324,13 +325,6 @@ const NavBar = () => {
     activeCta.content ? activeCta.content(t('Contact')) : t('Contact');
   const getNavCtaProps = () => activeCta.props || {};
 
-  const changeLanguage = (lang) => {
-    setLang(lang);
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, getChangeLangDuration("ms")/2);
-  };
-
   const handleClick = (sectionId) => {
     scrollToSection(sectionId, () => setIsMenuOpen(false));
   };
@@ -401,62 +395,14 @@ const NavBar = () => {
               {getNavCtaContent()}
             </motion.button>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => changeLanguage(t("other lang"))}
-              className={`p-2 rounded-full transition-colors ${
-                isDarkMode
-                  ? "text-gray-400 hover:text-white hover:bg-gray-800"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
-              }`}
-            >
-              <div className="flex items-center justify-center w-[18px] h-[18px]">
-                {t("other lang")}
-              </div>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => toggleDarkMode(isDarkMode ? "light" : "dark")}
-              className={`p-2 rounded-full transition-colors ${
-                isDarkMode
-                  ? "text-gray-400 hover:text-white hover:bg-gray-800"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
-              }`}
-            >
-              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-            </motion.button>
+            <LangToggle />
+            <ThemeToggle />
           </div>
 
           {/* mobile menu button */}
           <div className="md:hidden flex grow items-center ms-5 justify-end space-x-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => changeLanguage(t("other lang"))}
-              className={`p-2 rounded-full transition-colors ${
-                isDarkMode
-                  ? "text-gray-400 hover:text-white hover:bg-gray-800"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
-              }`}
-            >
-              <div className="flex items-center justify-center w-[18px] h-[18px]">
-                {t("other lang")}
-              </div>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => toggleDarkMode(isDarkMode ? "light" : "dark")}
-              className={`p-2 rounded-full transition-colors ${
-                isDarkMode
-                  ? "text-gray-400 hover:text-white hover:bg-gray-800"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
-              }`}
-            >
-              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-            </motion.button>
+            <LangToggle />
+            <ThemeToggle />
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

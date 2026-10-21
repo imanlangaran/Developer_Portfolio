@@ -4,9 +4,10 @@ import { useTranslation } from "react-i18next";
 import { FiGithub } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import PlaceHolder from "./PlaceHolder";
+import ProjectMetaLine from "./ProjectMetaLine";
 
-const ProjectCard = ({ project, index, isDarkMode }) => {
-  const { t, i18n } = useTranslation('projects');
+const ProjectCard = ({ project, isDarkMode, commitDate, isLoadingCommitDate }) => {
+  const { t } = useTranslation('projects');
   const navigate = useNavigate();
 
   const cardVariants = {
@@ -134,6 +135,16 @@ const ProjectCard = ({ project, index, isDarkMode }) => {
           <h3 className="text-xl font-medium mb-3 group-hover:text-blue-500 transition-colors">
             {t(project.title)}
           </h3>
+
+          {/* Status + approximate commit time meta line (skeleton while dates load) */}
+          <ProjectMetaLine
+            project={project}
+            commitDate={commitDate}
+            isLoading={isLoadingCommitDate}
+            variant="card"
+            isDarkMode={isDarkMode}
+          />
+
           <p
             className={` text-sm leading-relaxed mb-4 ${
               isDarkMode ? "text-gray-400" : "text-gray-600"

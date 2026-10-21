@@ -4,18 +4,21 @@ import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { useTheme } from "../context/ThemeContext";
-
 import { PROJECTS } from "../utils/data";
-
+import { containerVariants, itemVariants } from "../utils/helper";
 import useProjectReadme from "../hooks/useProjectReadme";
+import {
+  resolveProjectDate,
+  useProjectDates,
+} from "../hooks/useProjectDates";
 
 import NotFound from "./NotFound";
+import ScrollToTopButton from "../Components/ScrollToTopButton";
 import TopBar from "../Components/Page/ProjectDetail/TopBar";
 import Hero from "../Components/Page/ProjectDetail/Hero";
 import Actions from "../Components/Page/ProjectDetail/Actions";
 import Description from "../Components/Page/ProjectDetail/Description";
 import TeckStack from "../Components/Page/ProjectDetail/TeckStack";
-import NavBar from "../Components/NavBar";
 import { useTranslation } from "react-i18next";
 
 export default function ProjectDetail() {
@@ -24,7 +27,7 @@ export default function ProjectDetail() {
   const location = useLocation();
   const { isDarkMode } = useTheme();
   const modalContentRef = useRef(null);
-  const { t, i18n } = useTranslation('projects');
+  const { t, i18n } = useTranslation("projects");
 
   // --------------------------------------------------
   // PROJECT
@@ -52,8 +55,24 @@ export default function ProjectDetail() {
   // README
   // --------------------------------------------------
   const { readmeHtml, isLoading: isLoadingReadme } = useProjectReadme(
-    project?.githubUrl,
+    project,
     i18n.language,
+  );
+
+  // --------------------------------------------------
+  // COMMIT DATE (shared cache with the projects grid)
+  // --------------------------------------------------
+  const {
+    dates: commitDates,
+    isLoading: isLoadingCommitDates,
+  } = useProjectDates();
+  const commitDate = project ? resolveProjectDate(project, commitDates) : null;
+
+  const hasReadme = Boolean(
+    project &&
+      (project.type === "private"
+        ? project.readme || project.slug
+        : project.githubUrl),
   );
 
   // --------------------------------------------------
@@ -116,66 +135,99 @@ export default function ProjectDetail() {
     const pageTitle = `${projectTitle} | Iman Langaran Portfolio`;
     const pageDescription = `${projectDescription}. Built with ${project.tags?.join(", ")}. View the source code on GitHub and live demo.`;
 
+    // TODO: get this url from config files
+    const projectUrl = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
+
+    // Snapshot the current values first so the cleanup below can put the site
+    // defaults (from index.html) back when this page unmounts.
+    const previousTitle = document.title;
+    const restoreFns = [];
+
+    // Update a <meta>/<link> tag, remembering what it held beforehand. A tag
+    // that did not exist yet is remembered for removal instead.
+    const updateTag = ({ selector, tag, attributes, property, value }) => {
+      let element = document.querySelector(selector);
+
+      if (element) {
+        const previousValue = element[property];
+        restoreFns.push(() => {
+          element[property] = previousValue;
+        });
+      } else {
+        element = document.createElement(tag);
+        Object.entries(attributes).forEach(([name, attrValue]) => {
+          element.setAttribute(name, attrValue);
+        });
+        document.head.appendChild(element);
+        restoreFns.push(() => element.remove());
+      }
+
+      element[property] = value;
+    };
+
     // Update document title
     document.title = pageTitle;
 
-    // Update/create meta description
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement("meta");
-      metaDescription.name = "description";
-      document.head.appendChild(metaDescription);
-    }
-    metaDescription.content = pageDescription;
+    // Update meta description
+    updateTag({
+      selector: 'meta[name="description"]',
+      tag: "meta",
+      attributes: { name: "description" },
+      property: "content",
+      value: pageDescription,
+    });
 
     // Update Open Graph tags
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (!ogTitle) {
-      ogTitle = document.createElement("meta");
-      ogTitle.setAttribute("property", "og:title");
-      document.head.appendChild(ogTitle);
-    }
-    ogTitle.content = pageTitle;
+    updateTag({
+      selector: 'meta[property="og:title"]',
+      tag: "meta",
+      attributes: { property: "og:title" },
+      property: "content",
+      value: pageTitle,
+    });
 
-    let ogDescription = document.querySelector(
-      'meta[property="og:description"]',
-    );
-    if (!ogDescription) {
-      ogDescription = document.createElement("meta");
-      ogDescription.setAttribute("property", "og:description");
-      document.head.appendChild(ogDescription);
-    }
-    ogDescription.content = pageDescription;
+    updateTag({
+      selector: 'meta[property="og:description"]',
+      tag: "meta",
+      attributes: { property: "og:description" },
+      property: "content",
+      value: pageDescription,
+    });
 
-    let ogUrl = document.querySelector('meta[property="og:url"]');
-    if (!ogUrl) {
-      ogUrl = document.createElement("meta");
-      ogUrl.setAttribute("property", "og:url");
-      document.head.appendChild(ogUrl);
-    }
-
-    // TODO: get this url from config files
-    ogUrl.content = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
+    updateTag({
+      selector: 'meta[property="og:url"]',
+      tag: "meta",
+      attributes: { property: "og:url" },
+      property: "content",
+      value: projectUrl,
+    });
 
     if (project.image) {
-      let ogImage = document.querySelector('meta[property="og:image"]');
-      if (!ogImage) {
-        ogImage = document.createElement("meta");
-        ogImage.setAttribute("property", "og:image");
-        document.head.appendChild(ogImage);
-      }
-      ogImage.content = project.image;
+      updateTag({
+        selector: 'meta[property="og:image"]',
+        tag: "meta",
+        attributes: { property: "og:image" },
+        property: "content",
+        value: project.image,
+      });
     }
 
     // Update canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.rel = "canonical";
-      document.head.appendChild(canonical);
-    }
-    canonical.href = `https://imanlangaran.github.io/Developer_Portfolio/project/${id}`;
-  }, [project, id, i18n]);
+    updateTag({
+      selector: 'link[rel="canonical"]',
+      tag: "link",
+      attributes: { rel: "canonical" },
+      property: "href",
+      value: projectUrl,
+    });
+
+    // Undo everything above on unmount, otherwise the tab title and SEO tags
+    // keep pointing at the project page after it is closed.
+    return () => {
+      document.title = previousTitle;
+      restoreFns.forEach((restore) => restore());
+    };
+  }, [project, id, i18n, t]);
 
   // --------------------------------------------------
   // NOT FOUND
@@ -186,7 +238,7 @@ export default function ProjectDetail() {
 
   return (
     <motion.div
-      className="fixed inset-0 z-9999 flex items-center justify-center bg-black/60 backdrop-blur-xl"
+      className="fixed inset-0 z-9999 flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -201,10 +253,7 @@ export default function ProjectDetail() {
         style={{ scaleX }}
       />
 
-      {/* NAVBAR */}
-      <NavBar />
-
-      {/* MODAL */}
+      {/* MODAL CONTAINER */}
       <motion.div
         layoutId={`project-card-${project.id}`}
         initial={{
@@ -227,20 +276,25 @@ export default function ProjectDetail() {
           ease: "easeInOut",
         }}
         onClick={(e) => e.stopPropagation()}
-        className={`relative w-full h-full mt-34 md:mt-14 md:h-[85vh] md:max-w-6xl md:rounded-3xl overflow-hidden border shadow-2xl ${
+        className={`relative w-full h-full md:h-[85vh] md:max-w-6xl rounded-2xl overflow-hidden border shadow-2xl ${
           isDarkMode
-            ? "bg-gray-900 border-white/10 shadow-blue-500/10"
-            : "bg-gray-50 border-black/10 shadow-blue-500/20"
+            ? "bg-gray-900 border-gray-800 shadow-blue-500/10"
+            : "bg-white border-gray-200 shadow-blue-500/10"
         }`}
       >
-        {/* GLOW */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle at top right, rgba(59,130,246,0.18), transparent 30%)",
-          }}
-        />
+        {/* AMBIENT GLOW */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div
+            className={`absolute -top-20 -right-20 w-80 h-80 rounded-full blur-3xl opacity-5 ${
+              isDarkMode ? "bg-blue-500" : "bg-blue-400"
+            }`}
+          />
+          <div
+            className={`absolute -bottom-20 -left-20 w-80 h-80 rounded-full blur-3xl opacity-5 ${
+              isDarkMode ? "bg-purple-500" : "bg-purple-400"
+            }`}
+          />
+        </div>
 
         {/* FLOATING CONTROLS */}
         <TopBar isDarkMode={isDarkMode} handleClose={handleClose} />
@@ -255,19 +309,28 @@ export default function ProjectDetail() {
           {/* HERO */}
           <Hero
             id={project.id}
+            project={project}
             image={project.image}
             title={t(project.title)}
             subtitle={t(project.subtitle)}
+            commitDate={commitDate}
+            isLoadingCommitDate={isLoadingCommitDates}
             isDarkMode={isDarkMode}
           />
 
           {/* CONTENT */}
-          <div className="max-w-4xl mx-auto px-5 md:px-10 py-10">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="max-w-4xl mx-auto px-5 md:px-10 py-10 relative z-10"
+          >
             {/* ACTIONS */}
-            {(project.githubUrl || project.liveUrl) && (
+            {((project.type !== "private" && project.githubUrl) || project.liveUrl) && (
               <Actions
-                githubUrl={project.githubUrl}
+                githubUrl={project.type === "private" ? null : project.githubUrl}
                 liveUrl={project.liveUrl}
+                type={project.type}
                 isDarkMode={isDarkMode}
               />
             )}
@@ -284,14 +347,14 @@ export default function ProjectDetail() {
             )}
 
             {/* README */}
-            {project.githubUrl && (
-              <div className="mt-14">
+            {hasReadme && (
+              <motion.div variants={itemVariants} className="mt-14">
                 <h3
-                  className={`text-xl font-semibold mb-6 ${
-                    isDarkMode ? "text-white" : "text-black"
+                  className={`text-xl font-medium mb-6 ${
+                    isDarkMode ? "text-white" : "text-gray-900"
                   }`}
                 >
-                  README
+                  {t("README")}
                 </h3>
 
                 {isLoadingReadme ? (
@@ -300,29 +363,38 @@ export default function ProjectDetail() {
                       isDarkMode ? "text-gray-400" : "text-gray-600"
                     }`}
                   >
-                    Loading README...
+                    {t("Loading README...")}
                   </div>
                 ) : (
                   <div
                     key={isDarkMode ? "dark" : "light"}
-                    // className={`prose prose-lg max-w-none transition-colors duration-300 ${
-                    //   isDarkMode ? "prose-invert text-white" : "text-black"
-                    // }`}
-                    className={`markdown-body ${isDarkMode ? "markdown-body-dark text-white" : "markdown-body-light text-black"}`}
+                    className={`markdown-body ${
+                      isDarkMode
+                        ? "markdown-body-dark text-gray-300"
+                        : "markdown-body-light text-gray-700"
+                    }`}
                     style={{
                       backgroundColor: "transparent",
-                      color: isDarkMode ? "light" : "black",
+                      // Explicit inline color is required: main.jsx imports
+                      // github-markdown-light.css followed by github-markdown-dark.css,
+                      // so the dark theme base rule (.markdown-body { color: #f0f6fc })
+                      // always wins the cascade and would render white text in light mode.
+                      color: isDarkMode ? "#d1d5db" : "#374151",
                     }}
                     dangerouslySetInnerHTML={{ __html: readmeHtml }}
                   />
                 )}
-              </div>
+              </motion.div>
             )}
 
             {/* SPACER */}
             <div className="h-20" />
-          </div>
+          </motion.div>
         </div>
+
+        {/* FLOATING SCROLL-TO-TOP BUTTON (anchored to the modal, watches the
+            scrollable content div above) */}
+        <ScrollToTopButton containerRef={modalContentRef} variant="absolute" />
       </motion.div>
     </motion.div>
   );

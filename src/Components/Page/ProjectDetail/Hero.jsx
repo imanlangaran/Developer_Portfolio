@@ -1,14 +1,29 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import PlaceHolder from "../../PlaceHolder";
+import ProjectMetaLine from "../../ProjectMetaLine";
+import { containerVariants, itemVariants } from "../../../utils/helper";
+import { useLang } from "../../../context/LangContext";
 
-const Hero = ({ id, image, title, subtitle, isDarkMode }) => {
+const Hero = ({
+  id,
+  project,
+  image,
+  title,
+  subtitle,
+  commitDate,
+  isLoadingCommitDate,
+  isDarkMode,
+}) => {
+  const { lang } = useLang();
+
   return (
     <motion.div
       layoutId={`project-image-${id}`}
-      className="relative w-full aspect-video overflow-hidden"
+      className={`relative w-full aspect-video overflow-hidden border-b ${
+        isDarkMode ? "border-gray-800" : "border-gray-200"
+      }`}
     >
-
       {/* Only show image if no error */}
       {image ? (
         <motion.img
@@ -22,49 +37,47 @@ const Hero = ({ id, image, title, subtitle, isDarkMode }) => {
           }}
         />
       ) : (
-        // no Image → show placeholder UI
-        <PlaceHolder isDarkMode={isDarkMode} isFullSize/>
+        <PlaceHolder isDarkMode={isDarkMode} isFullSize />
       )}
 
-      <div
-        className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent"
-      />
+      {/* Gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/40 to-transparent" />
 
-      <div
-        className="absolute bottom-8 left-8 right-8"
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8 z-10"
       >
         <motion.h1
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{ delay: 0.15 }}
-          className="text-3xl md:text-5xl font-bold text-white"
+          variants={itemVariants}
+          className={`text-3xl md:text-5xl font-light text-white leading-tight ${
+            lang === "En" ? "tracking-wide" : ""
+          }`}
         >
           {title}
         </motion.h1>
 
         {subtitle && (
           <motion.p
-            initial={{
-              opacity: 0,
-              y: 10,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{ delay: 0.22 }}
-            className="mt-3 text-white/80 text-base md:text-lg"
+            variants={itemVariants}
+            className="mt-2 md:mt-3 text-gray-300 text-base md:text-lg font-light leading-relaxed max-w-2xl"
           >
             {subtitle}
           </motion.p>
         )}
-      </div>
+
+        {/* Status + approximate commit time (skeleton while dates load) */}
+        <motion.div variants={itemVariants}>
+          <ProjectMetaLine
+            project={project}
+            commitDate={commitDate}
+            isLoading={isLoadingCommitDate}
+            variant="hero"
+            isDarkMode={isDarkMode}
+          />
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 };

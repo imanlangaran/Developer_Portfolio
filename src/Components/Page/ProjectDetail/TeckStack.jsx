@@ -1,48 +1,37 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { itemVariants } from "../../../utils/helper";
 
 const TeckStack = ({ techStack, isDarkMode }) => {
+  const { t } = useTranslation("projects");
+
   return (
-    <div className="mt-12">
+    <motion.div variants={itemVariants} className="mt-10">
       <h3
-        className={`
-            text-xl font-semibold mb-5
-            ${isDarkMode ? "text-white" : "text-black"}
-            `}
+        className={`text-xl font-medium mb-4 ${
+          isDarkMode ? "text-white" : "text-gray-900"
+        }`}
       >
-        Tech Stack
+        {t("Tech Stack")}
       </h3>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-2.5">
         {techStack.map((tech) => (
-          <motion.div
+          <motion.span
             key={tech}
-            whileHover={{
-              y: -3,
-            }}
-            className={`
-                px-4 py-2
-                rounded-full border text-sm
-                ${
-                isDarkMode
-                    ? `
-                    bg-white/5
-                    border-white/10
-                    text-gray-200
-                    `
-                    : `
-                    bg-black/[0.03]
-                    border-black/10
-                    text-gray-700
-                    `
-                }
-            `}
+            whileHover={{ y: -2 }}
+            className={`text-xs md:text-sm px-3.5 py-1.5 rounded-full font-medium transition-colors ${
+              isDarkMode
+                ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
           >
             {tech}
-          </motion.div>
+          </motion.span>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
