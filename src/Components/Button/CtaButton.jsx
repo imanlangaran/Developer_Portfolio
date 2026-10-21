@@ -28,13 +28,18 @@ const CtaButton = ({ children, onClick, size = "nav", className = "" }) => {
     <motion.button
       type="button"
       onClick={onClick}
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ y: -2, scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
       className={`cta-primary inline-flex items-center justify-center gap-2 rounded-full bg-blue-500 text-sm font-medium uppercase text-white transition-all duration-300 hover:bg-blue-600 ${
         lang === "En" ? "tracking-wider" : ""
       } ${SIZES[size] || SIZES.nav} ${className}`}
     >
-      {children}
+      {/* Sweeping shine, clipped to the pill (decorative only). */}
+      <span className="cta-shine" aria-hidden="true" />
+
+      <span className="relative z-10 inline-flex items-center justify-center gap-2">
+        {children}
+      </span>
     </motion.button>
   );
 };

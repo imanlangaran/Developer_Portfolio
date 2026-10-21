@@ -30,35 +30,113 @@
 /* ============================================================
    CTA BUTTON — design.md ButtonPrimary (Issue #33)
    ============================================================
-   One site-wide primary CTA: solid blue-500 fill, white label,
-   pill shape, plus a soft breathing blue glow for attention.
-   Colour and shape tokens follow design.md (ButtonPrimary).
+   One site-wide primary CTA: solid blue-500 fill and white
+   label (design.md ButtonPrimary), plus three layered attention
+   cues: a breathing glow, an expanding sonar ring, and a
+   periodic shine sweep across the pill.
    ============================================================ */
 @keyframes ctaGlow {
   0%, 100% {
     box-shadow:
-      0 0 10px rgba(59, 130, 246, 0.25),
-      0 0 22px rgba(59, 130, 246, 0.10);
+      0 0 8px rgba(59, 130, 246, 0.35),
+      0 0 20px rgba(59, 130, 246, 0.18);
   }
   50% {
     box-shadow:
-      0 0 16px rgba(59, 130, 246, 0.38),
-      0 0 34px rgba(59, 130, 246, 0.16);
+      0 0 24px rgba(59, 130, 246, 0.75),
+      0 0 52px rgba(59, 130, 246, 0.35);
+  }
+}
+
+@keyframes ctaRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes ctaShine {
+  0% {
+    left: -70%;
+  }
+  45%,
+  100% {
+    left: 150%;
   }
 }
 
 .cta-primary {
-  animation: ctaGlow 3.5s ease-in-out infinite;
+  position: relative;
+  isolation: isolate;
+  animation: ctaGlow 2.4s ease-in-out infinite;
 }
 
-.cta-primary:hover {
+/* Sonar ring — expands beyond the pill to catch the eye. */
+.cta-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid rgba(59, 130, 246, 0.7);
+  pointer-events: none;
+  animation: ctaRing 2.4s ease-out infinite;
+}
+
+/* Shine — a light streak that sweeps across the pill. */
+.cta-primary > .cta-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cta-primary > .cta-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.65),
+    transparent
+  );
+  transform: skewX(-18deg);
+  animation: ctaShine 3.2s ease-in-out infinite;
+}
+
+/* Hover speeds up all three cues. */
+.cta-primary:hover,
+.cta-primary:hover::before {
+  animation-duration: 1.3s;
+}
+
+.cta-primary:hover > .cta-shine::after {
   animation-duration: 1.6s;
 }
 
 /* Accessibility: respect reduced-motion preferences. */
 @media (prefers-reduced-motion: reduce) {
-  .cta-primary {
+  .cta-primary,
+  .cta-primary::before,
+  .cta-primary > .cta-shine::after {
     animation: none !important;
+  }
+
+  .cta-primary {
     box-shadow: none !important;
+  }
+
+  .cta-primary::before,
+  .cta-primary > .cta-shine {
+    display: none;
   }
 }
