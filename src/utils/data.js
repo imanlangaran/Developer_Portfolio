@@ -280,10 +280,10 @@ export const PROJECTS = [
     tags: ["Python", "LLM", "FastAPI", "CCXT", "Pandas", "Docker"],
     type: "private",
     slug: "trade-agent",
-    featured: false,
+    featured: true,
     category: "AI Agent",
     status: "in-development",
-    lastCommitDate: "2026-10-07",
+    lastCommitDate: "2026-10-21",
   }
 ]
 
