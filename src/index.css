@@ -145,7 +145,7 @@
    MARKDOWN TABLE & CODE STYLING (Issue #72)
    Align markdown tables and code blocks with the portfolio
    design system (Tailwind gray-200/gray-800 tokens and rounded-xl).
-   ponytail: scoped CSS overrides for markdown tables and code blocks; upgrade to custom Marked renderer when full AST transformations are required.
+   scoped CSS overrides for markdown tables and code blocks; upgrade to custom Marked renderer when full AST transformations are required.
    ============================================================ */
 
 .markdown-body table {
