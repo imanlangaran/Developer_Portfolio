@@ -1,23 +1,35 @@
 import { useLayoutEffect, useRef, useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { X } from "lucide-react";
+import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useLang } from "../../../context/LangContext";
 import LangToggle from "../../Preferences/LangToggle";
 import ThemeToggle from "../../Preferences/ThemeToggle";
 import BrandMark from "./BrandMark";
 
-// Width of the fixed gaps between the toggles (and the close button), and the
+// Width of the fixed gaps between the toggles (and the navigation controls), and the
 // minimum width of the flexible brand <-> lang gap.
 const MIN_GAP = 8;
 
 const TopBar = ({ isDarkMode, handleClose }) => {
   const { t } = useTranslation("common");
+  const { lang } = useLang();
+  const navigate = useNavigate();
   const rowRef = useRef(null);
   const brandRef = useRef(null);
   // Width BrandMark may use before the name would have to shrink: row width
-  // minus the controls minus the three minimum gaps. null = not measured yet.
+  // minus the controls minus the four minimum gaps. null = not measured yet.
   const [brandAvailable, setBrandAvailable] = useState(null);
+
+  const handleBack = () => {
+    if (window.history.state?.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate("/", { replace: true });
+    }
+  };
 
   useLayoutEffect(() => {
     const row = rowRef.current;
@@ -30,7 +42,7 @@ const TopBar = ({ isDarkMode, handleClose }) => {
         if (child === brand || child.dataset.spacer !== undefined) continue;
         controlsWidth += child.offsetWidth;
       }
-      setBrandAvailable(row.clientWidth - controlsWidth - 3 * MIN_GAP);
+      setBrandAvailable(row.clientWidth - controlsWidth - 4 * MIN_GAP);
     };
 
     measure();
@@ -55,7 +67,7 @@ const TopBar = ({ isDarkMode, handleClose }) => {
       </div>
 
       <div data-spacer="" aria-hidden="true" className="flex-1 min-w-[8px]" />
-      {/* PREFERENCE TOGGLES + CLOSE BUTTON */}
+      {/* PREFERENCE TOGGLES + BACK & CLOSE BUTTONS */}
       <div className="pointer-events-auto">
         <LangToggle variant="topbar" />
       </div>
@@ -76,6 +88,41 @@ const TopBar = ({ isDarkMode, handleClose }) => {
       />
       <div className="pointer-events-auto">
         <motion.button
+          type="button"
+          whileHover={{
+            scale: 1.05,
+          }}
+          whileTap={{
+            scale: 0.95,
+          }}
+          onClick={handleBack}
+          className={`h-10 px-2.5 sm:px-3.5 rounded-full border text-sm font-medium shadow-md transition-all duration-300 flex items-center justify-center gap-1.5 ${
+            lang === "En" ? "tracking-wider uppercase" : ""
+          } ${
+            isDarkMode
+              ? "bg-gray-900 border-gray-700 text-gray-300 hover:border-gray-600 hover:text-white"
+              : "bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:text-gray-900"
+          }`}
+          aria-label={t("Back")}
+          title={t("Back")}
+        >
+          {lang === "Fa" ? (
+            <ArrowRight size={18} aria-hidden="true" />
+          ) : (
+            <ArrowLeft size={18} aria-hidden="true" />
+          )}
+          <span className="hidden sm:inline">{t("Back")}</span>
+        </motion.button>
+      </div>
+
+      <div
+        data-spacer=""
+        aria-hidden="true"
+        className="w-2 shrink-0"
+      />
+      <div className="pointer-events-auto">
+        <motion.button
+          type="button"
           whileHover={{
             rotate: 90,
             scale: 1.08,
