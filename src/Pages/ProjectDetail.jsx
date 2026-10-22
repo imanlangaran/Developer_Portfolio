@@ -394,7 +394,7 @@ export default function ProjectDetail() {
             {/* CTA SECTION */}
             <motion.div
               variants={itemVariants}
-              className={`mt-20 pt-12 pb-8 border-t flex flex-col items-center text-center ${
+              className={`mt-20 pt-12 pb-28 md:pb-32 border-t flex flex-col items-center text-center ${
                 isDarkMode ? "border-gray-800" : "border-gray-200"
               }`}
             >
