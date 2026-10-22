@@ -1,3 +1,19 @@
+export function buildReadmeCandidates(base, locale = "en") {
+  const lang = (locale || "en").toLowerCase();
+  const fallback = `${base}README.md`;
+  const candidates =
+    lang === "en"
+      ? [fallback]
+      : [...new Set([`${base}README-${lang}.md`, `${base}README-${lang.toUpperCase()}.md`, fallback])];
+
+  return {
+    localized: candidates[0],
+    fallback,
+    candidates,
+    base,
+  };
+}
+
 export function getGithubReadmeUrl(githubUrl, locale = "en") {
   if (!githubUrl) return null;
 
@@ -15,13 +31,10 @@ export function getGithubReadmeUrl(githubUrl, locale = "en") {
 
     const base = `https://raw.githubusercontent.com/${owner}/${cleanRepo}/HEAD/`;
 
-    return {
-      localized: `${base}README-${(locale || "en").toLowerCase()}.md`,
-      fallback: `${base}README.md`,
-      base,
-    };
+    return buildReadmeCandidates(base, locale);
   } catch {
     return null;
   }
 }
+
 
