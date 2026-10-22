@@ -2,8 +2,10 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { AlertCircle, RefreshCw } from "lucide-react";
 
 import { useTheme } from "../context/ThemeContext";
+import { useLang } from "../context/LangContext";
 import { PROJECTS } from "../utils/data";
 import { containerVariants, itemVariants } from "../utils/helper";
 import useProjectReadme from "../hooks/useProjectReadme";
@@ -26,6 +28,7 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
   const location = useLocation();
   const { isDarkMode } = useTheme();
+  const { lang } = useLang();
   const modalContentRef = useRef(null);
   const { t, i18n } = useTranslation("projects");
 
@@ -54,10 +57,12 @@ export default function ProjectDetail() {
   // --------------------------------------------------
   // README
   // --------------------------------------------------
-  const { readmeHtml, isLoading: isLoadingReadme } = useProjectReadme(
-    project,
-    i18n.language,
-  );
+  const {
+    readmeHtml,
+    isLoading: isLoadingReadme,
+    error: readmeError,
+    refetch: refetchReadme,
+  } = useProjectReadme(project, i18n.language);
 
   // --------------------------------------------------
   // COMMIT DATE (shared cache with the projects grid)
@@ -364,6 +369,55 @@ export default function ProjectDetail() {
                     }`}
                   >
                     {t("Loading README...")}
+                  </div>
+                ) : readmeError ? (
+                  <div
+                    className={`flex flex-col items-center justify-center p-8 md:p-12 text-center rounded-2xl border transition-colors ${
+                      isDarkMode
+                        ? "border-gray-800 bg-gray-900/40 text-gray-300"
+                        : "border-gray-200 bg-gray-50/50 text-gray-700"
+                    }`}
+                  >
+                    <AlertCircle
+                      size={36}
+                      className={`mb-4 ${
+                        isDarkMode ? "text-gray-500" : "text-gray-400"
+                      }`}
+                    />
+                    <h4
+                      className={`text-lg font-medium mb-2 ${
+                        isDarkMode ? "text-white" : "text-gray-900"
+                      }`}
+                    >
+                      {t("README not available")}
+                    </h4>
+                    <p
+                      className={`text-sm max-w-md ${
+                        readmeError.kind !== "not-found" ? "mb-6 " : ""
+                      }${isDarkMode ? "text-gray-400" : "text-gray-600"}`}
+                    >
+                      {readmeError.kind === "not-found"
+                        ? t("README missing")
+                        : t("Couldn't load the README. Please try again.")}
+                    </p>
+                    {readmeError.kind !== "not-found" && (
+                      <motion.button
+                        type="button"
+                        whileHover={{ y: -2, scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={refetchReadme}
+                        className={`inline-flex items-center gap-2 px-6 md:px-8 py-3 rounded-full border text-sm font-medium transition-all duration-300 cursor-pointer ${
+                          lang === "En" ? "tracking-wider uppercase" : ""
+                        } ${
+                          isDarkMode
+                            ? "border-gray-700 hover:border-gray-600 text-gray-300 hover:text-white"
+                            : "border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900"
+                        }`}
+                      >
+                        <RefreshCw size={16} />
+                        <span>{t("Retry")}</span>
+                      </motion.button>
+                    )}
                   </div>
                 ) : (
                   <div
