@@ -133,8 +133,8 @@ export const STATS = [
  * Private project configuration (e.g. client work, proprietary apps, or non-public repos).
  * - `type`: Set to `"private"`.
  * - `slug` (or `readme`): Directory slug under `public/docs/<slug>/` where local markdown documentation is stored.
- *   - English / Fallback: `public/docs/<slug>/README.md`
- *   - Localized (e.g. Persian): `public/docs/<slug>/README-fa.md`
+ *   - English: `public/docs/<slug>/README.md`
+ *   - Localized lookup order (e.g. Persian): `README-fa.md` -> `README-FA.md` -> fallback `README.md`
  *   - Assets: Place images directly in `public/docs/<slug>/` and reference them relatively (e.g. `![Preview](./preview.png)`).
  * - `githubUrl`: Not required and not displayed in the UI for private projects.
  * - `lastCommitDate`: Since private repos can't be queried, this config value is the date source used for

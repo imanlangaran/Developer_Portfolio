@@ -21,15 +21,14 @@ export default function useProjectReadme(project, language) {
     return getProjectReadmeUrl(project, language);
   }, [project, language]);
 
-  const localizedUrl = readmeUrls?.localized;
-  const fallbackUrl = readmeUrls?.fallback;
+  const candidates = readmeUrls?.candidates;
   const baseUrlString = readmeUrls?.base;
 
   // --------------------------------------------------
   // FETCH README
   // --------------------------------------------------
   useEffect(() => {
-    if (!localizedUrl || !fallbackUrl || !baseUrlString) {
+    if (!baseUrlString || !candidates || candidates.length === 0) {
       setReadmeHtml("");
       setIsLoading(false);
       setError(null);
@@ -45,20 +44,16 @@ export default function useProjectReadme(project, language) {
       try {
         let response = null;
 
-        // 1. localized README
-        try {
-          response = await fetch(localizedUrl, {
-            signal: controller.signal,
-          });
-        } catch (fetchErr) {
-          if (fetchErr.name === "AbortError" || controller.signal.aborted) throw fetchErr;
-        }
-
-        // 2. fallback README (only if localized fetch failed and fallback is different)
-        if ((!response || !response.ok) && localizedUrl !== fallbackUrl) {
-          response = await fetch(fallbackUrl, {
-            signal: controller.signal,
-          });
+        // ponytail: sequential probe stops on first ok; upgrade to parallel HEAD only if probe latency matters.
+        for (const url of candidates) {
+          try {
+            response = await fetch(url, {
+              signal: controller.signal,
+            });
+            if (response.ok) break;
+          } catch (fetchErr) {
+            if (fetchErr.name === "AbortError" || controller.signal.aborted) throw fetchErr;
+          }
         }
 
         if (!response || !response.ok) {
@@ -130,7 +125,7 @@ export default function useProjectReadme(project, language) {
     return () => {
       controller.abort();
     };
-  }, [localizedUrl, fallbackUrl, baseUrlString, reloadKey]);
+  }, [candidates, baseUrlString, reloadKey]);
 
   return {
     readmeHtml,

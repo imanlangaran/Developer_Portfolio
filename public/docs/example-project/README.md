@@ -72,11 +72,13 @@ The portfolio's Markdown renderer automatically resolves relative image paths ag
 
 ## Multi-Language Support (i18n)
 
-The documentation reader seamlessly adapts to the user's active language:
+The documentation reader seamlessly adapts to the user's active language by probing candidates in order and stopping at the first 200:
 
-- **English (`en`)**: Loads `README.md`.
-- **Persian (`fa`)**: Loads `README-fa.md`.
-- **Fallback**: If `README-fa.md` does not exist, the renderer gracefully falls back to `README.md`.
+- **English (`en`)**: Requests `README.md` directly.
+- **Other languages (e.g. `fa`)**:
+  1. `README-<lang>.md` (lowercase, e.g. `README-fa.md`)
+  2. `README-<LANG>.md` (uppercase, e.g. `README-FA.md`)
+  3. `README.md` (default fallback)
 
 ---
 
