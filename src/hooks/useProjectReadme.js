@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Marked } from "marked";
 import { baseUrl } from "marked-base-url";
 
@@ -8,6 +8,11 @@ export default function useProjectReadme(project, language) {
   const [readmeHtml, setReadmeHtml] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const refetch = useCallback(() => {
+    setReloadKey((k) => k + 1);
+  }, []);
 
   // --------------------------------------------------
   // README URLS
@@ -38,20 +43,33 @@ export default function useProjectReadme(project, language) {
       setError(null);
 
       try {
+        let response = null;
+
         // 1. localized README
-        let response = await fetch(localizedUrl, {
-          signal: controller.signal,
-        });
+        try {
+          response = await fetch(localizedUrl, {
+            signal: controller.signal,
+          });
+        } catch (fetchErr) {
+          if (fetchErr.name === "AbortError" || controller.signal.aborted) throw fetchErr;
+        }
 
         // 2. fallback README (only if localized fetch failed and fallback is different)
-        if (!response.ok && localizedUrl !== fallbackUrl) {
+        if ((!response || !response.ok) && localizedUrl !== fallbackUrl) {
           response = await fetch(fallbackUrl, {
             signal: controller.signal,
           });
         }
 
-        if (!response.ok) {
-          throw new Error("README not found");
+        if (!response || !response.ok) {
+          const status = response ? response.status : null;
+          const err = new Error(
+            status === 404 ? "README not found" : status ? `HTTP ${status}` : "Network error",
+          );
+          err.status = status;
+          // ponytail: error classification only branches on 404 vs others; upgrade to status-specific handlers if needed.
+          err.kind = status === 404 ? "not-found" : "failed";
+          throw err;
         }
 
         const markdown = await response.text();
@@ -94,13 +112,12 @@ export default function useProjectReadme(project, language) {
 
         console.error(err);
 
-        setError(err);
+        setError({
+          kind: err.kind || "failed",
+          status: typeof err.status === "number" ? err.status : null,
+        });
 
-        setReadmeHtml(`
-          <p>
-            Failed to load README.
-          </p>
-        `);
+        setReadmeHtml("");
       } finally {
         if (!controller.signal.aborted) {
           setIsLoading(false);
@@ -113,11 +130,13 @@ export default function useProjectReadme(project, language) {
     return () => {
       controller.abort();
     };
-  }, [localizedUrl, fallbackUrl, baseUrlString]);
+  }, [localizedUrl, fallbackUrl, baseUrlString, reloadKey]);
 
   return {
     readmeHtml,
     isLoading,
     error,
+    refetch,
+    reloadKey,
   };
 }
