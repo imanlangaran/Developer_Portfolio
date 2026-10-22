@@ -23,6 +23,7 @@ import Hero from "../Components/Page/ProjectDetail/Hero";
 import Actions from "../Components/Page/ProjectDetail/Actions";
 import Description from "../Components/Page/ProjectDetail/Description";
 import TeckStack from "../Components/Page/ProjectDetail/TeckStack";
+import ReadmeSkeleton from "../Components/Page/ProjectDetail/ReadmeSkeleton";
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -362,13 +363,7 @@ export default function ProjectDetail() {
                 </h3>
 
                 {isLoadingReadme ? (
-                  <div
-                    className={`text-sm ${
-                      isDarkMode ? "text-gray-400" : "text-gray-600"
-                    }`}
-                  >
-                    {t("Loading README...")}
-                  </div>
+                  <ReadmeSkeleton isDarkMode={isDarkMode} />
                 ) : (
                   <div
                     key={isDarkMode ? "dark" : "light"}
