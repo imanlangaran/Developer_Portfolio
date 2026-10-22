@@ -2,7 +2,8 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { AlertCircle, RefreshCw } from "lucide-react";
+import { AlertCircle, ArrowLeft, ArrowRight, RefreshCw } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { useTheme } from "../context/ThemeContext";
 import { useLang } from "../context/LangContext";
@@ -16,12 +17,13 @@ import {
 
 import NotFound from "./NotFound";
 import ScrollToTopButton from "../Components/ScrollToTopButton";
+import CtaButton from "../Components/Button/CtaButton";
 import TopBar from "../Components/Page/ProjectDetail/TopBar";
 import Hero from "../Components/Page/ProjectDetail/Hero";
 import Actions from "../Components/Page/ProjectDetail/Actions";
 import Description from "../Components/Page/ProjectDetail/Description";
 import TeckStack from "../Components/Page/ProjectDetail/TeckStack";
-import { useTranslation } from "react-i18next";
+import ReadmeSkeleton from "../Components/Page/ProjectDetail/ReadmeSkeleton";
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -30,7 +32,7 @@ export default function ProjectDetail() {
   const { isDarkMode } = useTheme();
   const { lang } = useLang();
   const modalContentRef = useRef(null);
-  const { t, i18n } = useTranslation("projects");
+  const { t, i18n } = useTranslation(["projects", "common"]);
 
   // --------------------------------------------------
   // PROJECT
@@ -363,13 +365,7 @@ export default function ProjectDetail() {
                 </h3>
 
                 {isLoadingReadme ? (
-                  <div
-                    className={`text-sm ${
-                      isDarkMode ? "text-gray-400" : "text-gray-600"
-                    }`}
-                  >
-                    {t("Loading README...")}
-                  </div>
+                  <ReadmeSkeleton isDarkMode={isDarkMode} />
                 ) : readmeError ? (
                   <div
                     className={`flex flex-col items-center justify-center p-8 md:p-12 text-center rounded-2xl border transition-colors ${
@@ -441,8 +437,35 @@ export default function ProjectDetail() {
               </motion.div>
             )}
 
-            {/* SPACER */}
-            <div className="h-20" />
+            {/* CTA SECTION */}
+            <motion.div
+              variants={itemVariants}
+              className={`mt-20 pt-12 pb-28 md:pb-32 border-t flex flex-col items-center text-center ${
+                isDarkMode ? "border-gray-800" : "border-gray-200"
+              }`}
+            >
+              <h3
+                className={`text-2xl md:text-3xl font-light mb-6 ${
+                  isDarkMode ? "text-white" : "text-gray-900"
+                } ${lang === "En" ? "tracking-wider" : ""}`}
+              >
+                {t("Have a similar project in mind?")}
+              </h3>
+
+              <CtaButton
+                size="heroMobile"
+                onClick={() =>
+                  navigate("/", { state: { scrollTo: "contact" } })
+                }
+              >
+                <span>{t("Get In Touch")}</span>
+                {lang === "Fa" ? (
+                  <ArrowLeft size={16} aria-hidden="true" />
+                ) : (
+                  <ArrowRight size={16} aria-hidden="true" />
+                )}
+              </CtaButton>
+            </motion.div>
           </motion.div>
         </div>
 

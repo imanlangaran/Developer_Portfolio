@@ -47,5 +47,6 @@
   "README not available": "README در دسترس نیست",
   "README missing": "فایل README یافت نشد",
   "Couldn't load the README. Please try again.": "امکان بارگذاری README وجود ندارد. لطفاً دوباره تلاش کنید.",
-  "Retry": "تلاش مجدد"
+  "Retry": "تلاش مجدد",
+  "Have a similar project in mind?": "پروژه مشابهی در ذهن دارید؟"
 }
