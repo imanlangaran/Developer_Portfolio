@@ -17,7 +17,6 @@ const ReadmeSkeleton = ({ isDarkMode = true }) => {
     >
       <span className="sr-only">{t("Loading README...")}</span>
 
-      {/* ponytail: static placeholder layout covers common markdown rhythm; upgrade to dynamic lines if README layouts vary widely */}
       <div
         aria-hidden="true"
         className="space-y-3 animate-pulse motion-reduce:animate-none"
