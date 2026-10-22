@@ -31,7 +31,7 @@ export default function ProjectDetail() {
   const { isDarkMode } = useTheme();
   const { lang } = useLang();
   const modalContentRef = useRef(null);
-  const { t, i18n } = useTranslation("projects");
+  const { t, i18n } = useTranslation(["projects", "common"]);
 
   // --------------------------------------------------
   // PROJECT
