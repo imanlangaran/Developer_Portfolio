@@ -140,3 +140,134 @@
     display: none;
   }
 }
+
+/* ============================================================
+   MARKDOWN TABLE & CODE STYLING (Issue #72)
+   Align markdown tables and code blocks with the portfolio
+   design system (Tailwind gray-200/gray-800 tokens and rounded-xl).
+   ponytail: scoped CSS overrides for markdown tables and code blocks; upgrade to custom Marked renderer when full AST transformations are required.
+   ============================================================ */
+
+.markdown-body table {
+  border-collapse: separate;
+  border-spacing: 0;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-variant: tabular-nums;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: start;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-body table thead tr:first-child th:first-child {
+  border-start-start-radius: 0.75rem;
+}
+
+.markdown-body table thead tr:first-child th:last-child {
+  border-start-end-radius: 0.75rem;
+}
+
+.markdown-body table tbody tr:last-child td:first-child {
+  border-end-start-radius: 0.75rem;
+}
+
+.markdown-body table tbody tr:last-child td:last-child {
+  border-end-end-radius: 0.75rem;
+}
+
+.markdown-body pre {
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ---------------- Light Mode ---------------- */
+:root:not(.dark) .markdown-body table {
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+:root:not(.dark) .markdown-body table th {
+  background-color: #f3f4f6;
+  color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+:root:not(.dark) .markdown-body table td {
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+:root:not(.dark) .markdown-body table tr {
+  background-color: #ffffff;
+}
+
+:root:not(.dark) .markdown-body table tr:nth-child(2n) {
+  background-color: #f9fafb;
+}
+
+:root:not(.dark) .markdown-body table th:not(:last-child),
+:root:not(.dark) .markdown-body table td:not(:last-child) {
+  border-inline-end: 1px solid #e5e7eb;
+}
+
+:root:not(.dark) .markdown-body pre {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+/* ---------------- Dark Mode ---------------- */
+:root.dark .markdown-body table {
+  border: 1px solid #1f2937;
+  background-color: #111827;
+}
+
+:root.dark .markdown-body table th {
+  background-color: #1f2937;
+  color: #f9fafb;
+  border-bottom: 1px solid #1f2937;
+}
+
+:root.dark .markdown-body table td {
+  color: #d1d5db;
+  border-bottom: 1px solid #1f2937;
+}
+
+:root.dark .markdown-body table tr {
+  background-color: #111827;
+}
+
+:root.dark .markdown-body table tr:nth-child(2n) {
+  background-color: #161f2e;
+}
+
+:root.dark .markdown-body table th:not(:last-child),
+:root.dark .markdown-body table td:not(:last-child) {
+  border-inline-end: 1px solid #1f2937;
+}
+
+:root.dark .markdown-body pre {
+  background-color: #0d1117;
+  border: 1px solid #1f2937;
+  color: #f0f6fc;
+}
