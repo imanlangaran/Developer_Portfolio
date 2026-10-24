@@ -9,7 +9,8 @@
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "lint": "eslint .",
     "preview": "vite preview",
-    "seo:check": "npm run build && lighthouse https://imanlangaran.github.io/Developer_Portfolio"
+    "seo:check": "npm run build && lighthouse https://imanlangaran.github.io/Developer_Portfolio",
+    "test:readme": "node scripts/test-readme-rendering.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
