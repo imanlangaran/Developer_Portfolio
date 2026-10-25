@@ -38,6 +38,10 @@
 
   "project title 9": "Trade Agent",
   "project description 9": "An AI-powered, read-only market analysis agent. It syncs multi-timeframe candle history into isolated Parquet stores, computes indicators deterministically outside the AI, and hands pre-computed snapshots to an LLM reasoning layer that evaluates a markdown-defined strategy and issues auditable entry/exit/risk proposals through a deterministic risk gate. The pipeline splits into an offline analyze run and a network sync run with a cron-style scheduler, every run is recorded as a JSON audit trail, and a FastAPI chart bridge draws the agent's trendlines on a live MetaTrader 5 chart. The agent can read and analyze, but it never executes a trade.",
+
+  "project title 10": "Adobe Connect File Recorder",
+  "project description 10": "High-performance CLI tool and background worker queue service that downloads and reconstructs legacy Adobe Connect Standard AV (FLV/VP6 + Nellymoser) offline archives into synchronized 720p MP4 videos with burned-in attendee and chat sidebars.",
+  "CLI & Media Tool": "CLI & Media Tool",
   "About Project": "About Project",
   "Tech Stack": "Tech Stack",
   "README": "README",
