@@ -1,18 +1,127 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Marked } from "marked";
-import { baseUrl } from "marked-base-url";
 
-import { getProjectReadmeUrl } from "../utils/getProjectReadmeUrl";
+import { getProjectReadmeUrl } from "../utils/getProjectReadmeUrl.js";
+
+const isExternalLink = (href) => /^(?:https?:)?\/\//i.test(href);
+
+function decorateExternalLink(node) {
+  if (node?.tagName?.toLowerCase() === "a" && node.hasAttribute("href")) {
+    const href = node.getAttribute("href") || "";
+    if (isExternalLink(href)) {
+      node.setAttribute("target", "_blank");
+      node.setAttribute("rel", "noopener noreferrer");
+    }
+  }
+}
+
+const SANITIZE_CONFIG = {
+  ALLOWED_TAGS: [
+    "h1", "h2", "h3", "h4", "h5", "h6",
+    "p", "ul", "ol", "li",
+    "code", "pre",
+    "table", "thead", "tbody", "tfoot", "tr", "th", "td",
+    "blockquote", "hr",
+    "a", "img",
+    "em", "strong", "b", "i", "s", "del", "strike",
+    "details", "summary",
+    "br", "span", "div", "kbd", "sub", "sup",
+    "input",
+  ],
+  ALLOWED_ATTR: [
+    "href", "src", "alt", "title", "width", "height", "loading",
+    "align", "class", "id", "name", "target", "rel", "open",
+    "type", "checked", "disabled",
+  ],
+  FORBID_TAGS: ["script", "iframe", "object", "embed", "form", "style"],
+  FORBID_ATTR: ["style"],
+  ADD_ATTR: ["target", "rel"],
+};
+
+// ponytail: LRU cap of 20 covers all portfolio projects (~10) across languages without unbounded memory growth.
+const CACHE_CAP = 20;
+const readmeCache = new Map();
+
+function getCachedReadme(key) {
+  if (!readmeCache.has(key)) return null;
+  const value = readmeCache.get(key);
+  readmeCache.delete(key);
+  readmeCache.set(key, value);
+  return value;
+}
+
+function setCachedReadme(key, html) {
+  if (readmeCache.has(key)) {
+    readmeCache.delete(key);
+  } else if (readmeCache.size >= CACHE_CAP) {
+    const oldestKey = readmeCache.keys().next().value;
+    readmeCache.delete(oldestKey);
+  }
+  readmeCache.set(key, html);
+}
+
+// ponytail: parser cache never evicts; bounded by unique project base URLs (~10 in data.js).
+const parsers = new Map();
+
+function getParser(Marked, baseUrl, baseUrlString) {
+  let parser = parsers.get(baseUrlString);
+  if (!parser) {
+    parser = new Marked();
+    parser.use(baseUrl(baseUrlString), {
+      walkTokens(token) {
+        if (token.type !== "html") return;
+
+        token.text = token.text.replace(
+          /<img\b([^>]*?)\bsrc=(["'])(.*?)\2([^>]*?)>/gi,
+          (match, before, quote, src, after) => {
+            if (/^(https?:|data:|blob:|\/\/)/i.test(src)) {
+              return match;
+            }
+
+            try {
+              return `<img${before}src=${quote}${new URL(src, baseUrlString).href}${quote}${after}>`;
+            } catch {
+              return match;
+            }
+          },
+        );
+      },
+    });
+
+    parser.setOptions({
+      gfm: true,
+      breaks: true,
+    });
+
+    parsers.set(baseUrlString, parser);
+  }
+  return parser;
+}
+
+let markedModulePromise = null;
+function loadMarked() {
+  if (!markedModulePromise) {
+    markedModulePromise = Promise.all([
+      import("marked"),
+      import("marked-base-url"),
+      import("dompurify"),
+    ])
+      .then(([{ Marked }, { baseUrl }, dompurifyModule]) => {
+        const DOMPurify = dompurifyModule?.default || dompurifyModule;
+        if (typeof DOMPurify?.addHook === "function") {
+          DOMPurify.addHook("afterSanitizeAttributes", decorateExternalLink);
+        }
+        return { Marked, baseUrl, DOMPurify };
+      })
+      .catch((err) => {
+        markedModulePromise = null;
+        throw err;
+      });
+  }
+  return markedModulePromise;
+}
 
 export default function useProjectReadme(project, language) {
-  const [readmeHtml, setReadmeHtml] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [reloadKey, setReloadKey] = useState(0);
-
-  const refetch = useCallback(() => {
-    setReloadKey((k) => k + 1);
-  }, []);
 
   // --------------------------------------------------
   // README URLS
@@ -23,6 +132,34 @@ export default function useProjectReadme(project, language) {
 
   const candidates = readmeUrls?.candidates;
   const baseUrlString = readmeUrls?.base;
+  const cacheKey = candidates?.[0] && baseUrlString ? `${candidates[0]}::${baseUrlString}` : null;
+
+  const [prevCacheKey, setPrevCacheKey] = useState(cacheKey);
+  const [readmeHtml, setReadmeHtml] = useState(() => {
+    return cacheKey ? getCachedReadme(cacheKey) || "" : "";
+  });
+  const [isLoading, setIsLoading] = useState(() => {
+    const cached = cacheKey ? getCachedReadme(cacheKey) : null;
+    return !cached && Boolean(baseUrlString && candidates?.length);
+  });
+  const [error, setError] = useState(null);
+
+  const refetch = useCallback(() => {
+    if (cacheKey) {
+      readmeCache.delete(cacheKey);
+    }
+    setIsLoading(true);
+    setError(null);
+    setReloadKey((k) => k + 1);
+  }, [cacheKey]);
+
+  if (cacheKey !== prevCacheKey) {
+    setPrevCacheKey(cacheKey);
+    const cached = cacheKey ? getCachedReadme(cacheKey) : null;
+    setReadmeHtml(cached || "");
+    setIsLoading(!cached && Boolean(baseUrlString && candidates?.length));
+    setError(null);
+  }
 
   // --------------------------------------------------
   // FETCH README
@@ -30,6 +167,14 @@ export default function useProjectReadme(project, language) {
   useEffect(() => {
     if (!baseUrlString || !candidates || candidates.length === 0) {
       setReadmeHtml("");
+      setIsLoading(false);
+      setError(null);
+      return;
+    }
+
+    const cached = getCachedReadme(cacheKey);
+    if (cached) {
+      setReadmeHtml(cached);
       setIsLoading(false);
       setError(null);
       return;
@@ -69,38 +214,22 @@ export default function useProjectReadme(project, language) {
 
         const markdown = await response.text();
 
-        const parser = new Marked();
+        const { Marked, baseUrl, DOMPurify } = await loadMarked();
+        if (controller.signal.aborted) return;
 
-        parser.use(baseUrl(baseUrlString), {
-          walkTokens(token) {
-            if (token.type !== "html") return;
+        const parser = getParser(Marked, baseUrl, baseUrlString);
+        const rawHtml = parser.parse(markdown);
 
-            token.text = token.text.replace(
-              /<img\b([^>]*?)\bsrc=(["'])(.*?)\2([^>]*?)>/gi,
-              (match, before, quote, src, after) => {
-                if (/^(https?:|data:|blob:|\/\/)/i.test(src)) {
-                  return match;
-                }
+        const cleanHtml = DOMPurify?.sanitize
+          ? DOMPurify.sanitize(rawHtml, SANITIZE_CONFIG)
+          : rawHtml;
 
-                try {
-                  return `<img${before}src=${quote}${new URL(src, baseUrlString).href}${quote}${after}>`;
-                } catch {
-                  return match;
-                }
-              },
-            );
-          },
-        });
-
-        parser.setOptions({
-          gfm: true,
-          breaks: true,
-        });
-
-        const html = parser.parse(markdown);
+        if (cacheKey) {
+          setCachedReadme(cacheKey, cleanHtml);
+        }
 
         if (!controller.signal.aborted) {
-          setReadmeHtml(html);
+          setReadmeHtml(cleanHtml);
         }
       } catch (err) {
         if (err.name === "AbortError" || controller.signal.aborted) return;
@@ -125,7 +254,7 @@ export default function useProjectReadme(project, language) {
     return () => {
       controller.abort();
     };
-  }, [candidates, baseUrlString, reloadKey]);
+  }, [candidates, baseUrlString, cacheKey, reloadKey]);
 
   return {
     readmeHtml,
