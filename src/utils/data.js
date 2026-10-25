@@ -284,6 +284,19 @@ export const PROJECTS = [
     category: "AI Agent",
     status: "in-development",
     lastCommitDate: "2026-10-21",
+  },
+  {
+    id: 10,
+    title: "project title 10",
+    description: "project description 10",
+    image: false,
+    tags: ["Go", "FFmpeg", "SQLite", "Docker", "REST API"],
+    githubUrl: "https://github.com/imanlangaran/AdobeConnect-file-recorder",
+    type: "public",
+    featured: true,
+    category: "CLI & Media Tool",
+    status: "completed",
+    lastCommitDate: "2026-10-18",
   }
 ]
 

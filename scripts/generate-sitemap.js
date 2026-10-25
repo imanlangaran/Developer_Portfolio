@@ -16,8 +16,12 @@ const idRegex = /id:\s*(\d+)/g;
 const projectIds = [];
 let match;
 while ((match = idRegex.exec(dataContent)) !== null) {
-  projectIds.push(parseInt(match[1]));
+  const id = parseInt(match[1], 10);
+  if (!projectIds.includes(id)) {
+    projectIds.push(id);
+  }
 }
+projectIds.sort((a, b) => a - b);
 
 const today = new Date().toISOString().split('T')[0];
 
@@ -42,6 +46,9 @@ ${ROUTES.map(
 ).join('\n')}
 </urlset>`;
 
-fs.writeFileSync(path.join(__dirname, '../dist/sitemap.xml'), sitemap);
+if (fs.existsSync(path.join(__dirname, '../dist'))) {
+  fs.writeFileSync(path.join(__dirname, '../dist/sitemap.xml'), sitemap);
+}
+fs.writeFileSync(path.join(__dirname, '../public/sitemap.xml'), sitemap);
 
 console.log(`✅ Sitemap generated successfully! (${ROUTES.length} routes)`);
