@@ -20,6 +20,7 @@ import { FiGithub, FiLinkedin } from 'react-icons/fi';
 
 import PROJECT_IMG_2 from '../assets/images/project-2.png'
 import PROJECT_IMG_3 from '../assets/images/project-3.png'
+import PROJECT_IMG_10 from '../assets/images/project-10.png'
 
 export const SKILLS_CATEGORY = [
   {
@@ -289,7 +290,7 @@ export const PROJECTS = [
     id: 10,
     title: "project title 10",
     description: "project description 10",
-    image: false,
+    image: PROJECT_IMG_10,
     tags: ["Go", "FFmpeg", "SQLite", "Docker", "REST API"],
     githubUrl: "https://github.com/imanlangaran/AdobeConnect-file-recorder",
     type: "public",
