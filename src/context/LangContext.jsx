@@ -25,7 +25,7 @@ export const LangProvider = ({ children }) => {
     document.documentElement.dir = langDirMap[lang] || "ltr";
     document.documentElement.lang = lang.toLowerCase();
     document.getElementById("langClass").className = `font-${lang.toLowerCase()}`;
-  }, []);
+  }, [lang]);
 
   useEffect(() => {
     i18n.changeLanguage(lang);

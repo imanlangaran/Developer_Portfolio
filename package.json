@@ -8,6 +8,7 @@
     "build": "vite build && npm run generate-sitemap",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "lint": "eslint .",
+    "test": "node scripts/test-qa.js",
     "preview": "vite preview",
     "seo:check": "npm run build && lighthouse https://imanlangaran.github.io/Developer_Portfolio"
   },

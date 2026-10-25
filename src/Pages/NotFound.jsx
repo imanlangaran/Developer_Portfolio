@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const NotFound = () => {
   const { isDarkMode } = useTheme();
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation('notFound');
+  const { t } = useTranslation('notFound');
 
   const handleContactClick = () => {
     navigate("/", { state: { scrollTo: "contact" } });
