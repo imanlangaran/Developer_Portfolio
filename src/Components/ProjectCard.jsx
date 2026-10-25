@@ -6,7 +6,14 @@ import { useNavigate } from "react-router-dom";
 import PlaceHolder from "./PlaceHolder";
 import ProjectMetaLine from "./ProjectMetaLine";
 
-const ProjectCard = ({ project, isDarkMode, commitDate, isLoadingCommitDate }) => {
+// ponytail: 5-column bento layout alternating 3:2 and 2:3 columns on wide screens; upgrade to layout config if custom ratios are needed.
+const ProjectCard = ({
+  project,
+  isDarkMode,
+  commitDate,
+  isLoadingCommitDate,
+  isBigger = false,
+}) => {
   const { t } = useTranslation('projects');
   const navigate = useNavigate();
 
@@ -37,8 +44,8 @@ const ProjectCard = ({ project, isDarkMode, commitDate, isLoadingCommitDate }) =
       layoutId={`project-card-${project.id}`}
       variants={cardVariants}
       whileHover={{
-        y: -8,
-        transition: { duration: 0.3, ease: "easeOut" },
+        y: -6,
+        transition: { duration: 0.25, ease: "easeOut" },
       }}
       tabIndex={0}
       role="button"
@@ -49,34 +56,29 @@ const ProjectCard = ({ project, isDarkMode, commitDate, isLoadingCommitDate }) =
           handleClick();
         }
       }}
-      className="group relative cursor-pointer rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+      className={`group/bento relative cursor-pointer rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 h-auto md:h-full max-h-[80vh] md:max-h-none col-span-1 ${
+        isBigger ? "md:col-span-3" : "md:col-span-2"
+      }`}
       onClick={() => handleClick()}
     >
       <div
-        className={`rounded-2xl overflow-hidden border transition-all duration-500 ${
+        className={`h-full flex flex-col justify-between rounded-2xl overflow-hidden border transition-all duration-300 ${
           isDarkMode
-            ? "bg-gray-900/50 border-gray-800 hover:border-gray-700 hover:shadow-2xl hover:shadow-blue-500/10"
-            : "bg-white/80 border-gray-200 hover:border-gray-300 hover:shadow-2xl hover:shadow-blue-500/10"
-        } backdrop-blur-sm`}
+            ? "bg-gray-900/60 border-white/[0.1] hover:border-white/[0.2] hover:shadow-2xl hover:shadow-blue-500/10"
+            : "bg-white/80 border-black/[0.08] hover:border-black/[0.15] hover:shadow-2xl hover:shadow-blue-500/10 shadow-sm"
+        } backdrop-blur-md`}
       >
         <motion.div
           layoutId={`project-image-${project.id}`}
-          className="relative overflow-hidden aspect-video"
+          className="relative overflow-hidden w-full h-48 sm:h-52 shrink-0"
         >
           {/* Only show image if no error */}
           {project.image ? (
             <motion.img
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-300 group-hover/bento:scale-105"
               loading="lazy"
-              whileHover={{
-                scale: 1.05,
-              }}
-              transition={{
-                duration: 0.4,
-                ease: "easeOut",
-              }}
               title={project.title}
             />
           ) : (
@@ -143,36 +145,38 @@ const ProjectCard = ({ project, isDarkMode, commitDate, isLoadingCommitDate }) =
           </motion.div> */}
         </motion.div>
 
-        <div className="p-6">
-          <h3 className="text-xl font-medium mb-3 group-hover:text-blue-500 transition-colors">
-            {t(project.title)}
-          </h3>
+        <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 overflow-hidden">
+          <div className="transition-transform duration-200 group-hover/bento:translate-x-1.5 rtl:group-hover/bento:-translate-x-1.5">
+            <h3 className="text-xl font-medium mb-2 group-hover/bento:text-blue-500 transition-colors">
+              {t(project.title)}
+            </h3>
 
-          {/* Status + approximate commit time meta line (skeleton while dates load) */}
-          <ProjectMetaLine
-            project={project}
-            commitDate={commitDate}
-            isLoading={isLoadingCommitDate}
-            variant="card"
-            isDarkMode={isDarkMode}
-          />
+            {/* Status + approximate commit time meta line (skeleton while dates load) */}
+            <ProjectMetaLine
+              project={project}
+              commitDate={commitDate}
+              isLoading={isLoadingCommitDate}
+              variant="card"
+              isDarkMode={isDarkMode}
+            />
 
-          <p
-            className={` text-sm leading-relaxed mb-4 ${
-              isDarkMode ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
-            {t(project.description)}
-          </p>
+            <p
+              className={`text-sm leading-relaxed mt-3 line-clamp-8 md:line-clamp-3 ${
+                isDarkMode ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              {t(project.description)}
+            </p>
+          </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 pt-4">
             {project.tags.map((tag, i) => (
               <span
                 key={i}
                 className={`text-xs px-3 py-1 rounded-full ${
                   isDarkMode
-                    ? "bg-gray-800 text-gray-300"
-                    : "bg-gray-100 text-gray-700"
+                    ? "bg-gray-800/80 text-gray-300 border border-gray-700/50"
+                    : "bg-gray-100 text-gray-700 border border-gray-200"
                 }`}
               >
                 {tag}
