@@ -24,21 +24,33 @@ const ProjectCard = ({ project, isDarkMode, commitDate, isLoadingCommitDate }) =
 
   const handleClick = () =>
     navigate(`/project/${project.id}`, {
-      state: { from: "/", section: "work" },
+      state: {
+        from: "/",
+        section: "work",
+        cardId: `project-card-${project.id}`,
+      },
     });
 
   return (
     <motion.div
+      id={`project-card-${project.id}`}
       layoutId={`project-card-${project.id}`}
       variants={cardVariants}
       whileHover={{
         y: -8,
         transition: { duration: 0.3, ease: "easeOut" },
       }}
-      className="group relative cursor-pointer"
+      tabIndex={0}
+      role="button"
+      aria-label={`Project: ${t(project.title)}`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleClick();
+        }
+      }}
+      className="group relative cursor-pointer rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
       onClick={() => handleClick()}
-      role="article"
-      aria-label={`Project: ${project.title}`}
     >
       <div
         className={`rounded-2xl overflow-hidden border transition-all duration-500 ${

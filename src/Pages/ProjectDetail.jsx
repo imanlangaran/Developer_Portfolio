@@ -32,6 +32,7 @@ export default function ProjectDetail() {
   const { isDarkMode } = useTheme();
   const { lang } = useLang();
   const modalContentRef = useRef(null);
+  const modalContainerRef = useRef(null);
   const { t, i18n } = useTranslation(["projects", "common"]);
 
   // --------------------------------------------------
@@ -45,15 +46,16 @@ export default function ProjectDetail() {
   const navigationData = useMemo(
     () => ({
       to: location.state?.from || "/",
-      options: location.state?.section
-        ? {
-            state: {
-              scrollTo: location.state.section,
-            },
-          }
-        : undefined,
+      options: {
+        state: {
+          scrollTo: location.state?.section || "work",
+          restoreCardId:
+            location.state?.cardId ||
+            (project ? `project-card-${project.id}` : undefined),
+        },
+      },
     }),
-    [location.state],
+    [location.state, project],
   );
 
   // --------------------------------------------------
@@ -118,6 +120,50 @@ export default function ProjectDetail() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleClose]);
+
+  // --------------------------------------------------
+  // FOCUS TRAP AND INITIAL FOCUS
+  // --------------------------------------------------
+  // ponytail: querySelectorAll handles standard interactive tags; upgrade to focus-trap library if shadow DOM / portals are introduced.
+  useEffect(() => {
+    const container = modalContainerRef.current;
+    if (!container) return;
+
+    const focusableSelector =
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    const focusables = Array.from(
+      container.querySelectorAll(focusableSelector),
+    );
+    if (focusables.length > 0) {
+      focusables[0].focus();
+    }
+
+    const handleKeyDown = (e) => {
+      if (e.key !== "Tab") return;
+
+      const visibleFocusables = Array.from(
+        container.querySelectorAll(focusableSelector),
+      ).filter((el) => el.offsetParent !== null);
+      if (visibleFocusables.length === 0) return;
+
+      const first = visibleFocusables[0];
+      const last = visibleFocusables[visibleFocusables.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    container.addEventListener("keydown", handleKeyDown);
+    return () => {
+      container.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   // --------------------------------------------------
   // SCROLL PROGRESS
@@ -262,6 +308,10 @@ export default function ProjectDetail() {
 
       {/* MODAL CONTAINER */}
       <motion.div
+        ref={modalContainerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-title"
         layoutId={`project-card-${project.id}`}
         initial={{
           opacity: 0,
@@ -309,7 +359,7 @@ export default function ProjectDetail() {
         {/* SCROLLABLE CONTENT */}
         <div
           ref={modalContentRef}
-          className={`h-full overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-blue-500 ${
+          className={`h-full overflow-y-auto overscroll-contain scroll-smooth scrollbar-thin scrollbar-thumb-blue-500 ${
             isDarkMode ? "scrollbar-track-gray-950" : "scrollbar-track-gray-200"
           }`}
         >
@@ -369,9 +419,14 @@ export default function ProjectDetail() {
                 </h3>
 
                 {isLoadingReadme ? (
-                  <ReadmeSkeleton isDarkMode={isDarkMode} />
+                  <div role="status" aria-live="polite">
+                    <span className="sr-only">{t("Loading README...")}</span>
+                    <ReadmeSkeleton isDarkMode={isDarkMode} />
+                  </div>
                 ) : readmeError ? (
                   <div
+                    role="alert"
+                    aria-live="assertive"
                     className={`flex flex-col items-center justify-center p-8 md:p-12 text-center rounded-2xl border transition-colors ${
                       isDarkMode
                         ? "border-gray-800 bg-gray-900/40 text-gray-300"

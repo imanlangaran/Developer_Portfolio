@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, MotionConfig } from "framer-motion";
 
 import App from "./App";
 import NotFound from "./Pages/NotFound";
@@ -16,7 +16,7 @@ function RedirectHandler() {
       sessionStorage.removeItem("redirect");
       navigate(redirect);
     }
-  }, []);
+  }, [navigate]);
 
   return null;
 }
@@ -25,7 +25,7 @@ export default function AnimatedRoutes() {
   const location = useLocation();
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <RedirectHandler />
       
       <AnimatePresence mode="wait">
@@ -35,6 +35,6 @@ export default function AnimatedRoutes() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
-    </>
+    </MotionConfig>
   );
 }

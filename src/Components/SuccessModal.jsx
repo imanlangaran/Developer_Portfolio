@@ -9,7 +9,7 @@ const SuccessModal = ({
   isDarkMode,
   isSuccesseded,
 }) => {
-  const { t, i18n } = useTranslation('contact');
+  const { t } = useTranslation('contact');
 
   return (
     <AnimatePresence>

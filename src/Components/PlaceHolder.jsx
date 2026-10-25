@@ -192,7 +192,6 @@ export default function PlaceHolder({ isDarkMode, isFullSize = false }) {
       ))}
 
       {/* Floating tech icons */}
-      {/* eslint-disable-next-line no-unused-vars */}
       {floatingIcons.map(({ Icon, x, y, delay }, index) => (
         <motion.div
           key={index}

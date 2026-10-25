@@ -50,6 +50,7 @@ const Hero = ({
         className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8 z-10"
       >
         <motion.h1
+          id="project-title"
           variants={itemVariants}
           className={`text-3xl md:text-5xl font-light text-white leading-tight ${
             lang === "En" ? "tracking-wide" : ""

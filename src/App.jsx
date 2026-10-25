@@ -32,9 +32,12 @@ const FONT_URLS = [
 
 const TOTAL_ASSETS = ASSETS.length + FONT_URLS.length;
 
+// ponytail: in-memory flag skips preloading on route return; upgrade to service worker / cache API if assets need offline caching.
+let assetsPreloaded = false;
+
 const App = () => {
-  const [loaded, setLoaded] = useState(0);
-  const [showApp, setShowApp] = useState(false);
+  const [loaded, setLoaded] = useState(() => (assetsPreloaded ? TOTAL_ASSETS : 0));
+  const [showApp, setShowApp] = useState(() => assetsPreloaded);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -45,29 +48,29 @@ const App = () => {
     const sectionId = location.state?.scrollTo; // e.g. "contact"
     if (!sectionId) return;
 
-    // const el = document.getElementById(sectionId);
-    // if (el) {
-    //   // give layout a moment (optional but helps)
-    //   setTimeout(() => {
-    //     el.scrollIntoView({ behavior: "smooth" });
-    //     navigate(location.pathname, { state: null, replace: true });
-    //   }, 100);
-    // }
-
     scrollToSection(
       sectionId,
-      () => navigate(location.pathname, { state: null, replace: true }),
+      () => {
+        if (location.state?.restoreCardId) {
+          const cardEl = document.getElementById(location.state.restoreCardId);
+          cardEl?.focus();
+        }
+        navigate(location.pathname, { state: null, replace: true });
+      },
       200,
     );
-  }, [showApp, location.state]);
+  }, [showApp, location.state, location.pathname, navigate]);
 
   useEffect(() => {
+    if (assetsPreloaded) return;
+
     let loadedCount = 0;
 
     const updateProgress = () => {
       loadedCount++;
       setLoaded(loadedCount);
       if (loadedCount === TOTAL_ASSETS) {
+        assetsPreloaded = true;
         // Small delay for smoothness
         setTimeout(() => setShowApp(true), 200);
       }
