@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "../../context/ThemeContext";
 import {
   // eslint-disable-next-line no-unused-vars
@@ -17,12 +17,104 @@ import { SKILLS_CATEGORY, STATS, TECH_STACK } from "../../utils/data";
 import { useTranslation } from "react-i18next";
 import { useLang } from "../../context/LangContext";
 
+// ponytail: toggle between "tabbed" and "grid" view; upgrade to user-facing toggle if runtime switching is needed.
+const SKILLS_VIEW_MODE = "grid"; // "tabbed" | "grid"
+
+const skillBarVariants = {
+  hidden: { width: 0, opacity: 0 },
+  visible: (level) => ({
+    width: `${level}%`,
+    opacity: 1,
+    transition: {
+      duration: 1,
+      ease: "easeOut",
+      delay: 0.15,
+    },
+  }),
+};
+
+// ponytail: extracted CategoryCard prevents React remount churn across parent re-renders; upgrade to separate file if reused outside SkillsSection.
+const CategoryCard = ({ category, isDarkMode, lang, isInView, t }) => (
+  <motion.div
+    variants={itemVariants}
+    className={`h-min p-8 rounded-2xl border ${
+      isDarkMode
+        ? "bg-gray-900/50 border-gray-800 backdrop-blur-sm"
+        : "bg-white/80 border-gray-200 backdrop-blur-sm"
+    }`}
+  >
+    <div className="flex items-center mb-6">
+      <div
+        className={`p-3 rounded-xl ${
+          isDarkMode ? "bg-gray-800" : "bg-gray-100"
+        } ${lang === "En" ? "mr-4" : "ml-4"}`}
+      >
+        <category.icon size={24} className="text-blue-500" />
+      </div>
+      <div>
+        <h3 className="text-xl font-medium mb-1">{t(category.title)}</h3>
+        <p
+          className={`text-sm ${
+            isDarkMode ? "text-gray-400" : "text-gray-600"
+          }`}
+        >
+          {t(category.description)}
+        </p>
+      </div>
+    </div>
+
+    <div className="space-y-4">
+      {category.skills.map((skill) => (
+        <div key={skill.name} className="group">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm font-medium">{skill.name}</span>
+            <span
+              className={`text-sm ${
+                isDarkMode ? "text-gray-500" : "text-gray-600"
+              }`}
+            >
+              {skill.level}%
+            </span>
+          </div>
+
+          <div
+            className={`h-2 rounded-full overflow-hidden ${
+              isDarkMode ? "bg-gray-800" : "bg-gray-200"
+            }`}
+          >
+            <motion.div
+              variants={skillBarVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              custom={skill.level}
+              className={`h-full ${skill.color} rounded-full relative`}
+            >
+              <div className="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </motion.div>
+);
+
 const SkillsSection = () => {
   const { isDarkMode } = useTheme();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const { t } = useTranslation('skills');
   const { lang } = useLang();
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // ponytail: rotation only runs in tabbed mode; pauses on hover.
+  useEffect(() => {
+    if (SKILLS_VIEW_MODE !== "tabbed" || !isInView || isPaused) return;
+    const timer = setInterval(() => {
+      setActiveCategoryIndex((prev) => (prev + 1) % SKILLS_CATEGORY.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isInView, isPaused]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -31,82 +123,7 @@ const SkillsSection = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
-  const skillBarVariants = {
-    hidden: { width: 0, opacity: 0 },
-    visible: (level) => ({
-      width: `${level}%`,
-      opacity: 1,
-      transition: {
-        duration: 1.2,
-        ease: "easeOut",
-        delay: "0.3",
-      },
-    }),
-  };
-
-  const CategoryCard = ({ category }) => {
-    return (
-      <motion.div
-        variants={itemVariants}
-        className={`h-min p-8 rounded-2xl border ${isDarkMode
-          ? "bg-gray-900/50 border-gray-800 backdrop-blur-sm"
-          : "bg-white/80 border-gray-200 backdrop-blur-sm"
-          }`}
-      >
-        <div className="flex items-center mb-6">
-          <div
-            className={`p-3 rounded-xl ${isDarkMode ? "bg-gray-800" : "bg-gray-100"} ${lang === "En" ? "mr-4" : "ml-4"}`}
-          >
-            <category.icon size={24} className="text-blue-500" />
-          </div>
-          <div>
-            <h3 className="text-xl font-medium mb-1">
-              {t(category.title)}
-            </h3>
-            <p
-              className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"
-                }`}
-            >
-              {t(category.description)}
-            </p>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          {category.skills.map((skill) => (
-            <div key={skill.name} className="group">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium">
-                  {skill.name}
-                </span>
-                <span
-                  className={`text-sm ${isDarkMode ? "text-gray-500" : "text-gray-600"
-                    }`}
-                >
-                  {skill.level}%
-                </span>
-              </div>
-
-              <div
-                className={`h-2 rounded-full overflow-hidden ${isDarkMode ? "bg-gray-800" : "bg-gray-200"
-                  }`}
-              >
-                <motion.div
-                  variants={skillBarVariants}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  custom={skill.level}
-                  className={`h-full ${skill.color} rounded-full relative`}
-                >
-                  <div className="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-    )
-  }
+  const activeCategory = SKILLS_CATEGORY[activeCategoryIndex] || SKILLS_CATEGORY[0];
 
   return (
     <div
@@ -178,16 +195,163 @@ const SkillsSection = () => {
               </motion.p>
             </motion.div>
 
-            <motion.div
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              variants={containerVariants}
-              className="grid md:grid-cols-2 gap-8 lg:gap-12"
-            >
-              {SKILLS_CATEGORY.map((category) => (
-                <CategoryCard key={category.title} category={category} />
-              ))}
-            </motion.div>
+            {SKILLS_VIEW_MODE === "tabbed" ? (
+              <div
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+              >
+                <motion.div
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                  variants={itemVariants}
+                  className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10"
+                  role="tablist"
+                  aria-label="Skill categories"
+                >
+                  {SKILLS_CATEGORY.map((category, index) => {
+                    const isActive = index === activeCategoryIndex;
+                    const Icon = category.icon;
+                    return (
+                      <button
+                        key={category.title}
+                        type="button"
+                        role="tab"
+                        aria-selected={isActive}
+                        onClick={() => setActiveCategoryIndex(index)}
+                        className={`relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 cursor-pointer ${
+                          isActive
+                            ? "text-white shadow-lg shadow-blue-500/25"
+                            : isDarkMode
+                            ? "text-gray-400 hover:text-white hover:bg-gray-900 border border-gray-800"
+                            : "text-gray-600 hover:text-gray-900 hover:bg-white border border-gray-200"
+                        }`}
+                      >
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeCategoryTab"
+                            className="absolute inset-0 bg-blue-500 rounded-xl -z-10"
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                          />
+                        )}
+                        <Icon size={18} className={isActive ? "text-white" : "text-blue-500"} />
+                        <span>{t(category.title)}</span>
+                      </button>
+                    );
+                  })}
+                </motion.div>
+
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeCategory.title}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className={`max-w-4xl mx-auto p-6 sm:p-8 rounded-2xl border backdrop-blur-sm ${
+                      isDarkMode
+                        ? "bg-gray-900/50 border-gray-800"
+                        : "bg-white/80 border-gray-200"
+                    }`}
+                  >
+                    <div className="flex items-center mb-6">
+                      <div
+                        className={`p-3 rounded-xl ${
+                          isDarkMode ? "bg-gray-800" : "bg-gray-100"
+                        } ${lang === "En" ? "mr-4" : "ml-4"}`}
+                      >
+                        <activeCategory.icon size={24} className="text-blue-500" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-medium mb-1">
+                          {t(activeCategory.title)}
+                        </h3>
+                        <p
+                          className={`text-sm ${
+                            isDarkMode ? "text-gray-400" : "text-gray-600"
+                          }`}
+                        >
+                          {t(activeCategory.description)}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                      {activeCategory.skills.map((skill) => (
+                        <div key={skill.name} className="group">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm font-medium">{skill.name}</span>
+                            <span
+                              className={`text-sm ${
+                                isDarkMode ? "text-gray-500" : "text-gray-600"
+                              }`}
+                            >
+                              {skill.level}%
+                            </span>
+                          </div>
+
+                          <div
+                            className={`h-2 rounded-full overflow-hidden ${
+                              isDarkMode ? "bg-gray-800" : "bg-gray-200"
+                            }`}
+                          >
+                            <motion.div
+                              variants={skillBarVariants}
+                              initial="hidden"
+                              animate="visible"
+                              custom={skill.level}
+                              className={`h-full ${skill.color} rounded-full relative`}
+                            >
+                              <div className="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </motion.div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            ) : (
+              <motion.div
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                variants={containerVariants}
+                className="grid grid-cols-1 md:grid-cols-2 gap-8"
+              >
+                {/* ponytail: 6+3 vs 5+4 balanced column stack ends at the exact same baseline; upgrade to dynamic bin-packing if skills are dynamic. */}
+                <div className="flex flex-col gap-8">
+                  <CategoryCard
+                    category={SKILLS_CATEGORY[0]}
+                    isDarkMode={isDarkMode}
+                    lang={lang}
+                    isInView={isInView}
+                    t={t}
+                  />
+                  <CategoryCard
+                    category={SKILLS_CATEGORY[3]}
+                    isDarkMode={isDarkMode}
+                    lang={lang}
+                    isInView={isInView}
+                    t={t}
+                  />
+                </div>
+                <div className="flex flex-col gap-8">
+                  <CategoryCard
+                    category={SKILLS_CATEGORY[2]}
+                    isDarkMode={isDarkMode}
+                    lang={lang}
+                    isInView={isInView}
+                    t={t}
+                  />
+                  <CategoryCard
+                    category={SKILLS_CATEGORY[1]}
+                    isDarkMode={isDarkMode}
+                    lang={lang}
+                    isInView={isInView}
+                    t={t}
+                  />
+                </div>
+              </motion.div>
+            )}
 
             <motion.div
               initial="hidden"
