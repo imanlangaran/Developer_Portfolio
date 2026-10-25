@@ -121,15 +121,16 @@ const ProjectsSection = () => {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               variants={containerVariants}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 md:grid-cols-5 gap-6"
             >
-              {sortedProjects.map((project) => (
+              {sortedProjects.map((project, index) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
                   commitDate={resolveProjectDate(project, commitDates)}
                   isLoadingCommitDate={isLoadingDates}
                   isDarkMode={isDarkMode}
+                  isBigger={index % 4 === 0 || index % 4 === 3}
                 />
               ))}
             </motion.div>
