@@ -2,9 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { getProjectReadmeUrl } from "../utils/getProjectReadmeUrl.js";
 
-export const isExternalLink = (href) => /^(?:https?:)?\/\//i.test(href);
+const isExternalLink = (href) => /^(?:https?:)?\/\//i.test(href);
 
-export function decorateExternalLink(node) {
+function decorateExternalLink(node) {
   if (node?.tagName?.toLowerCase() === "a" && node.hasAttribute("href")) {
     const href = node.getAttribute("href") || "";
     if (isExternalLink(href)) {
@@ -14,7 +14,7 @@ export function decorateExternalLink(node) {
   }
 }
 
-export const SANITIZE_CONFIG = {
+const SANITIZE_CONFIG = {
   ALLOWED_TAGS: [
     "h1", "h2", "h3", "h4", "h5", "h6",
     "p", "ul", "ol", "li",
@@ -38,10 +38,10 @@ export const SANITIZE_CONFIG = {
 };
 
 // ponytail: LRU cap of 20 covers all portfolio projects (~10) across languages without unbounded memory growth.
-export const CACHE_CAP = 20;
-export const readmeCache = new Map();
+const CACHE_CAP = 20;
+const readmeCache = new Map();
 
-export function getCachedReadme(key) {
+function getCachedReadme(key) {
   if (!readmeCache.has(key)) return null;
   const value = readmeCache.get(key);
   readmeCache.delete(key);
@@ -49,7 +49,7 @@ export function getCachedReadme(key) {
   return value;
 }
 
-export function setCachedReadme(key, html) {
+function setCachedReadme(key, html) {
   if (readmeCache.has(key)) {
     readmeCache.delete(key);
   } else if (readmeCache.size >= CACHE_CAP) {
@@ -60,9 +60,9 @@ export function setCachedReadme(key, html) {
 }
 
 // ponytail: parser cache never evicts; bounded by unique project base URLs (~10 in data.js).
-export const parsers = new Map();
+const parsers = new Map();
 
-export function getParser(Marked, baseUrl, baseUrlString) {
+function getParser(Marked, baseUrl, baseUrlString) {
   let parser = parsers.get(baseUrlString);
   if (!parser) {
     parser = new Marked();
@@ -98,7 +98,7 @@ export function getParser(Marked, baseUrl, baseUrlString) {
 }
 
 let markedModulePromise = null;
-export function loadMarked() {
+function loadMarked() {
   if (!markedModulePromise) {
     markedModulePromise = Promise.all([
       import("marked"),
